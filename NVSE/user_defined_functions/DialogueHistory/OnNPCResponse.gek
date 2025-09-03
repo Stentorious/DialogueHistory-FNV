@@ -1,0 +1,12 @@
+string_var sResponse
+string_var sVoicePath
+int iEmotionID
+int iEmotionValue
+int iResponseNumber
+
+begin Function {sResponse, sVoicePath, iEmotionID, iEmotionValue, iResponseNumber}
+
+	CallAfterFrames 1 (CompileScript "DialogueHistory\SaveDialogueLine.gek") 1 sResponse sVoicePath
+	sv_Destruct sResponse sVoicePath
+
+end

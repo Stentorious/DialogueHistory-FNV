@@ -1,0 +1,73 @@
+string_var sSearch
+
+int iSize
+array_var aSearchIDs
+array_var aTemp
+array_var aNPCNames
+
+begin Function {sSearch}
+
+	; Update search term
+	SetUIFloatAlt "StartMenu\_DH+Search" 2
+
+	; Don't update search if entering previous termm
+	if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" == (sSearch)
+		return
+	endif
+
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" (sSearch)
+
+	; Prevent search if no dialog history
+	if eval SunnyRef.AuxVarSize "*DH_Date_List" == 0
+		return
+	endif
+
+	; Reset search array
+	SunnyRef.AuxVarErase "*DH_Date_Search"
+	TrudyRef.AuxVarErase "*DH_Location_Search"
+	aSearchIDs = ar_Construct "array"
+
+	aNPCNames = Ar_Unique (RingoRef.AuxVarGetAsArr "*DH_NPC_List")
+	iSize = Ar_Size aNPCNames
+	while (iSize -= 1) > -1
+		if eval (Sv_Find (sSearch) (aNPCNames[iSize])) > -1
+			aTemp = RingoRef.AuxVarGetAsArr ("*DH_NPC_" + (aNPCNames[iSize]))
+			ar_Cat aSearchIDs aTemp
+		endif
+	loop
+
+	; Early return when we know the search will fails
+	if eval (Ar_Size aSearchIDs) < 1
+		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\visible" 0
+		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\visible" 0
+		aNPCNames = aSearchIDs = aTemp = Ar_Null
+		sv_Destruct sSearch
+		return
+	endif
+
+	; Build filtered date map
+	iSize = SunnyRef.AuxVarSize "*DH_Date_List"
+	while (iSize -= 1) > -1
+		aTemp = SunnyRef.AuxVarGetAsArr ("*DH_Date_" + $(SunnyRef.AuxVarGetFlt "*DH_Date_List" iSize))
+		ar_Cat aTemp aSearchIDs
+		if eval (ar_Size aTemp) != (ar_Size (ar_Unique aTemp))
+			SunnyRef.AuxVarSetFlt "*DH_Date_Search" (SunnyRef.AuxVarGetFlt "*DH_Date_List" iSize) -1
+		endif
+	loop
+
+	; Build filtered location map
+	iSize = TrudyRef.AuxVarSize "*DH_Location_List"
+	while (iSize -= 1) > -1
+		aTemp = TrudyRef.AuxVarGetAsArr ("*DH_Location_" + (TrudyRef.AuxVarGetStr "*DH_Location_List" iSize))
+		ar_Cat aTemp aSearchIDs
+		if eval (ar_Size aTemp) != (ar_Size (ar_Unique aTemp))
+			TrudyRef.AuxVarSetStr "*DH_Location_Search" (TrudyRef.AuxVarGetStr "*DH_Location_List" iSize) -1
+		endif
+	loop
+
+	aNPCNames = aSearchIDs = aTemp = Ar_Null
+	sv_Destruct sSearch
+
+	Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+
+end

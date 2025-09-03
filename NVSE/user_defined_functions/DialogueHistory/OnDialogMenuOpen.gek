@@ -1,0 +1,65 @@
+int	iMenuID
+
+int iDay
+int iMonth
+int iYear
+float fHour
+array_var aDay
+array_var aMonth
+string_var sName
+string_var sDay
+string_var sHour
+
+begin Function {iMenuID}
+
+	if eval GetUIFloatAlt "DialogMenu\_DH+Init"
+		return
+	endif
+	SetUIFloatAlt "DialogMenu\_DH+Init" 1
+
+	; Enable smooth scrolling
+	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
+
+	; Update speaker names
+	if eval (sName = Player.LnGetName) != ""
+		SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\_name_0" "%z:" sName
+	endif
+	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\_name_1" "%z:" (sName = LnGetName (GetMenuTargetRef 1009))
+	iDay = GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker"
+	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker" -1
+	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker" iDay
+
+	; Update date string
+	fHour = GetGlobalVariable GameHour
+	iDay = Flr (GetGlobalVariable GameDay)
+	iMonth = GetGlobalVariable GameMonth
+	iYear = GetGlobalVariable GameYear
+	aDay = Ar_List (GetStringSetting "sDaySunday") (GetStringSetting "sDayMonday") (GetStringSetting "sDayTuesday") (GetStringSetting "sDayWednesday") (GetStringSetting "sDayThursday") (GetStringSetting "sDayFriday") (GetStringSetting "sDaySaturday")
+	aMonth = Ar_List (GetStringSetting "sMonthJanuary") (GetStringSetting "sMonthFebruary") (GetStringSetting "sMonthMarch") (GetStringSetting "sMonthApril") (GetStringSetting "sMonthMay") (GetStringSetting "sMonthJune") (GetStringSetting "sMonthJuly") (GetStringSetting "sMonthAugust") (GetStringSetting "sMonthSeptember") (GetStringSetting "sMonthOctober") (GetStringSetting "sMonthNovember") (GetStringSetting "sMonthDecember")
+	if eval fHour >= 12
+		sHour = "PM"
+	else
+		sHour = "AM"
+	endif
+	sDay = "th"
+	if eval iDay > 10 && iDay < 14
+	elseif eval iDay % 10 == 1
+		sDay = "st"
+	elseif eval iDay % 10 == 2
+		sDay = "nd"
+	elseif eval iDay % 10 == 3
+		sDay = "rd"
+	endif
+
+	; Update title
+	SetUIStringAlt "DialogMenu\DialogueHistory\TopText\string" "%z - %z, %g:%02.0f %z, %g%z of %z, %g" sName (aDay[(GetDayOfWeek)]) ((Flr fHour) % 12) (Flr ((FMod fHour 1) * 60)) (sHour) iDay (sDay) (aMonth[iMonth]) iYear
+
+	; Update convo aux
+	Goo1.AuxVarSetFlt "*DiaHist_ConvoData" (((iYear - 2200) & 0x7F) << 20 | (iMonth & 0x0F) << 16 | (iDay & 0x1F) << 11 | ((Flr fHour) & 0x1F) << 6 | ((Flr ((FMod fHour 1) * 60)) & 0x3F)) 0
+	Goo1.AuxVarSetStr "*DiaHist_ConvoData" (sName) 1
+	Goo1.AuxVarSetStr "*DiaHist_ConvoData" (Player.GetLocationName) 2
+
+	aDay = aMonth = Ar_Null
+	sv_Destruct sName sDay sHour
+
+end

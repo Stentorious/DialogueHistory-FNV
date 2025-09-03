@@ -1,0 +1,12 @@
+Stentorious\DialogueHistory\HUDMainMenu\Main.xml::HUDMainMenu
+true
+Stentorious\DialogueHistory\StartMenu\Main.xml::StartMenu
+true
+Stentorious\DialogueHistory\StartMenu\main_container.xml::StartMenu::main_container
+true
+Stentorious\DialogueHistory\DialogMenu\Main.xml::DialogMenu
+true
+Stentorious\DialogueHistory\DialogMenu\DM_SpeakerNameLabel.xml::DialogMenu::DM_SpeakerNameLabel
+true
+Stentorious\DialogueHistory\scrollbar_vert.xml::@Prefabs\scrollbar_vert.xml
+true

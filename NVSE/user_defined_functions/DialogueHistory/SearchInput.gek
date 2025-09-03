@@ -1,0 +1,42 @@
+int iKeyID
+
+string_var sSearch
+
+begin Function {iKeyID}
+
+	if eval MenuMode 3 || GetActiveMenuMode != 1013 || GetUIFloatAlt "StartMenu\_DH+Search" != 1
+		return
+	endif
+
+	sSearch = GetUIString "StartMenu\DialogueHistory\Search\_search_text_1"
+
+	if eval iKeyID == 28
+		if eval sSearch != ""
+			Call (CompileScript "DialogueHistory\Search.gek") (sSearch)
+			sv_Destruct sSearch
+		endif
+		return
+	elseif eval iKeyID == 14
+		if eval sSearch != ""
+			sSearch[-1] = ""
+		endif
+	elseif eval iKeyID == 57
+		sSearch = sv_Construct "%z " sSearch
+	elseif eval iKeyID == 33 && (IsKeyPressed 29 2 || IsKeyPressed 157 2)
+	else
+		if eval IsKeyPressed 42 2 == 0 && IsKeyPressed 54 2 == 0
+			sSearch += sv_ToLower (sv_Construct "%k" iKeyID)
+		else
+			sSearch = sv_Construct "%z%k" sSearch iKeyID
+		endif
+	endif
+
+	; Update string
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%z" sSearch
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor" "%z|" sSearch
+	SetUIFloatAlt "StartMenu\_DH+Search" 0
+	SetUIFloatAlt "StartMenu\_DH+Search" 1
+
+	sv_Destruct sSearch
+
+end

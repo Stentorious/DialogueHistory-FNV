@@ -1,0 +1,33 @@
+int	iMenuID
+
+int iSize
+array_var aEntry
+array_var aTemp
+
+begin Function {iMenuID}
+
+	if eval (iMenuID = GetActiveMenuMode) != 1009 && iMenuID != 1048
+		return
+	endif
+
+	if eval (iSize = Goo1.AuxVarSize "*DiaHist_ConvoLines") < 1
+		return
+	endif
+
+	; Update JSON (dialogue)
+	aEntry = ar_Construct "stringmap"
+	aEntry["time"] = Goo1.AuxVarGetFlt "*DiaHist_ConvoData" 0
+	aEntry["id"] = Goo1.AuxVarGetStr "*DiaHist_ConvoData" 1
+	aEntry["loc"] = Goo1.AuxVarGetStr "*DiaHist_ConvoData" 2
+	aTemp = ar_Construct "array"
+	while (iSize -= 1) > -1
+		Ar_Insert aTemp 0 (Ar_Map "line"::(Goo1.AuxVarGetStr "*DiaHist_ConvoLines" iSize) "wav"::(Goo1.AuxVarGetStr "*DiaHist_ConvoVoice" iSize))
+	loop
+	aEntry["lines"] = aTemp
+	WriteToJSON (aEntry) (Goo1.AuxVarGetStr "*DiaHist_Save") "/-" 0 1 0
+
+	Goo1.AuxVarErase "*DiaHist_ConvoLines"
+	Goo1.AuxVarErase "*DiaHist_ConvoVoice"
+	aEntry = aTemp = Ar_Null
+
+end

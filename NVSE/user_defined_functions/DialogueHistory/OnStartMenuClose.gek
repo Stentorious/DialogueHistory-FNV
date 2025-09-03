@@ -1,0 +1,37 @@
+int	iMenuID
+
+int iSize
+array_var aTemp
+
+begin Function {iMenuID}
+
+	; Stop sound
+	StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+
+	; Erase aux vars
+	Goo1.AuxVarErase "*DialogueHistoryButton"
+	Goo1.AuxVarErase "*DiaHist_Voiceline"
+
+	aTemp = SunnyRef.AuxVarGetAsArr "*DH_Date_List"
+	SunnyRef.AuxVarErase "*DH_Date_List"
+	SunnyRef.AuxVarErase "*DH_Time_List"
+	iSize = ar_Size aTemp
+	while (iSize -= 1) > -1
+		SunnyRef.AuxVarErase ("*DH_Date_" + $aTemp[iSize])
+	loop
+	aTemp = TrudyRef.AuxVarGetAsArr "*DH_Location_List"
+	TrudyRef.AuxVarErase "*DH_Location_List"
+	iSize = ar_Size aTemp
+	while (iSize -= 1) > -1
+		TrudyRef.AuxVarErase ("*DH_Location_" + $aTemp[iSize])
+	loop
+	aTemp = Ar_Unique (RingoRef.AuxVarGetAsArr "*DH_NPC_List")
+	RingoRef.AuxVarErase "*DH_NPC_List"
+	iSize = ar_Size aTemp
+	while (iSize -= 1) > -1
+		RingoRef.AuxVarErase ("*DH_NPC_" + $aTemp[iSize])
+	loop
+
+	aTemp = Ar_Null
+
+end

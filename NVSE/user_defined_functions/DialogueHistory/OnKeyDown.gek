@@ -1,0 +1,114 @@
+int	iKeyID
+
+int	iMenuID
+
+begin Function {iKeyID}
+
+	; Ignore inputs in console
+	if eval MenuMode 3
+		return
+	endif
+
+	; StartMenu (Pause)
+	if eval (iMenuID = GetActiveMenuMode) == 1013 && MenuMode 4 == 0
+
+		; Prevent menu action while conflicting menus are open
+		if eval GetUIFloatAlt "StartMenu\MCM\_Menu" == 1 || GetUIFloatAlt "StartMenu\_MAPMOConfig" == 1 || GetUIFloatAlt "StartMenu\B42NP\visible" == 1 || GetUIFloatAlt "StartMenu\MAPMO\AchievementsLog\_open" > 0
+			return
+		endif
+
+		; Toggle Visibility
+		if eval iKeyID == 35 && GetUIFloatAlt "StartMenu\_DH+Search" != 1
+			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+				if eval GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" == 1
+					if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
+						Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+					endif
+					SetUIFloat "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 0		; Settings options
+					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
+					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
+					SetUIFloatAlt "StartMenu\_DH+Visible" 1
+					PlaySound UIMenuOk 1
+
+					; Show update message
+					if eval Goo1.AuxVarGetFlt "*DiaHist_INI" 6
+						MessageBoxExAlt ({int iButton} => "") (GetINIString "Strings:sHelpDialogueHistory" "Stentorious\Translate\DialogueHistory.ini")
+						SetINIFloat "Mods:DialogueHistory" 100 "Stentorious\UpdateMessages.ini"
+						Goo1.AuxVarSetFlt "*DiaHist_INI" 0 5
+					endif
+
+					return
+				endif
+			else
+				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
+				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
+				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
+				PlaySound UIMenuCancel 1
+				return
+			endif
+		endif
+
+		if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+			return
+		endif
+
+		; Ctrl + F (Search Bar)
+		if eval iKeyID == 33 && (IsKeyPressed 29 2 || IsKeyPressed 157 2)
+			if eval GetUIFloatAlt "StartMenu\_DH+Search" != 1
+				ClickMenuButton "StartMenu#506"
+			else
+				if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
+					SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" (GetUIString "StartMenu\DialogueHistory\Search\_search_term")
+					SetUIFloatAlt "StartMenu\_DH+Search" 2
+				else
+					ClickMenuButton "StartMenu#507"
+				endif
+			endif
+			return
+		endif
+
+		; Mouse Wheel
+		float xmlCursorPosX = (((GetUIFloatAlt "StartMenu\_screen_width") / (Goo1.AuxVarGetFlt "*_ScreenWidth")) * (GetCursorPos X)) - GetUIFloatAlt "StartMenu\DialogueHistory\x"
+		float xmlCursorPosY = (((GetUIFloatAlt "StartMenu\_screen_height") / (Goo1.AuxVarGetFlt "*_ScreenHeight")) * (GetCursorPos Y)) - GetUIFloatAlt "StartMenu\DialogueHistory\y"
+		if eval xmlCursorPosX > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\x" && xmlCursorPosX < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\x" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\width") && xmlCursorPosY > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\y" && xmlCursorPosY < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\y" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height")
+			if eval iKeyID == 264
+				ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_up"
+			elseif eval iKeyID == 265
+				ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_down"
+			endif
+		elseif eval xmlCursorPosX > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\x" && xmlCursorPosX < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\x" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\width") && xmlCursorPosY > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\y" && xmlCursorPosY < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\y" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\height")
+			if eval iKeyID == 264
+				ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+			elseif eval iKeyID == 265
+				ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+			endif
+		endif
+
+	; DialogMenu
+	elseif eval iMenuID == 1009
+
+		; Toggle Visibility
+		if eval iKeyID == 35
+			if eval GetUIFloatAlt "DialogMenu\_DH+Visible" == 0
+				SetUIFloatAlt "DialogMenu\_DH+Visible" 1
+				PlaySound UIMenuOk 1
+			else
+				SetUIFloatAlt "DialogMenu\_DH+Visible" 0
+				PlaySound UIMenuCancel 1
+			endif
+		endif
+
+		; Mouse Wheel
+		if eval GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\mouseover" == 1
+			if eval iKeyID == 264
+				ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+			elseif eval iKeyID == 265
+				ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+			endif
+		endif
+
+	endif
+
+end

@@ -1,0 +1,82 @@
+int iMenuID
+int iTileID
+string_var sTileName
+
+int iNumLines
+float fWidth
+float fHeight
+string_var sDialog
+
+begin Function {iMenuID, iTileID, sTileName}
+
+	; Dropdown (Parent)
+	if eval iTileID == 503
+		if eval (sTileName = GetActiveUIComponentFullName) == ""
+			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
+		endif
+		Call (CompileScript "DialogueHistory\RefreshDateEntry.gek") (sTileName)
+
+	; Dropdown (Child)
+	elseif eval iTileID == 504
+		if eval (sTileName = GetActiveUIComponentFullName) == ""
+			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
+		endif
+		Call (CompileScript "DialogueHistory\RefreshDialogueEntry.gek") (GetUIFloatAlt ((sTileName) + "\_pointer"))
+
+	; Sort Button
+	elseif eval iTileID == 505
+		if eval GetUIFloatAlt "StartMenu\_DH+Sort" == 1
+			SetUIFloatAlt "StartMenu\_DH+Sort" 0
+		else
+			SetUIFloatAlt "StartMenu\_DH+Sort" 1
+		endif
+		Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+
+	; Search Bar
+	elseif eval iTileID == 506 || (iTileID == 507 && GetUIFloatAlt "StartMenu\_DH+Search" == 0)
+		SetUIFloatGradual "StartMenu\_DH+Pulse" 2
+		SetUIFloatGradual "StartMenu\_DH+Pulse" 2 0 1 2
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor" "%z|" (GetUIString "StartMenu\DialogueHistory\Search\_search_text_1")
+		CallAfterFrames 0 ({} => SetUIFloatAlt "StartMenu\_DH+Search" 1) 1
+
+	; Search Reset
+	elseif eval iTileID == 507
+		SetUIFloatAlt "StartMenu\_DH+Search" 0
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%e"
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor" "|"
+		if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
+			SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" "%e"
+			SunnyRef.AuxVarErase "*DH_Date_Search"
+			TrudyRef.AuxVarErase "*DH_Location_Search"
+			Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+		endif
+
+	; Dialogue Line
+	elseif eval iTileID == 508
+		if eval (sTileName = GetActiveUIComponentFullName) == ""
+			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
+		endif
+		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+		PlaySoundFromPath (GetUIString ((sTileName) + "\_sound")) 0 1
+		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (GetUIString ((sTileName) + "\_sound"))
+
+	; DialogMenu Topic (Update dialog)
+	elseif eval sTileName[0:4] == "topic"
+		sDialog = GetUIString ("DialogMenu\NOGLOW_BRANCH\DM_TopicList\" + (sTileName) + "\string")
+		if eval sDialog[1:2] == ". "
+			sDialog[0:2] = ""
+		endif
+		if eval GetUIString "DialogMenu\_DH+PlayerTopic" != (sDialog) || Goo1.AuxVarGetFlt "*DiaHist_INI" 2 == 0
+			CallAfterFrames 1 (CompileScript "DialogueHistory\SaveDialogueLine.gek") 1 sDialog ""
+		else
+			SetUIFloatAlt "DialogMenu\_DH+Ignore" 1
+		endif
+
+	; DialogMenu History Button
+	elseif eval sTileName == "DialogueHistoryButton"
+		Call (CompileScript "DialogueHistory\OnKeyDown.gek") 35
+	endif
+
+	sv_Destruct sTileName sDialog
+
+end

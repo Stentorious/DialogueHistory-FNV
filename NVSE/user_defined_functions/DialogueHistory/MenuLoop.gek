@@ -1,0 +1,27 @@
+int iMenuID
+float fStickY
+
+begin Function {}
+
+	if eval GetController == 0
+		return
+	endif
+
+	; DialogMenu
+	if eval (iMenuID = GetActiveMenuMode) == 1009 && GetUIFloatAlt "DialogMenu\_DH+Init" == 1
+		if eval (fStickY = GetRightStickY) > 0.2
+			ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+		elseif fStickY < -0.2
+			ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+		endif
+
+	; PauseMenu
+	;elseif eval iMenuID == 1013 && GetUIFloatAlt "StartMenu\_DH+Init" == 1
+	;	if eval (fStickY = GetRightStickY) > 0.2
+	;		ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+	;	elseif fStickY < -0.2
+	;		ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+	;	endif
+	endif
+
+end

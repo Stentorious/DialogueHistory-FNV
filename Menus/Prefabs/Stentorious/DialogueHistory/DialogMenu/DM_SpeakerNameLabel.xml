@@ -1,0 +1,4 @@
+<visible>
+	<not src="io()" trait="_DH+Visible" />
+	<and src="io()" trait="_DialogVisible" />
+</visible>

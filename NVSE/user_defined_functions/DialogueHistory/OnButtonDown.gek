@@ -1,0 +1,284 @@
+int	iButtonID
+
+int	iMenuID
+int iSizeParent
+int iSelectionWindow
+int iSelectionParent
+int iSelectionChild
+float fScrollOffset
+float fHeight
+string_var sTilePath
+
+begin Function {iButtonID}
+
+	; Ignore inputs in console
+	if eval MenuMode 3
+		return
+	endif
+
+	; StartMenu (Pause)
+	if eval (iMenuID = GetActiveMenuMode) == 1013 && MenuMode 4 == 0
+
+		; Prevent menu action while conflicting menus are open
+		if eval GetUIFloatAlt "StartMenu\MCM\_Menu" == 1 || GetUIFloatAlt "StartMenu\_MAPMOConfig" == 1 || GetUIFloatAlt "StartMenu\B42NP\visible" == 1 || GetUIFloatAlt "StartMenu\MAPMO\AchievementsLog\_open" > 0
+			return
+		endif
+
+		; Left-Stick (Toggle menu visibility)
+		if eval iButtonID == 64 && GetUIFloatAlt "StartMenu\_DH+Search" != 1
+			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+				if eval GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" == 1
+					if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
+						Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+					endif
+					SetUIFloat "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 0		; Settings options
+					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
+					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
+					SetUIFloatAlt "StartMenu\_DH+Visible" 1
+					PlaySound UIMenuOk 1
+
+					; Show update message
+					if eval Goo1.AuxVarGetFlt "*DiaHist_INI" 6
+						MessageBoxExAlt ({int iButton} => "") (GetINIString "Strings:sHelpDialogueHistoryXBox" "Stentorious\Translate\DialogueHistory.ini")
+						SetINIFloat "Mods:DialogueHistory" 100 "Stentorious\UpdateMessages.ini"
+						Goo1.AuxVarSetFlt "*DiaHist_INI" 0 5
+					endif
+
+					return
+				endif
+			else
+				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
+				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
+				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
+				PlaySound UIMenuCancel 1
+				return
+			endif
+		endif
+
+		if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+			return
+		endif
+
+		; B Button (Exit menu)
+		if eval iButtonID == 8192
+			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 1
+				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
+				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
+				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
+				PlaySound UIMenuCancel 1
+				return
+			endif
+
+		; X Button (Sort menu)
+		elseif eval iButtonID == 16384
+			ClickMenuButton "StartMenu#505"
+			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left" ((GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\childcount") - 1)
+			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left_child" -1
+			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" -1
+			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_window" 0
+			PlaySound UIMenuMode 1
+			return
+		endif
+
+		if eval (iSelectionWindow = GetUIFloatAlt "StartMenu\DialogueHistory\_selection_window") == 1
+			iSelectionParent = GetUIFloatAlt "StartMenu\DialogueHistory\_selection_right"
+			iSelectionChild = -1
+			iSizeParent = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\childcount") - 1
+		else
+			iSelectionParent = GetUIFloatAlt "StartMenu\DialogueHistory\_selection_left"
+			iSelectionChild = GetUIFloatAlt "StartMenu\DialogueHistory\_selection_left_child"
+			iSizeParent = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\childcount") - 1
+		endif
+
+		; A Button (Select list entry)
+		if eval iButtonID == 4096
+			if eval iSelectionChild > -1
+				sTilePath = ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\Entry:" + $iSelectionChild)
+			else
+				if eval iSelectionWindow == 1
+					sTilePath = ("StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:" + $iSelectionParent + "\Dialog")
+				else
+					sTilePath = ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent)
+				endif
+			endif
+			Goo1.AuxVarSetStr "*DialogueHistoryButton" (sTilePath)
+			ClickMenuButton (sTilePath)
+			sv_Destruct sTilePath
+			PlaySound UIMenuOk 1
+			return
+		endif
+
+		; DPad Up (Move selection up)
+		if eval iButtonID == 1
+			PlaySound UIMenuFocus 1
+
+			; Dialogue Window
+			if eval iSelectionWindow == 1
+				if eval iSelectionParent == iSizeParent	; Rollover
+					iSelectionParent = 0
+				else
+					iSelectionParent += 1
+				endif
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" iSelectionParent
+				; Adjust scrollbar
+				fHeight = GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:" + $iSelectionParent + "\_height")
+				fScrollOffset = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\y") + (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:" + $iSelectionParent + "\y")) - 5
+				if eval fScrollOffset < 0																; Scroll up
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" ((fScrollOffset * -1) / 36)
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" 1
+				elseif fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\height"	; Scroll to bottom
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_down"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+				endif
+
+			; Date Window
+			else
+				; Current selection (Child)
+				if eval iSelectionChild > -1
+					if eval iSelectionChild == (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\childcount") - 1)
+						iSelectionChild = -1 ; Select parent
+					else
+						iSelectionChild += 1 ; Select next child
+					endif
+
+				; Current selection (Parent)
+				else
+					if eval iSelectionParent == iSizeParent	; Rollover
+						iSelectionParent = 0
+						if eval GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_expanded") == 1
+							iSelectionChild = 0
+						endif
+					else
+						iSelectionParent += 1
+						if eval GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\_expanded") == 1
+							iSelectionChild = 0
+						endif
+					endif
+				endif
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left" iSelectionParent
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left_child" iSelectionChild
+
+				; Adjust scrollbar
+				fScrollOffset = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\y") + (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\y")) + 26
+				if eval iSelectionChild > -1
+					fScrollOffset += (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\Entry:" + $iSelectionChild + "\y")) + 36
+				endif
+				if eval fScrollOffset < 0																; Scroll up
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_up"
+				elseif fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height"		; Scroll to bottom
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 1
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_page_down"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 0
+				endif
+			endif
+		endif
+
+		; DPad Down (Move selection down)
+		if eval iButtonID == 2
+			PlaySound UIMenuFocus 1
+
+			; Dialogue Window
+			if eval iSelectionWindow == 1
+				if eval iSelectionParent == 0	; Rollover
+					iSelectionParent = iSizeParent
+				else
+					iSelectionParent -= 1
+				endif
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" iSelectionParent
+				; Adjust scrollbar
+				fHeight = GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:" + $iSelectionParent + "\_height")
+				fScrollOffset = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\y") + (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:" + $iSelectionParent + "\y")) + fHeight - 10
+				if eval fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\height"		; Scroll down
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" ((fScrollOffset - (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\height")) / 36)
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" 1
+				elseif fScrollOffset < 0																; Scroll to top
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_up"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+				endif
+
+			; Date Window
+			else
+
+				; Current selection (Child)
+				if eval iSelectionChild > -1
+					if eval iSelectionParent == 0 && iSelectionChild == 0 ; Rollover
+						iSelectionParent = iSizeParent
+						iSelectionChild = -1
+					else
+						if eval iSelectionChild == 0
+							iSelectionParent -= 1		; Select next parent
+							iSelectionChild = -1
+						else
+							iSelectionChild -= 1		; Select next child
+						endif
+					endif
+
+				; Current selection (Parent)
+				else
+					if eval GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\_expanded") == 1
+						iSelectionChild = (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\childcount")) - 1
+					else
+						if eval iSelectionParent == 0
+							iSelectionParent = iSizeParent
+						else
+							iSelectionParent -= 1
+						endif
+					endif
+				endif
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left" iSelectionParent
+				SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left_child" iSelectionChild
+
+				; Adjust scrollbar
+				fScrollOffset = (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\y") + (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\y")) + 26
+				if eval iSelectionChild > -1
+					fScrollOffset += (GetUIFloatAlt ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\Entry:" + $iSelectionChild + "\y")) + 36
+				endif
+				if eval fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height"		; Scroll down
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_down"
+				elseif fScrollOffset < 0																; Scroll to top
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 1
+					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_page_up"
+					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 0
+				endif
+			endif
+		endif
+
+		; DPad Left/Right (Switch to windows)
+		if eval iButtonID == 4 || iButtonID == 8
+			if eval iSelectionWindow == 1
+				iSelectionWindow = 0
+			elseif eval GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\childcount" > 0
+				if GetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" < 0
+					SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" ((GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\childcount") - 1)
+				endif
+				iSelectionWindow = 1
+			endif
+			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_window" iSelectionWindow
+			return
+		endif
+
+	; DialogMenu
+	elseif eval iMenuID == 1009
+
+		; Right-Stick (Toggle menu visibility)
+		if eval iButtonID == 64
+			if eval GetUIFloatAlt "DialogMenu\_DH+Visible" == 0
+				SetUIFloatAlt "DialogMenu\_DH+Visible" 1
+				PlaySound UIMenuOK 1
+			else
+				SetUIFloatAlt "DialogMenu\_DH+Visible" 0
+				PlaySound UIMenuCancel 1
+			endif
+		endif
+
+	endif
+
+end

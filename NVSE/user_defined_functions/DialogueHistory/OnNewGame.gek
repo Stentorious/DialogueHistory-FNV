@@ -1,0 +1,27 @@
+string_var sSaveName
+string_var sJSONName
+
+begin Function {}
+
+	; Nullify arrays
+	Goo1.AuxVarErase "*DiaHist_ConvoLines"
+	Goo1.AuxVarErase "*DiaHist_ConvoVoice"
+
+	sJSONName = "DialogueHistory\_NewGame.json"
+	sSaveName = "Data\" + (sJSONName)
+
+	; Init new JSON if loading save without existing Dialog History
+	if eval FileExists (sJSONName) == 0
+		WriteToJSON (ar_Construct "array") (sSaveName) "" 0 1 1
+	endif
+
+	; Clear cache of previous save
+	CloseFileSO (Goo1.AuxVarGetStr "*DiaHist_Save") 1
+
+	; Cache Dialog History JSON filepath
+	Goo1.AuxVarSetStr "*DiaHist_Save" (sSaveName)
+
+	sv_Destruct sJSONName sSaveName
+
+
+end

@@ -1,0 +1,104 @@
+; Dialogue History - Stentorious
+
+; Check for requirements
+if eval GetNVSEVersion < 6 || (GetNVSEVersion == 6 && GetNVSERevision < 4)
+	MessageBoxEx "Dialogue History missing requirement!%rInstall xNVSE 6.4.0+."
+	return
+endif
+if GetPluginVersion "JohnnyGuitarNVSE" < 517
+	MessageBoxEx "Dialogue History missing requirement!%rInstall latest JohnnyGuitar NVSE plugin."
+	return
+endif
+if GetPluginVersion "ShowOffNVSE Plugin" < 165
+	MessageBoxEx "Dialogue History missing requirement!%rInstall latest ShowOff NVSE plugin."
+	return
+endif
+if GetPluginVersion "UI Organizer Plugin" < 230
+	MessageBoxEx "Dialogue History missing requirement!%rInstall latest User Interface Organizer plugin."
+	return
+endif
+
+; Load INI settings
+;Goo1.AuxVarSetFlt "*DiaHist_INI" (Clamp (GetINIFloat_Cached "General:iKeyBind" "Stentorious\DialogueHistory.ini" 35) 1 265) 0
+Goo1.AuxVarSetFlt "*DiaHist_INI" (GetMaxOf 0 (GetINIFloat_Cached "General:iEntryLimit" "Stentorious\DialogueHistory.ini" 250)) 0
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bIgnoreNonPersistentNPCs" "Stentorious\DialogueHistory.ini" 1) 1
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bIgnoreDuplicateLines" "Stentorious\DialogueHistory.ini" 1) 2
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bRemoveSkillTags" "Stentorious\DialogueHistory.ini" 0) 3
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bRemoveSpeechTags" "Stentorious\DialogueHistory.ini" 0) 4
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bDialogueHistory" "Stentorious\DialogueHistory.ini" 1) 5
+
+; Load menu settings
+SetUIFloatAlt "HUDMainMenu\_DH+ShowButton" (eval GetINIFloat_Cached "Interface:bShowMenuButton" "Stentorious\DialogueHistory.ini" 1)
+
+; Tutorial message
+Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat "Mods:DialogueHistory" "Stentorious\UpdateMessages.ini" < 100) 6
+
+; Get screen dimensions
+Goo1.AuxVarSetFlt "*_ScreenWidth" (GetNumericINISetting "iSize W:Display")
+Goo1.AuxVarSetFlt "*_ScreenHeight" (GetNumericINISetting "iSize H:Display")
+
+; Dialogue events
+SetOnNPCResponseEventHandler 1 (CompileScript "DialogueHistory\OnNPCResponse.gek")
+
+; Menu events
+SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 1 1 2
+SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnDialogMenuOpen.gek") 1 1009
+SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnDialogMenuClose.gek") 1 1009
+SetOnMenuOpenEventHandler ({int iMenuID} => SetUIFloatAlt "StartMenu\_DH+Pause" (eval !(MenuMode 4))) 1 1013
+SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnStartMenuClose.gek") 1 1013
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\NOGLOW_BRANCH\DM_TopicList"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\DialogueHistoryButton"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu#508"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu\DialogueHistoryButton"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#503"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#504"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#505"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#506"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#507"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#508"
+
+; Menu control events
+SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 33			; F
+SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 35			; H
+SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 264			; Wheel Up
+SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 265			; Wheel Down
+SetEventHandler "OnButtonDown:64" (CompileScript "DialogueHistory\OnButtonDown.gek")		; RS
+SetEventHandler "OnButtonDown:15" (CompileScript "DialogueHistory\OnButtonDown.gek")		; DPad
+SetEventHandler "OnButtonDown:4096" (CompileScript "DialogueHistory\OnButtonDown.gek")	; A Button
+SetEventHandler "OnButtonDown:8192" (CompileScript "DialogueHistory\OnButtonDown.gek")	; B Button
+SetEventHandler "OnButtonDown:16384" (CompileScript "DialogueHistory\OnButtonDown.gek")	; X Button
+
+; Save events
+SetEventHandler "NewGame" (CompileScript "DialogueHistory\OnNewGame.gek")
+SetEventHandler "LoadGame" (CompileScript "DialogueHistory\OnLoadGame.gek")
+SetEventHandler "SaveGame" (CompileScript "DialogueHistory\OnSaveGame.gek")
+
+; Search Bar events
+array_var aKeys = Ar_List 2 3 4 5 6 7 8 9 10 11 16 17 18 19 20 21 22 23 24 25
+array_var aTemp = Ar_List 30 31 32 33 34 35 36 37 38 44 45 46 47 48 49 50 14 28 57
+ar_Cat aKeys aTemp
+if eval (int iSize = ar_Size aKeys) > 0
+	while (iSize -= 1) > -1
+		SetOnKeyDownEventHandler (CompileScript "DialogueHistory\SearchInput.gek") 1 (aKeys[iSize])
+	loop
+endif
+aKeys = aTemp = ar_Null
+
+; Set speaker text color
+string_var sINI = GetINIString_Cached "Interface:sPlayerColor" "Stentorious\DialogueHistory.ini" "00CCFF"
+if eval (int iLength = Sv_Length sINI) == 6 && TestExpr (ToNumber sINI 1 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_0" (ToNumber (sINI[0:1]) 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_0" (ToNumber (sINI[2:3]) 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_0" (ToNumber (sINI[4:5]) 1)
+elseif eval iLength == 1 && TestExpr (ToNumber sINI 0 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_0" (ToNumber sINI)
+endif
+sINI = GetINIString_Cached "Interface:sNPCColor" "Stentorious\DialogueHistory.ini" "FFFF33"
+if eval (iLength = Sv_Length sINI) == 6 && TestExpr (ToNumber sINI 1 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_1" (ToNumber (sINI[0:1]) 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_1" (ToNumber (sINI[2:3]) 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (ToNumber (sINI[4:5]) 1)
+elseif eval iLength == 1 && TestExpr (ToNumber sINI 0 1)
+	SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_1" (ToNumber sINI)
+endif
+sv_Destruct sINI

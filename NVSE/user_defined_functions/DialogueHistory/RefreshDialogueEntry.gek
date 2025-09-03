@@ -1,0 +1,85 @@
+int iIndex
+
+int iSize
+int iTime
+int iMinute
+int iHour
+int iDay
+int iMonth
+int iYear
+array_var aJSON
+array_var aMonth
+string_var sDay
+string_var sSoundPath
+string_var sDialogue
+string_var sSuccuss
+string_var sFailure
+
+begin Function {iIndex}
+
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\visible" 1
+
+	UnloadUIComponent "StartMenu\DialogueHistory\WindowDialogue\ListBox"
+	AddTileFromTemplate "StartMenu\DialogueHistory\WindowDialogue|DHDialogueBoxTemplate|ListBox"
+
+	; Get dialogue JSON entry
+	aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") ("/" + $iIndex) 0 1
+
+	; Update speaker names
+	if eval (Player.LnGetName) != ""
+		SetUIStringAlt "StartMenu\DialogueHistory\WindowDialogue\_name_0" "%z:" (Player.LnGetName)
+	endif
+	SetUIStringAlt "StartMenu\DialogueHistory\Speaker\string" (aJSON["id"])
+	SetUIStringAlt "StartMenu\DialogueHistory\WindowDialogue\_name_1" "%z:" (GetUIString "StartMenu\DialogueHistory\Speaker\string")
+
+	; Update date
+	iTime = (aJSON["time"])
+	iMinute = iTime & 0x3F
+	iHour = (iTime >> 6) & 0x1F
+	iDay = (iTime >> 11) & 0x1F
+	iMonth = (iTime >> 16) & 0x0F
+	iYear = ((iTime >> 20) & 0x7F) + 2200
+	sDay = "th"
+	if eval iDay > 10 && iDay < 14
+	elseif eval iDay % 10 == 1
+		sDay = "st"
+	elseif eval iDay % 10 == 2
+		sDay = "nd"
+	elseif eval iDay % 10 == 3
+		sDay = "rd"
+	endif
+	aMonth = ar_List (GetStringSetting "sMonthJanuary") (GetStringSetting "sMonthFebruary") (GetStringSetting "sMonthMarch") (GetStringSetting "sMonthApril") (GetStringSetting "sMonthMay") (GetStringSetting "sMonthJune") (GetStringSetting "sMonthJuly") (GetStringSetting "sMonthAugust") (GetStringSetting "sMonthSeptember") (GetStringSetting "sMonthOctober") (GetStringSetting "sMonthNovember") (GetStringSetting "sMonthDecember")
+	SetUIStringAlt "StartMenu\DialogueHistory\Date\string" "%g%z of %z, %g - %02.0f:%02.0f - %z" iDay sDay (aMonth[iMonth]) iYear iHour iMinute (aJSON["loc"])
+
+	; Inject dialog line template
+	aJSON = aJSON["lines"]
+	if eval (iSize = ar_Size aJSON) > 0
+		iIndex = -1
+		sSuccuss = GetStringSetting "sSpeechChallengeSuccess"
+		sFailure = GetStringSetting "sSpeechChallengeFailure"
+		while (iIndex += 1) < iSize
+			AddTileFromTemplate "StartMenu\DialogueHistory\WindowDialogue\ListBox|DHDialogueTemplate|Entry"
+			SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_index" (iSize - iIndex - 1)
+			SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker" (eval (sSoundPath = aJSON[iIndex]["wav"]) != "")
+			SetUIStringAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\Dialog\_sound" "Data\Sound\Voice\%z" (sSoundPath)
+			sDialogue = aJSON[iIndex]["line"]
+			SetUIStringAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_dialog" "%z" sDialogue
+			if eval (Sv_Find (sSuccuss) sDialogue) > -1
+				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\Dialog\systemcolor" 3
+			elseif eval (Sv_Find (sFailure) sDialogue) > -1
+				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\Dialog\systemcolor" 2
+			endif
+		loop
+		SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" (iSize - 1)
+		CallAfterFrames 2 ({} => SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\_list_height" (GetMaxOf 0 (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_total_height"))) 1
+	endif
+
+	; Move scrollbar to top
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
+	ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_up"
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+
+	aJSON = aMonth =  Ar_Null
+	sv_Destruct sDay sSoundPath sDialogue sSuccuss sFailure
+
+end

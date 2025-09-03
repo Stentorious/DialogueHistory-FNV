@@ -1,0 +1,135 @@
+int iSize
+int iIndex
+int iKey
+int iTime
+int iDay
+array_var aDate
+array_var aLocation
+array_var aTemp
+array_var aJSON
+array_var aMonth
+string_var sKey
+string_var sDay
+
+begin Function {}
+
+	; On menu init
+	if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
+		SetUIFloatAlt "StartMenu\_DH+Init" 1
+
+		; Enable smooth scrolling
+		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_VUI+SmoothScrolling" 1
+		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
+
+		; Reset search terms
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" "%e"
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%e"
+
+		; Add conversation index to sorting maps
+		if eval TestExpr (aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1)
+		else
+			MessageBoxExAlt ({int iButton} => "") "^Dialogue History^Invalid JSON data detected!%r%rBy continuing to play you run the risk of losing your Dialogue History!%r%rIf you are a English language user follow the steps below.%r%rend the following files to @Stentorious on Discord for debugging: %r%r> %z|Ok" (Goo1.AuxVarGetStr "*DiaHist_Save")
+			return
+		endif
+
+		if eval (iSize = Ar_Size aJSON) < 1
+			return
+		endif
+
+		aDate = ar_Construct "array"
+		aLocation = ar_Construct "array"
+
+		iIndex = -1
+		while (iIndex += 1) < iSize
+			Ar_Append aDate (iKey = ((aJSON[iIndex]["time"]) & ~0x7FF))
+			;SunnyRef.AuxVarSetFlt "*DH_Date_List" (iKey = ((aJSON[iIndex]["time"]) & ~0x7FF)) -1
+			SunnyRef.AuxVarSetFlt "*DH_Time_List" (aJSON[iIndex]["time"]) -1
+			SunnyRef.AuxVarSetFlt ("*DH_Date_" + $iKey) iIndex -1
+			Ar_Append aLocation (sKey = aJSON[iIndex]["loc"])
+			;TrudyRef.AuxVarSetStr "*DH_Location_List" (sKey = aJSON[iIndex]["loc"]) -1
+			TrudyRef.AuxVarSetFlt ("*DH_Location_" + (sKey)) iIndex -1
+			RingoRef.AuxVarSetStr "*DH_NPC_List" (sKey = aJSON[iIndex]["id"]) -1
+			RingoRef.AuxVarSetFlt ("*DH_NPC_" + (sKey)) iIndex -1
+		loop
+
+		aDate = Ar_Unique aDate
+		aLocation = Ar_Unique aLocation
+		SunnyRef.AuxVarSetFromArr "*DH_Date_List" aDate
+		TrudyRef.AuxVarSetFromArr "*DH_Location_List" aLocation
+
+		aDate = aLocation = aTemp = Ar_Null
+
+	endif
+
+	; Prevent loading menu if no dialogue history
+	if eval SunnyRef.AuxVarSize "*DH_Date_List" < 1
+		return
+	endif
+
+	; Reset Dialog History windows
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\visible" 1
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\visible" 0
+	UnloadUIComponent "StartMenu\DialogueHistory\WindowDate\ListBox"
+	UnloadUIComponent "StartMenu\DialogueHistory\WindowDialogue\ListBox"
+	AddTileFromTemplate "StartMenu\DialogueHistory\WindowDate|DHDateListTemplate|ListBox"
+	AddTileFromTemplate "StartMenu\DialogueHistory\WindowDialogue|DHDialogueBoxTemplate|ListBox"
+
+	; Sort by location
+	if eval GetUIFloatAlt "StartMenu\_DH+Sort" == 1
+		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 2
+			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_Search"
+		else
+			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_List"
+		endif
+		aJSON = Ar_Sort aJSON 1
+		if eval (iSize = ar_Size aJSON) > 0
+			while (iSize -= 1) > -1
+				AddTileFromTemplate "StartMenu\DialogueHistory\WindowDate\ListBox|DHDateTemplate|Entry"
+				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_index" iSize
+				SetUIStringAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_string" (aJSON[iSize])
+			loop
+		endif
+
+	; Sort by date
+	else
+		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 2
+			aJSON = SunnyRef.AuxVarGetAsArr "*DH_Date_Search"
+		else
+			aJSON = SunnyRef.AuxVarGetAsArr "*DH_Date_List"
+		endif
+		if eval (iSize = ar_Size aJSON) > 0
+			aMonth = ar_List (GetStringSetting "sMonthJanuary") (GetStringSetting "sMonthFebruary") (GetStringSetting "sMonthMarch") (GetStringSetting "sMonthApril") (GetStringSetting "sMonthMay") (GetStringSetting "sMonthJune") (GetStringSetting "sMonthJuly") (GetStringSetting "sMonthAugust") (GetStringSetting "sMonthSeptember") (GetStringSetting "sMonthOctober") (GetStringSetting "sMonthNovember") (GetStringSetting "sMonthDecember")
+			while (iSize -= 1) > -1
+				AddTileFromTemplate "StartMenu\DialogueHistory\WindowDate\ListBox|DHDateTemplate|Entry"
+				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_index" iSize
+				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_time" (iTime = aJSON[iSize])
+				iDay = (iTime >> 11) & 0x1F
+				sDay = "th"
+				if eval iDay > 10 && iDay < 14
+				elseif eval iDay % 10 == 1
+					sDay = "st"
+				elseif eval iDay % 10 == 2
+					sDay = "nd"
+				elseif eval iDay % 10 == 3
+					sDay = "rd"
+				endif
+				SetUIStringAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_string" "%g%z of %z, %g" iDay sDay (aMonth[((iTime >> 16) & 0x0F)]) (((iTime >> 20) & 0x7F) + 2200)
+			loop
+			aMonth = Ar_Null
+			sv_Destruct sDay
+		endif
+	endif
+
+	; Update scrollbar
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\_list_height" (GetMaxOf 0 (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_total_height"))
+	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\_list_height" 0
+
+	; Update selection
+	SetUIFloatAlt "StartMenu\DialogueHistory\_selection_left" (GetMaxOf -1 ((GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\childcount") - 1))
+	SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" -1
+	SetUIFloatAlt "StartMenu\DialogueHistory\_selection_window" 0
+
+	aJSON = aMonth = Ar_Null
+	sv_Destruct sKey sDay
+
+end

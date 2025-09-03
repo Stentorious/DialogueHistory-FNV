@@ -1,0 +1,32 @@
+string_var sSaveName
+
+int iLimit
+int iSize
+array_var aJSON
+
+begin Function {sSaveName}
+
+	sSaveName = ("Data\DialogueHistory\" + (sSaveName[0:-5]) + ".json")
+
+	;if eval TestExpr (WriteToJSON (ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1) (sSaveName) "" 0 1 1)
+	if eval TestExpr (aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1)
+	else
+		MessageBoxExAlt ({int iButton} => "") "^Dialogue History^Invalid JSON data detected!%r%rBy continuing to play you run the risk of losing your Dialogue History!%r%rIf you are a English language user follow the steps below.%r%rSend the following files to @Stentorious on Discord for debugging: %r%r> %z%r> %z|Ok" sSaveName (Goo1.AuxVarGetStr "*DiaHist_Save")
+	endif
+
+	; Erase excess entries
+	if eval (iLimit = Goo1.AuxVarGetFlt "*DiaHist_INI" 0) > 0 && (iSize = ar_Size aJSON) > 0 && iSize > iLimit
+		Ar_Erase aJSON 0:(iSize - iLimit - 1)
+	endif
+
+	; Save new JSON
+	WriteToJSON aJSON (sSaveName) "" 0 1 1
+	CloseFileSO (Goo1.AuxVarGetStr "*DiaHist_Save") 1
+
+	; Cache Dialog History JSON filepath
+	Goo1.AuxVarSetStr "*DiaHist_Save" (sSaveName)
+
+	aJSON = Ar_Null
+	sv_Destruct sSaveName
+
+end
