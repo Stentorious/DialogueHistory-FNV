@@ -12,6 +12,8 @@
 <_DH+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_1" /> </_DH+SpkrRed_1>
 <_DH+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_1" /> </_DH+SpkrGreen_1>
 <_DH+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_1" /> </_DH+SpkrBlue_1>
+<_DH+Darn> <copy src="sibling(HUDMainMenu)" trait="_DH+Darn" /> </_DH+Darn>
+<_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
 
 <hotrect name="DialogueHistoryButton">
 	<include src="text_box.xml"/>
@@ -138,8 +140,12 @@
 				<div> 2 </div>
 			</add>
 			<add> 5 </add>
+			<sub>
+				<copy> 5 </copy>
+				<onlyif src="io()" trait="_DH+Darn"/>
+			</sub>
 		</y>
-		<font> 6 </font>
+		<font> 1 </font>
 		<string> NPC Name </string>
 	</text>
 	<image name="Outline_HTL">
@@ -207,8 +213,12 @@
 				<div> 2 </div>
 				<add> 7 </add>
 			</add>
+			<sub>
+				<copy> 7 </copy>
+				<onlyif src="io()" trait="_DH+Darn"/>
+			</sub>
 		</y>
-		<font> 6 </font>
+		<font> 1 </font>
 		<string> Dialogue History </string>
 	</text>
 	<image name="Outline_HBL">
@@ -384,7 +394,7 @@
 				<copy src="parent()" trait="_speaker" />
 				<copy src="io()" trait="_DH+SpkrBlue_" />
 			</blue>
-			<font> 3 </font>
+			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> 100 </zoom>
 			<justify> &left; </justify>
 			<string> <copy src="parent()" trait="_name" /> </string>
@@ -410,7 +420,7 @@
 					</onlyif>
 				</add>
 			</brightness>
-			<font> 3 </font>
+			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> <copy src="sibling(Speaker)" trait="zoom" /> </zoom>
 			<wrapwidth>
 				<copy src="DialogueHistory" trait="_wrapwidth" />

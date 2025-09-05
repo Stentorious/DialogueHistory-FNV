@@ -16,6 +16,8 @@
 <_DH+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_1" /> </_DH+SpkrRed_1>
 <_DH+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_1" /> </_DH+SpkrGreen_1>
 <_DH+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_1" /> </_DH+SpkrBlue_1>
+<_DH+Darn> <copy src="sibling(HUDMainMenu)" trait="_DH+Darn" /> </_DH+Darn>
+<_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
 
 <!-- Game -->
 <_controller> <copy src="globals()" trait="_Has360Controller"/> </_controller>
@@ -268,7 +270,7 @@
 					<copy src="io()" trait="_DH+Search" />
 					<copy src="grandparent()" trait="_search_brightness_" />
 				</brightness>
-				<font> 3 </font>
+				<font> <copy src="io()" trait="_DH+Font" /> </font>
 				<string> <copy src="grandparent()" trait="_search" /> </string>
 			</text>
 
@@ -285,7 +287,7 @@
 				<depth> 2 </depth>
 				<systemcolor> <copy src="sibling(Text)" trait="systemcolor" /> </systemcolor>
 				<brightness> <copy src="grandparent()" trait="_search_brightness_1" /> </brightness>
-				<font> 3 </font>
+				<font> <copy src="io()" trait="_DH+Font" /> </font>
 				<string> <copy src="grandparent()" trait="_search_cursor" /> </string>
 			</text>
 
@@ -544,7 +546,12 @@
 				<div> 2 </div>
 				<add> 7 </add>
 			</add>
+			<sub>
+				<copy> 7 </copy>
+				<onlyif src="io()" trait="_DH+Darn"/>
+			</sub>
 		</y>
+		<font> 1 </font>
 		<string> <copy src="parent()" trait="_text_title"/></string>
 	</text>
 
@@ -583,9 +590,15 @@
 			<div> 2 </div>
 			<add src="sibling(WindowDialogue)" trait="x" />
 		</x>
-		<y> 20 </y>
+		<y>
+			<copy> 20 </copy>
+			<sub>
+				<copy> 12.5 </copy>
+				<onlyif src="io()" trait="_DH+Darn" />
+			</sub>
+		</y>
 		<systemcolor> 1 </systemcolor>
-		<font> 3 </font>
+		<font> <copy src="io()" trait="_DH+Font" /> </font>
 		<zoom> 150 </zoom>
 		<justify> &center; </justify>
 		<string> NPC Name </string>
@@ -597,10 +610,14 @@
 			<copy src="sibling(Speaker)" trait="y" />
 			<add src="sibling(Speaker)" trait="height" />
 			<sub> 5 </sub>
+			<add>
+				<copy> 6.5 </copy>
+				<onlyif src="io()" trait="_DH+Darn" />
+			</add>
 		</y>
 		<systemcolor> 1 </systemcolor>
 		<brightness> 200 </brightness>
-		<font> 3 </font>
+		<font> <copy src="io()" trait="_DH+Font" /> </font>
 		<zoom> 100 </zoom>
 		<justify> &center; </justify>
 		<string> 20th of April - 2:36 PM </string>
@@ -875,7 +892,7 @@
 					</onlyif>
 				</add>
 			</brightness>
-			<font> 3 </font>
+			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> 100 </zoom>
 			<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthdate" /> </wrapwidth> -->
 			<!-- <wraplines> 0 </wraplines> -->
@@ -924,7 +941,7 @@
 				</onlyif>
 			</add>
 		</brightness>
-		<font> 3 </font>
+		<font> <copy src="io()" trait="_DH+Font" /> </font>
 		<zoom> 100 </zoom>
 		<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthname" /> </wrapwidth> -->
 		<!-- <wraplines> 1 </wraplines> -->
@@ -987,7 +1004,7 @@
 				<copy src="parent()" trait="_speaker" />
 				<copy src="io()" trait="_DH+SpkrBlue_" />
 			</blue>
-			<font> 3 </font>
+			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> 100 </zoom>
 			<justify> &left; </justify>
 			<string> <copy src="parent()" trait="_name" /> </string>
@@ -1014,7 +1031,7 @@
 					</onlyif>
 				</add>
 			</brightness>
-			<font> 3 </font>
+			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> <copy src="sibling(Speaker)" trait="zoom" /> </zoom>
 			<wrapwidth>
 				<copy src="DialogueHistory" trait="_wrapwidth" />
