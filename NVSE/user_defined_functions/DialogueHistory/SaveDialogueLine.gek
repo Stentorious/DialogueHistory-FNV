@@ -46,6 +46,9 @@ begin Function {sDialogue, sVoicePath}
 	if eval (Sv_Replace "’|'" sDialogue) > 0
 		PrintC "Dialogue History: Successfully replaced Unicode character."
 	endif
+	if eval (Sv_Replace "…|..." sDialogue) > 0
+		PrintC "Dialogue History: Successfully replaced Unicode character."
+	endif
 
 	; Update tile
 	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_dialog" "%z" (sDialogue)
