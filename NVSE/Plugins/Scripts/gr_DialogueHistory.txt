@@ -84,21 +84,15 @@ if eval (int iSize = ar_Size aKeys) > 0
 endif
 aKeys = aTemp = ar_Null
 
-; Set speaker text color
-string_var sINI = GetINIString_Cached "Interface:sPlayerColor" "Stentorious\DialogueHistory.ini" "00CCFF"
-if eval (int iLength = Sv_Length sINI) == 6 && TestExpr (ToNumber sINI 1 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_0" (ToNumber (sINI[0:1]) 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_0" (ToNumber (sINI[2:3]) 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_0" (ToNumber (sINI[4:5]) 1)
-elseif eval iLength == 1 && TestExpr (ToNumber sINI 0 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_0" (ToNumber sINI)
-endif
-sINI = GetINIString_Cached "Interface:sNPCColor" "Stentorious\DialogueHistory.ini" "FFFF33"
-if eval (iLength = Sv_Length sINI) == 6 && TestExpr (ToNumber sINI 1 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_1" (ToNumber (sINI[0:1]) 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_1" (ToNumber (sINI[2:3]) 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (ToNumber (sINI[4:5]) 1)
-elseif eval iLength == 1 && TestExpr (ToNumber sINI 0 1)
-	SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_1" (ToNumber sINI)
-endif
-sv_Destruct sINI
+; Set Actor name color
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerRed" "Stentorious\DialogueHistory.ini" 255) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerGreen" "Stentorious\DialogueHistory.ini" 255) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerBlue" "Stentorious\DialogueHistory.ini" 51) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_1" (Clamp (GetINIFloat_Cached "Interface:iNPCSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_1" (Clamp (GetINIFloat_Cached "Interface:iNPCRed" "Stentorious\DialogueHistory.ini" 0) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_1" (Clamp (GetINIFloat_Cached "Interface:iNPCGreen" "Stentorious\DialogueHistory.ini" 204) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface:iNPCBlue" "Stentorious\DialogueHistory.ini" 255) 0 255)
+
+; Darnified UI support
+SetUIFloatAlt "HUDMainMenu\_DH+Darn" (eval IsModloaded "DarNifiedUINV.esp")
