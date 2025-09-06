@@ -2,11 +2,11 @@
 	"modName": "DialogueHistory",
 	"displayName": "$modDisplayName",
 	"description": "$modDescription",
-	"saveFile": "Stentorious/3DGrenadeIndicator.ini",
+	"saveFile": "Stentorious/DialogueHistory.ini",
 	"minMCMVersion": 1.00,
 	"minModVersion": 1.00,
 	"requirements": [
-		{ "type": "file", "file": "NVSE/plugins/scripts/ln_3DGrenadeIndicator.txt" }
+		{ "type": "file", "file": "NVSE/plugins/scripts/gr_DialogueHistory.txt" }
 	],
 	"submenus": {
 		"0": {
