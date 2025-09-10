@@ -96,3 +96,5 @@ SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface
 
 ; Darnified UI support
 SetUIFloatAlt "HUDMainMenu\_DH+Darn" (eval IsModloaded "DarNifiedUINV.esp")
+
+CloseFileSO "Stentorious\DialogueHistory.ini" 0
