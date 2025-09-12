@@ -45,7 +45,6 @@
 	<_offset_y> -100 </_offset_y>
 	<_width> <copy src="DM_TopBracket" trait="width" /> </_width>
 	<_height> 500 </_height> <!-- <copy src="DM_TopBracket" trait="y" /> <sub> 150 </sub> -->
-	<_outline_offset> 2 </_outline_offset>
 	<_background_offset> 6 </_background_offset>
 	<_height_fade> 50 </_height_fade>
 	<_wrapwidth>
@@ -81,10 +80,10 @@
 	<image name="Outline_VTL">
 		<x>
 			<copy> 0 </copy>
-			<sub src="parent()" trait="_outline_offset" />
+			<sub src="globals()" trait="_line_thickness"/>
 		</x>
 		<y> 0 </y>
-		<width> <copy src="parent()" trait="_outline_offset" /> </width>
+		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
@@ -94,7 +93,7 @@
 	<image name="Outline_VTR">
 		<x> <copy src="parent()" trait="_width" /> </x>
 		<y> <copy src="sibling(Outline_VTL)" trait="y" /> </y>
-		<width> <copy src="parent()" trait="_outline_offset" /> </width>
+		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
@@ -107,7 +106,7 @@
 			<copy src="parent()" trait="_height" />
 			<sub src="me()" trait="height" />
 		</y>
-		<width> <copy src="parent()" trait="_outline_offset" /> </width>
+		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
@@ -117,7 +116,7 @@
 	<image name="Outline_VBR">
 		<x> <copy src="sibling(Outline_VTR)" trait="x" /> </x>
 		<y> <copy src="sibling(Outline_VBL)" trait="y" /> </y>
-		<width> <copy src="parent()" trait="_outline_offset" /> </width>
+		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
@@ -152,10 +151,10 @@
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
 		<y>
 			<copy src="sibling(Outline_VTL)" trait="y" />
-			<sub src="parent()" trait="_outline_offset" />
+			<sub src="globals()" trait="_line_thickness"/>
 		</y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
-		<height> <copy src="parent()" trait="_outline_offset" /> </height>
+		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
@@ -168,12 +167,12 @@
 		<y> <copy src="sibling(Outline_HTL)" trait="y" /> </y>
 		<width>
 			<copy src="parent()" trait="_width" />
-			<add src="parent()" trait="_outline_offset" />
+			<add src="globals()" trait="_line_thickness"/>
 			<sub src="sibling(TopText)" trait="x" />
 			<sub src="sibling(TopText)" trait="width" />
 			<sub> 10 </sub>
 		</width>
-		<height> <copy src="parent()" trait="_outline_offset" /> </height>
+		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
@@ -228,7 +227,7 @@
 			<add src="parent()" trait="_height" />
 		</y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
-		<height> <copy src="parent()" trait="_outline_offset" /> </height>
+		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
@@ -241,12 +240,12 @@
 		<y> <copy src="sibling(Outline_HBL)" trait="y" /> </y>
 		<width>
 			<copy src="parent()" trait="_width" />
-			<add src="parent()" trait="_outline_offset" />
+			<add src="globals()" trait="_line_thickness"/>
 			<sub src="sibling(BottomText)" trait="x" />
 			<sub src="sibling(BottomText)" trait="width" />
 			<sub> 10 </sub>
 		</width>
-		<height> <copy src="parent()" trait="_outline_offset" /> </height>
+		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
