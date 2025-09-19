@@ -7,10 +7,7 @@ array_var aNPCNames
 
 begin Function {sSearch}
 
-	; Update search term
-	SetUIFloatAlt "StartMenu\_DH+Search" 2
-
-	; Don't update search if entering previous termm
+	; Don't update search if entering previous term
 	if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" == (sSearch)
 		return
 	endif
@@ -25,6 +22,13 @@ begin Function {sSearch}
 	; Reset search array
 	SunnyRef.AuxVarErase "*DH_Date_Search"
 	TrudyRef.AuxVarErase "*DH_Location_Search"
+
+	if eval sSearch == ""
+		sv_Destruct sSearch
+		Call (CompileScript "DialogueHistory\RefreshMenu.gek")
+		return
+	endif
+
 	aSearchIDs = ar_Construct "array"
 
 	aNPCNames = Ar_Unique (RingoRef.AuxVarGetAsArr "*DH_NPC_List")
@@ -38,6 +42,7 @@ begin Function {sSearch}
 
 	; Early return when we know the search will fails
 	if eval (Ar_Size aSearchIDs) < 1
+		SetUIFloatAlt "StartMenu\DialogueHistory\Search\_search_count" 0
 		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\visible" 0
 		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\visible" 0
 		aNPCNames = aSearchIDs = aTemp = Ar_Null

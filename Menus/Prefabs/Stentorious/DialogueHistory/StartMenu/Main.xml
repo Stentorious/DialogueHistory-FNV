@@ -89,8 +89,6 @@
 		<sub> 20 </sub>
 	</_wrapwidthname>
 
-	<_systemcolor> &mainmenu; </_systemcolor>
-
 	<!-- Scroll bar -->
 	<_list_height_extra> 17 </_list_height_extra>
 
@@ -155,15 +153,17 @@
 			<copy src="io()" trait="_DH+Search" />
 			<copy src="me()" trait="_search_text_" />
 		</_search>
+		<_search_count> 0 </_search_count>
 		<_search_fail>
-			<not src="sibling(WindowDate)" trait="visible" />
+			<not src="me()" trait="_search_count" />
 			<and>
 				<copy src="io()" trait="_DH+Search" />
-				<eq> 2 </eq>
+				<gt> 0 </gt>
 			</and>
 		</_search_fail>
 		<_search_term> Search Term </_search_term>
-		<_search_cursor> | </_search_cursor>
+		<_search_cursor_1> | </_search_cursor_1>
+		<_search_cursor_2> | </_search_cursor_2>
 		<_search_text_0> Search (CTRL-F) </_search_text_0>
 		<_search_text_1> Search Term </_search_text_1>
 		<_search_text_2> <copy src="me()" trait="_search_text_1" /> </_search_text_2>
@@ -200,12 +200,11 @@
 		<hotrect name="SearchBar">
 			<id> 506 </id>
 			<visible> 1 </visible>
-
+			<x> 4 </x>
 			<target>
 				<copy src="io()" trait="_DH+Search" />
 				<neq> 1 </neq>
 			</target>
-
 			<alpha> 0 </alpha>
 			<locus> 1 </locus>
 			<width>
@@ -216,10 +215,11 @@
 			<height> <copy src="parent()" trait="_height" /> </height>
 			<mouseoversound> UIMenuFocus </mouseoversound>
 			<clicksound> UIMenuMode </clicksound>
+			<clipwindow> 1 </clipwindow>
 
 			<image name="Background">
 				<visible> 1 </visible>
-				<x> 0 </x>
+				<x> -4 </x>
 				<y> 0 </y>
 				<depth> 0 </depth>
 				<width> <copy src="parent()" trait="width" /> </width>
@@ -232,8 +232,11 @@
 
 			<image name="Window">
 				<visible> 1 </visible>
-				<x> <copy src="globals()" trait="_line_thickness"/> </x>
-				<y> <copy src="me()" trait="x" /> </y>
+				<x>
+					<copy src="globals()" trait="_line_thickness"/>
+					<sub> 4 </sub>
+				</x>
+				<y> <copy src="globals()" trait="_line_thickness"/> </y>
 				<depth> 1 </depth>
 				<width>
 					<copy src="sibling(Background)" trait="width" />
@@ -255,9 +258,18 @@
 
 			<text name="Text">
 				<visible> <not src="sibling(TextCursor)" trait="visible" /> </visible>
-				<x> 8 </x>
+				<x>
+					<copy> 4 </copy>
+					<add>
+						<copy src="sibling(Icon)" trait="x" />
+						<sub src="me()" trait="width" />
+						<sub> 16 </sub>
+						<min> 0 </min>
+					</add>
+				</x>
 				<y> 10 </y>
 				<depth> 2 </depth>
+				<clips> 1 </clips>
 				<systemcolor>
 					<copy> 0 </copy>
 					<add>
@@ -279,19 +291,21 @@
 
 			<text name="TextCursor">
 				<visible>
-					<copy src="io()" trait="_DH+Pulse" /> <gt> 1 </gt>
-					<and>
-						<copy src="io()" trait="_DH+Search" />
-						<eq> 1 </eq>
-					</and>
+					<copy src="io()" trait="_DH+Search" />
+					<eq> 1 </eq>
 				</visible>
-				<x> 8 </x>
+				<x> <copy src="sibling(Text)" trait="x" /> </x>
 				<y> 10 </y>
 				<depth> 2 </depth>
+				<clips> 1 </clips>
 				<systemcolor> <copy src="sibling(Text)" trait="systemcolor" /> </systemcolor>
 				<brightness> <copy src="grandparent()" trait="_search_brightness_1" /> </brightness>
 				<font> <copy src="io()" trait="_DH+Font" /> </font>
-				<string> <copy src="grandparent()" trait="_search_cursor" /> </string>
+				<_string>
+					<copy src="io()" trait="_DH+Pulse" />
+					<copy src="grandparent()" trait="_search_cursor_" />
+				</_string>
+				<string> <copy src="me()" trait="_string" /> </string>
 			</text>
 
 			<image name="Icon">
@@ -409,7 +423,7 @@
 		<y> 0 </y>
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -421,7 +435,7 @@
 		</y>
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -434,7 +448,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -444,7 +458,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -457,7 +471,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -467,7 +481,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -483,7 +497,7 @@
 			<add src="globals()" trait="_line_thickness"/>
 		</width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="Outline_HBL">
@@ -494,7 +508,7 @@
 		</y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="Outline_HBR">
@@ -512,7 +526,7 @@
 			<sub src="globals()" trait="_line_thickness"/>
 		</width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="TitleIcon">
@@ -626,7 +640,7 @@
 		<string> 20th of April - 2:36 PM </string>
 	</text>
 	<text name="NoHistoryFound">
-		<visible> <not src="sibling(WindowDate)" trait="visible" /> </visible>
+		<visible> <not src="sibling(Search)" trait="_search_count" /> </visible>
 		<x>
 			<copy src="parent()" trait="_width" />
 			<div> 2 </div>

@@ -1,6 +1,10 @@
 int iKeyID
 
+int iCursorPos
+int iLength
+int iSearch
 string_var sSearch
+string_var sCursor
 
 begin Function {iKeyID}
 
@@ -9,33 +13,90 @@ begin Function {iKeyID}
 	endif
 
 	sSearch = GetUIString "StartMenu\DialogueHistory\Search\_search_text_1"
+	iCursorPos = Goo1.AuxVarGetFlt "*DiaHist_Cursor"
 
-	if eval iKeyID == 28
-		if eval sSearch != ""
-			Call (CompileScript "DialogueHistory\Search.gek") (sSearch)
-			sv_Destruct sSearch
+	; Update cursor position
+	if eval iKeyID == 203 || iKeyID == 205 || iKeyID == 199 || iKeyID == 207
+		iLength = sv_Length sSearch
+
+		; Left arrow
+		if eval iKeyID == 203
+			iCursorPos -= 1
+		; Right arrow
+		elseif eval iKeyID == 205
+			iCursorPos += 1
+		; Home
+		elseif eval iKeyID == 199
+			iCursorPos = 0
+		; End
+		elseif eval iKeyID == 207
+			iCursorPos = iLength
 		endif
+		iCursorPos = Clamp iCursorPos 0 iLength
+
+	; Enter
+	elseif eval iKeyID == 28
+		SetUIFloatAlt "StartMenu\_DH+Search" 2
+		sv_Destruct sSearch
 		return
-	elseif eval iKeyID == 14
-		if eval sSearch != ""
-			sSearch[-1] = ""
-		endif
-	elseif eval iKeyID == 57
-		sSearch = sv_Construct "%z " sSearch
+
+	; Ctrl-F
 	elseif eval iKeyID == 33 && (IsKeyPressed 29 2 || IsKeyPressed 157 2)
+		sv_Destruct sSearch
+		return
+
+	; Backspace
+	elseif eval iKeyID == 14
+		if eval iCursorPos > 0
+			iCursorPos -= 1
+			sSearch[iCursorPos] = ""
+			iSearch = 1
+		endif
+
+	; Space
+	elseif eval iKeyID == 57
+		sv_Insert " " sSearch iCursorPos
+		iCursorPos += 1
+		iSearch = 1
+
+	; Characters
 	else
 		if eval IsKeyPressed 42 2 == 0 && IsKeyPressed 54 2 == 0
-			sSearch += sv_ToLower (sv_Construct "%k" iKeyID)
+			sv_Insert (sv_ToLower (sv_Construct "%k" iKeyID)) sSearch iCursorPos
 		else
-			sSearch = sv_Construct "%z%k" sSearch iKeyID
+			sv_Insert (sv_Construct "%k" iKeyID) sSearch iCursorPos
 		endif
+		iCursorPos += 1
+		iSearch = 1
 	endif
 
 	; Update string
 	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%z" sSearch
-	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor" "%z|" sSearch
 	SetUIFloatAlt "StartMenu\_DH+Search" 0
 	SetUIFloatAlt "StartMenu\_DH+Search" 1
+
+	; Update cursor
+	Goo1.AuxVarSetFlt "*DiaHist_Cursor" iCursorPos
+	sCursor = sSearch
+	sv_Insert "|" sCursor iCursorPos
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_1" (sCursor)
+	sCursor[iCursorPos] = " "
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_2" (sCursor)
+	SetUIFloatGradual "StartMenu\_DH+Pulse" 1
+	SetUIFloatGradual "StartMenu\_DH+Pulse" 1 2.5 1 2
+
+	; Queue input
+	if eval Goo1.AuxVarType "*DiaHist_QKey" == 0
+		AuxTimerStart "*DiaHist_QKey" 0.5 13
+	else
+		AuxTimerStart "*DiaHist_QKey" 0.05 13
+	endif
+	Goo1.AuxVarSetFlt "*DiaHist_QKey" iKeyID
+
+	; Queue search
+	if eval iSearch == 1
+		AuxTimerStart "*DiaHist_Search" 0.5 13
+	endif
 
 	sv_Destruct sSearch
 

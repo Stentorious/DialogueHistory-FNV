@@ -62,8 +62,8 @@ SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 33			
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 35			; H
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 264			; Wheel Up
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 265			; Wheel Down
-SetEventHandler "OnButtonDown:64" (CompileScript "DialogueHistory\OnButtonDown.gek")		; RS
-SetEventHandler "OnButtonDown:15" (CompileScript "DialogueHistory\OnButtonDown.gek")		; DPad
+SetEventHandler "OnButtonDown:64" (CompileScript "DialogueHistory\OnButtonDown.gek")	; RS
+SetEventHandler "OnButtonDown:15" (CompileScript "DialogueHistory\OnButtonDown.gek")	; DPad
 SetEventHandler "OnButtonDown:4096" (CompileScript "DialogueHistory\OnButtonDown.gek")	; A Button
 SetEventHandler "OnButtonDown:8192" (CompileScript "DialogueHistory\OnButtonDown.gek")	; B Button
 SetEventHandler "OnButtonDown:16384" (CompileScript "DialogueHistory\OnButtonDown.gek")	; X Button
@@ -77,12 +77,24 @@ SetEventHandler "SaveGame" (CompileScript "DialogueHistory\OnSaveGame.gek")
 array_var aKeys = Ar_List 2 3 4 5 6 7 8 9 10 11 16 17 18 19 20 21 22 23 24 25
 array_var aTemp = Ar_List 30 31 32 33 34 35 36 37 38 44 45 46 47 48 49 50 14 28 57
 ar_Cat aKeys aTemp
+aTemp = Ar_List 199 207 203 205
+ar_Cat aKeys aTemp
 if eval (int iSize = ar_Size aKeys) > 0
 	while (iSize -= 1) > -1
 		SetOnKeyDownEventHandler (CompileScript "DialogueHistory\SearchInput.gek") 1 (aKeys[iSize])
+		SetOnKeyUpEventHandler (CompileScript "DialogueHistory\OnKeyUp.gek") 1 (aKeys[iSize])
 	loop
 endif
 aKeys = aTemp = ar_Null
+
+; Controller scroll events
+SetEventHandler "OnButtonUp:3" (begin function {int iKeyCode}
+	if eval Goo1.AuxVarType "*DiaHist_QBut" == 0
+		return
+	endif
+	AuxTimerStop "*DiaHist_QBut"
+	Goo1.AuxVarErase "*DiaHist_QBut"
+end)
 
 ; Set Actor name color
 SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)

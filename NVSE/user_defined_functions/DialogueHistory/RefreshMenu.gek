@@ -22,8 +22,11 @@ begin Function {}
 		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
 
 		; Reset search terms
+		Goo1.AuxVarSetFlt "*DiaHist_Cursor" 0
 		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" "%e"
 		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%e"
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_1" "|"
+		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_2" " "
 
 		; Add conversation index to sorting maps
 		if eval TestExpr (aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1)
@@ -61,6 +64,8 @@ begin Function {}
 
 	endif
 
+	SetUIFloatAlt "StartMenu\DialogueHistory\Search\_search_count" 0
+
 	; Prevent loading menu if no dialogue history
 	if eval SunnyRef.AuxVarSize "*DH_Date_List" < 1
 		return
@@ -76,13 +81,14 @@ begin Function {}
 
 	; Sort by location
 	if eval GetUIFloatAlt "StartMenu\_DH+Sort" == 1
-		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 2
+		if eval GetUIFloatAlt "StartMenu\_DH+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
 			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_Search"
 		else
 			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_List"
 		endif
 		aJSON = Ar_Sort aJSON 1
 		if eval (iSize = ar_Size aJSON) > 0
+			SetUIFloatAlt "StartMenu\DialogueHistory\Search\_search_count" 1
 			while (iSize -= 1) > -1
 				AddTileFromTemplate "StartMenu\DialogueHistory\WindowDate\ListBox|DHDateTemplate|Entry"
 				SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\ListBox\Entry:0\_index" iSize
@@ -92,12 +98,14 @@ begin Function {}
 
 	; Sort by date
 	else
-		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 2
+		if eval GetUIFloatAlt "StartMenu\_DH+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
 			aJSON = SunnyRef.AuxVarGetAsArr "*DH_Date_Search"
+			aJSON = Ar_Sort aJSON
 		else
 			aJSON = SunnyRef.AuxVarGetAsArr "*DH_Date_List"
 		endif
 		if eval (iSize = ar_Size aJSON) > 0
+			SetUIFloatAlt "StartMenu\DialogueHistory\Search\_search_count" 1
 			aMonth = ar_List (GetStringSetting "sMonthJanuary") (GetStringSetting "sMonthFebruary") (GetStringSetting "sMonthMarch") (GetStringSetting "sMonthApril") (GetStringSetting "sMonthMay") (GetStringSetting "sMonthJune") (GetStringSetting "sMonthJuly") (GetStringSetting "sMonthAugust") (GetStringSetting "sMonthSeptember") (GetStringSetting "sMonthOctober") (GetStringSetting "sMonthNovember") (GetStringSetting "sMonthDecember")
 			while (iSize -= 1) > -1
 				AddTileFromTemplate "StartMenu\DialogueHistory\WindowDate\ListBox|DHDateTemplate|Entry"

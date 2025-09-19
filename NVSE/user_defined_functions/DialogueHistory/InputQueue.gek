@@ -1,0 +1,21 @@
+ref rOwner
+string_var sTimerName
+
+begin Function {sTimerName, rOwner}
+
+	if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+		sv_Destruct sTimerName
+		return
+	endif
+
+	if eval sTimerName == "*DiaHist_QBut"
+		Call (CompileScript "DialogueHistory\OnButtonDown.gek") (Goo1.AuxVarGetFlt "*DiaHist_QBut")
+	elseif eval sTimerName == "*DiaHist_QKey"
+		Call (CompileScript "DialogueHistory\SearchInput.gek") (Goo1.AuxVarGetFlt "*DiaHist_QKey")
+	elseif eval sTimerName == "*DiaHist_Search"
+		Call (CompileScript "DialogueHistory\Search.gek") (GetUIString "StartMenu\DialogueHistory\Search\_search_text_1")
+	endif
+
+	sv_Destruct sTimerName
+
+End

@@ -29,7 +29,7 @@ begin Function {sTilePath}
 		if eval (iSize = iEntries = ar_Size aJSON) > 0
 			while (iSize -= 1) > -1
 				sName = RingoRef.AuxVarGetStr "*DH_NPC_List" (aJSON[iSize])
-				if eval iSearch == 2 && (Sv_Find (sSearch) (sName)) == -1
+				if eval iSearch > 0 && (Sv_Find (sSearch) (sName)) == -1
 					iEntries -= 1
 					continue
 				endif
