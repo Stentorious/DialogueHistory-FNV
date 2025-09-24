@@ -41,7 +41,6 @@ Goo1.AuxVarSetFlt "*_ScreenHeight" (GetNumericINISetting "iSize H:Display")
 SetOnNPCResponseEventHandler 1 (CompileScript "DialogueHistory\OnNPCResponse.gek")
 
 ; Menu events
-SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 1 1 2
 SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnDialogMenuOpen.gek") 1 1009
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnDialogMenuClose.gek") 1 1009
 SetOnMenuOpenEventHandler ({int iMenuID} => SetUIFloatAlt "StartMenu\_DH+Pause" (eval !(MenuMode 4))) 1 1013

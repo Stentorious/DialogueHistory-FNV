@@ -14,6 +14,9 @@ begin Function {iMenuID}
 		return
 	endif
 
+	; Stop menu loop
+	SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 0
+
 	; Update JSON (dialogue)
 	aEntry = ar_Construct "stringmap"
 	aEntry["time"] = Goo1.AuxVarGetFlt "*DiaHist_ConvoData" 0

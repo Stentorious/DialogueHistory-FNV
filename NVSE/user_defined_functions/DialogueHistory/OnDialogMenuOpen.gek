@@ -17,6 +17,9 @@ begin Function {iMenuID}
 	endif
 	SetUIFloatAlt "DialogMenu\_DH+Init" 1
 
+	; Init menu loop
+	SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 1 1 10
+
 	; Enable smooth scrolling
 	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
 
