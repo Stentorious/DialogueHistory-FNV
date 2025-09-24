@@ -13,7 +13,7 @@ begin Function {sSaveName}
 
 	; Init new JSON if loading save without existing Dialog History
 	if eval FileExists (sJSONName) == 0
-		WriteToJSON (ar_Construct "array") (sSaveName) "" 0 1 1
+		WriteToJSON (ar_Construct "array") (sSaveName) "" 0 1 0
 	endif
 
 	; Clear cache of previous save

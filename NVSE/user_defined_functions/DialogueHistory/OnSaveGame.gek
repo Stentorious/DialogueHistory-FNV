@@ -15,12 +15,17 @@ begin Function {sSaveName}
 	endif
 
 	; Erase excess entries
-	if eval (iLimit = Goo1.AuxVarGetFlt "*DiaHist_INI" 0) > 0 && (iSize = ar_Size aJSON) > 0 && iSize > iLimit
+	iSize = ar_Size aJSON
+	if eval (iLimit = Goo1.AuxVarGetFlt "*DiaHist_INI" 0) > 0 && iSize > 0 && iSize > iLimit
 		Ar_Erase aJSON 0:(iSize - iLimit - 1)
 	endif
 
-	; Save new JSON
-	WriteToJSON aJSON (sSaveName) "" 0 1 1
+	; Save new JSON to  disk if any entries
+	if eval iSize > 0
+		WriteToJSON aJSON (sSaveName) "" 0 1 1 1
+	else
+		WriteToJSON aJSON (sSaveName) "" 0 1 0
+	endif
 	CloseFileSO (Goo1.AuxVarGetStr "*DiaHist_Save") 1
 
 	; Cache Dialog History JSON filepath
