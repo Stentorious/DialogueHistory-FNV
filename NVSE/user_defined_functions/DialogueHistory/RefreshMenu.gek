@@ -17,8 +17,8 @@ begin Function {}
 	if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
 		SetUIFloatAlt "StartMenu\_DH+Init" 1
 
-		; Enable smooth scrolling
-		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_VUI+SmoothScrolling" 1
+		; Toggle smooth scrolling
+		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_VUI+SmoothScrolling" 0
 		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
 
 		; Reset search terms
