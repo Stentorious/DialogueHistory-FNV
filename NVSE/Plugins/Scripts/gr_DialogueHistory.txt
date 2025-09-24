@@ -9,7 +9,7 @@ if GetPluginVersion "JohnnyGuitarNVSE" < 517
 	MessageBoxEx "Dialogue History missing requirement!%rInstall latest JohnnyGuitar NVSE plugin."
 	return
 endif
-if GetPluginVersion "ShowOffNVSE Plugin" < 165
+if GetPluginVersion "ShowOffNVSE Plugin" < 181
 	MessageBoxEx "Dialogue History missing requirement!%rInstall latest ShowOff NVSE plugin."
 	return
 endif
