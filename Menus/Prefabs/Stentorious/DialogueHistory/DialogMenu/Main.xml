@@ -372,6 +372,7 @@
 		<y>
 			<copy src="sibling(Entry)" trait="y" />
 			<add src="sibling(Entry)" trait="_height" />
+			<max> 0 </max>
 		</y>
 		<clips> 1 </clips>
 
