@@ -42,26 +42,6 @@ begin Function {sDialogue, sVoicePath}
 		sVoicePath[0:16] = ""
 	endif
 
-	; JSON fix
-	if eval (Sv_Replace "’|'" sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-	if eval (Sv_Replace "…|..." sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-	if eval (Sv_Replace "ï|i" sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-	if eval (Sv_Replace "à|a" sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-	if eval (Sv_Replace "é|e" sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-	if eval (Sv_Replace "í|i" sDialogue) > 0
-		PrintC "Dialogue History: Successfully replaced Unicode character."
-	endif
-
 	; Update tile
 	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_dialog" "%z" (sDialogue)
 	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\Dialog\_sound" "Data\Sound\Voice\%z" (sVoicePath)
