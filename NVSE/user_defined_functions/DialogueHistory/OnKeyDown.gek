@@ -28,6 +28,7 @@ begin Function {iKeyID}
 					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
 					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
 					SetUIFloatAlt "StartMenu\_DH+Visible" 1
+					DisableButton 8192
 					PlaySound UIMenuOk 1
 
 					; Show update message
@@ -45,6 +46,7 @@ begin Function {iKeyID}
 				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
+				EnableButton 8192
 				PlaySound UIMenuCancel 1
 				return
 			endif
