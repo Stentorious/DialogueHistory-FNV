@@ -20,16 +20,18 @@ begin Function {sSaveName}
 		Ar_Erase aJSON 0:(iSize - iLimit - 1)
 	endif
 
-	; Save new JSON to  disk if any entries
-	if eval iSize > 0
-		WriteToJSON aJSON (sSaveName) "" 0 1 1 1
-	else
-		WriteToJSON aJSON (sSaveName) "" 0 1 0
-	endif
+	; Clear cache of previous save
 	CloseFileSO (Goo1.AuxVarGetStr "*DiaHist_Save") 1
 
 	; Cache Dialog History JSON filepath
 	Goo1.AuxVarSetStr "*DiaHist_Save" (sSaveName)
+
+	; Save new JSON to disk if any entries or overwrite existing history
+	if eval iSize > 0 || FileExists (sSaveName[5:-1])
+		WriteToJSON aJSON (sSaveName) "" 0 1 1 1
+	else
+		WriteToJSON aJSON (sSaveName) "" 0 1 0
+	endif
 
 	aJSON = Ar_Null
 	sv_Destruct sSaveName
