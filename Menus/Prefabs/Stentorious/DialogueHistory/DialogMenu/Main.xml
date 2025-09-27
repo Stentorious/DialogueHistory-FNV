@@ -15,6 +15,10 @@
 <_DH+Darn> <copy src="sibling(HUDMainMenu)" trait="_DH+Darn" /> </_DH+Darn>
 <_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
 
+<!-- Game -->
+<_screen_width> <copy src="screen()" trait="width" /> </_screen_width>
+<_screen_height> <copy src="screen()" trait="height" /> </_screen_height>
+
 <hotrect name="DialogueHistoryButton">
 	<include src="text_box.xml"/>
 	<visible> <copy src="io()" trait="_DH+ShowButton" /> </visible>

@@ -1,6 +1,8 @@
 int	iKeyID
 
 int	iMenuID
+float xmlCursorPosX
+float xmlCursorPosY
 
 begin Function {iKeyID}
 
@@ -71,8 +73,8 @@ begin Function {iKeyID}
 		endif
 
 		; Mouse Wheel
-		float xmlCursorPosX = (((GetUIFloatAlt "StartMenu\_screen_width") / (Goo1.AuxVarGetFlt "*_ScreenWidth")) * (GetCursorPos X)) - GetUIFloatAlt "StartMenu\DialogueHistory\x"
-		float xmlCursorPosY = (((GetUIFloatAlt "StartMenu\_screen_height") / (Goo1.AuxVarGetFlt "*_ScreenHeight")) * (GetCursorPos Y)) - GetUIFloatAlt "StartMenu\DialogueHistory\y"
+		xmlCursorPosX = (((GetUIFloatAlt "StartMenu\_screen_width") / (Goo1.AuxVarGetFlt "*_ScreenWidth")) * (GetCursorPos X)) - GetUIFloatAlt "StartMenu\DialogueHistory\x"
+		xmlCursorPosY = (((GetUIFloatAlt "StartMenu\_screen_height") / (Goo1.AuxVarGetFlt "*_ScreenHeight")) * (GetCursorPos Y)) - GetUIFloatAlt "StartMenu\DialogueHistory\y"
 		if eval xmlCursorPosX > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\x" && xmlCursorPosX < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\x" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\width") && xmlCursorPosY > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\y" && xmlCursorPosY < (GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\y" + GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height")
 			if eval iKeyID == 264
 				ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_up"
@@ -102,11 +104,15 @@ begin Function {iKeyID}
 		endif
 
 		; Mouse Wheel
-		if eval GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\mouseover" == 1
-			if eval iKeyID == 264
-				ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
-			elseif eval iKeyID == 265
-				ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+		if eval iKeyID == 264 || iKeyID == 265
+			xmlCursorPosX = (((GetUIFloatAlt "DialogMenu\_screen_width") / (Goo1.AuxVarGetFlt "*_ScreenWidth")) * (GetCursorPos X)) - GetUIFloatAlt "DialogMenu\DialogueHistory\x"
+			xmlCursorPosY = (((GetUIFloatAlt "DialogMenu\_screen_height") / (Goo1.AuxVarGetFlt "*_ScreenHeight")) * (GetCursorPos Y)) - GetUIFloatAlt "DialogMenu\DialogueHistory\y"
+			if eval xmlCursorPosX > GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\x" && xmlCursorPosX < (GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\x" + GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\width") && xmlCursorPosY > GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\y" && xmlCursorPosY < (GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\y" + GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\height")
+				if eval iKeyID == 264
+					ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
+				elseif eval iKeyID == 265
+					ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
+				endif
 			endif
 		endif
 
