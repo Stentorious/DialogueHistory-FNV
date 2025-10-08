@@ -4,7 +4,6 @@
 </p>
 
 ## Overview
-⚠️ This only officially supports the English version of the game at the moment. ⚠️
 - View, search, and listen to your previous conversations via a new interface accessible through the Pause Menu.
 - Additionally view the transcript of your current conversation in the Dialogue Menu.
 - Full controller support included.
@@ -22,13 +21,19 @@ Accessed with H or Left Stick while in the Dialogue Menu.
 - Find: Use the search bar to filter by NPC name.
 - Sort: Use the button next to the search bar to switch sorting mode.
 
+### How It Works
+- Logs all conversations that occur in the Dialogue Menu.
+- Conversations are stored in save specific JSON files found in the Data\DialogueHistory directory.
+- Oldest conversation entries are deleted automatically on save when a configurable limit is reached.
+- These files can be deleted at any time, no data is baked into the save.
+
 ### Special Thanks
 - Wadelz for the SetOnNPCResponse event.
 - WallSoGB for the helping me add the SoundFromPath functions.
 - Audley and BillieBobWell for helping me test.
 
 ## Configuration
-- Configurable via the included DialogueHistory.ini.
+- Configurable via [MCM Extender](https://www.nexusmods.com/newvegas/mods/93642)
 
 ### General
 - Toggle saving conversations to JSON entirely.
@@ -46,6 +51,7 @@ Accessed with H or Left Stick while in the Dialogue Menu.
 - [JohnnyGuitar NVSE](https://www.nexusmods.com/newvegas/mods/66927)
 - [ShowOff xNVSE](https://www.nexusmods.com/newvegas/mods/72541)
 - [User Interface Organizer](https://www.nexusmods.com/newvegas/mods/57174)
+- [MCM Extender](https://www.nexusmods.com/newvegas/mods/93642)
 
 ## Installation
 Installs like any other mod, manually or using a mod manager.
