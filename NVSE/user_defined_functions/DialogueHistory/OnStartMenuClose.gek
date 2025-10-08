@@ -5,6 +5,9 @@ array_var aTemp
 
 begin Function {iMenuID}
 
+	; Enable B button
+	DisableButton 8192
+
 	; Stop sound
 	StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 
