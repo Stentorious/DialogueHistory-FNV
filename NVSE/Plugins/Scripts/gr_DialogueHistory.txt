@@ -43,12 +43,12 @@ SetOnNPCResponseEventHandler 1 (CompileScript "DialogueHistory\OnNPCResponse.gek
 ; Menu events
 SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnDialogMenuOpen.gek") 1 1009
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnDialogMenuClose.gek") 1 1009
-SetOnMenuOpenEventHandler ({int iMenuID} => SetUIFloatAlt "StartMenu\_DH+Pause" (eval !(MenuMode 4))) 1 1013
+SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnStartMenuOpen.gek") 1 1013
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnStartMenuClose.gek") 1 1013
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\NOGLOW_BRANCH\DM_TopicList"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\DialogueHistoryButton"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu#508"
-SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu\DialogueHistoryButton"
+SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#503"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#504"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#505"
@@ -57,6 +57,7 @@ SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#508"
 
 ; Menu control events
+SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 15			; Tab
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 33			; F
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 35			; H
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 264			; Wheel Up

@@ -4,6 +4,8 @@ Stentorious\DialogueHistory\StartMenu\Main.xml::StartMenu
 true
 Stentorious\DialogueHistory\StartMenu\main_container.xml::StartMenu::main_container
 true
+Stentorious\DialogueHistory\StartMenu\BackButtonClone.xml::StartMenu::NOGLOW_BRANCH
+true
 Stentorious\DialogueHistory\DialogMenu\Main.xml::DialogMenu
 true
 Stentorious\DialogueHistory\DialogMenu\DM_SpeakerNameLabel.xml::DialogMenu::DM_SpeakerNameLabel

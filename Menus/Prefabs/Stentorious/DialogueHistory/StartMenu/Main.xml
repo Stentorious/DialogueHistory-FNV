@@ -4,7 +4,6 @@
 <_DH+Searching> 0 </_DH+Searching>
 <_DH+Sort> 0 </_DH+Sort>
 <_DH+Pulse> 0 </_DH+Pulse>
-<_DH+Pause> 0 </_DH+Pause>
 
 <_DH+ShowButton> <copy src="sibling(HUDMainMenu)" trait="_DH+ShowButton" /> </_DH+ShowButton>
 <_DH+SpkrSystemcolor_0> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrSystemcolor_0" /> </_DH+SpkrSystemcolor_0>
@@ -23,36 +22,6 @@
 <_controller> <copy src="globals()" trait="_Has360Controller"/> </_controller>
 <_screen_width> <copy src="screen()" trait="width" /> </_screen_width>
 <_screen_height> <copy src="screen()" trait="height" /> </_screen_height>
-
-<hotrect name="DialogueHistoryButton">
-	<include src="text_box.xml"/>
-	<visible>
-		<copy src="io()" trait="_DH+ShowButton" />
-		<and src="io()" trait="_DH+Pause" />
-		<and>
-			<copy src="main_container" trait="_enabled" />
-			<or src="io" trait="_DH+Visible" />
-		</and>
-	</visible>
-	<_string_0> Dialog History </_string_0>
-	<_string_1> Hide </_string_1>
-	<_string>
-		<copy src="io()" trait="_DH+Visible" />
-		<copy src="me()" trait="_string_" />
-	</_string>
-	<string> <copy src="me()" trait="_string" /> </string>
-	<_x>
-		<copy src="screen()" trait="width" />
-		<sub> 80 </sub>
-	</_x>
-	<_y>
-		<copy src="screen()" trait="height" />
-		<sub> 75 </sub>
-	</_y>
-	<justify> &right; </justify>
-	<_xbox_button> &xbuttonls; </_xbox_button>
-	<_PCButtonText> H) </_PCButtonText>
-</hotrect>
 
 <rect name="DialogueHistory">
 

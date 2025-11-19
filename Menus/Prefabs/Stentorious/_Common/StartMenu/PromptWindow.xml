@@ -1,0 +1,194 @@
+<rect name="StentoriousPromptWindow">
+
+	<_visible> 0 </_visible>
+	<_width> 0 </_width>
+	<_height>
+		<copy src="me()" trait="_entry_height" />
+		<mul src="me()" trait="_count" />
+	</_height>
+	<_systemcolor> 1 </_systemcolor>
+	<_font> 7 </_font>
+	<_count>
+		<copy src="me()" trait="childcount" />
+		<sub> 2 </sub>
+	</_count>
+	<_entry_height> 36 </_entry_height>
+	<_background_pad> 8 </_background_pad>
+
+	<visible>
+		<copy src="main_container" trait="_enabled" />
+		<and src="me()" trait="_visible" />
+	</visible>
+	<locus> 1 </locus>
+	<x>
+		<copy src="main_container" trait="x" />
+		<add src="main_container" trait="width" />
+		<sub src="me()" trait="_width" />
+	</x>
+	<y>
+		<copy src="screen()" trait="height" />
+		<sub src="child(WindowBackground)" trait="height" />
+		<sub> 25 </sub>
+	</y>
+
+	<image name="WindowBackground">
+		<visible> 1 </visible>
+		<alpha> 175 </alpha>
+		<depth> 0 </depth>
+		<x>
+			<copy> 0 </copy>
+			<sub src="parent()" trait="_background_pad" />
+		</x>
+		<y>
+			<copy> 0 </copy>
+			<sub src="parent()" trait="_background_pad" />
+		</y>
+		<width>
+			<copy src="parent()" trait="_width" />
+			<add>
+				<copy src="parent()" trait="_background_pad" />
+				<mul> 2 </mul>
+			</add>
+		</width>
+		<height>
+			<copy src="parent()" trait="_height" />
+			<add>
+				<copy src="parent()" trait="_background_pad" />
+				<mul> 2 </mul>
+			</add>
+		</height>
+		<zoom> &scale; </zoom>
+		<systemcolor> 0 </systemcolor>
+		<red> 0 </red>
+		<green> 0 </green>
+		<blue> 0 </blue>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
+
+
+	<!-- Headlines -->
+	<rect name="Headlines">
+		<visible> 1 </visible>
+		<locus> 1 </locus>
+		<depth> 1 </depth>
+		<x> 0 </x>
+		<y> 0 </y>
+		<image name="Headline_VL">
+			<x>
+				<copy> 0 </copy>
+				<sub src="globals()" trait="_line_thickness" />
+			</x>
+			<width> <copy src="globals()" trait="_line_thickness" /> </width>
+			<height> <copy src="grandparent()" trait="_height" /> </height>
+			<filename> Interface\Shared\solid.dds </filename>
+		</image>
+		<image name="Headline_VR">
+			<x> <copy src="grandparent()" trait="_width" /> </x>
+			<width> <copy src="sibling(Headline_VL)" trait="width" /> </width>
+			<height> <copy src="sibling(Headline_VL)" trait="height" /> </height>
+			<filename> Interface\Shared\solid.dds </filename>
+		</image>
+		<image name="Headline_HT">
+			<x> <copy src="sibling(Headline_VL)" trait="x" /> </x>
+			<y> <copy src="me()" trait="x" /> </y>
+			<width>
+				<copy src="grandparent()" trait="_width" />
+				<add src="globals()" trait="_line_thickness" />
+				<add src="globals()" trait="_line_thickness" />
+			</width>
+			<height> <copy src="globals()" trait="_line_thickness" /> </height>
+			<filename> Interface\Shared\solid.dds </filename>
+		</image>
+		<image name="Headline_HB">
+			<x> <copy src="sibling(Headline_HT)" trait="x" /> </x>
+			<y> <copy src="grandparent()" trait="_height" /> </y>
+			<width> <copy src="sibling(Headline_HT)" trait="width" /> </width>
+			<height> <copy src="sibling(Headline_HT)" trait="height" /> </height>
+			<filename> Interface\Shared\solid.dds </filename>
+		</image>
+	</rect>
+
+</rect>
+
+<template name="StentoriousPromptTemplate">
+	<hotrect name="StentoriousPromptTemplate">
+
+		<_key> Q) </_key>
+		<_label> Button </_label>
+		<_button> glow_general_button_lb.dds </_button>
+		<_icon> Interface\Shared\solid.dds </_icon>
+		<_font> 3 </_font>
+		<_max_width>
+			<copy src="me()" trait="width" />
+			<max src="sibling(Entry)" trait="_max_width" />
+		</_max_width>
+
+		<visible> 1 </visible>
+		<locus> 1 </locus>
+		<x> 10 </x>
+		<y>
+			<copy src="sibling(Entry)" trait="y" />
+			<add src="sibling(Entry)" trait="height" />
+			<max> 14 </max>
+		</y>
+		<width>
+			<copy src="child(Label)" trait="width" />
+			<add> 88 </add>
+		</width>
+		<height>
+			<copy src="child(Key)" trait="height" />
+		</height>
+		<!-- <target> 1 </target> -->
+
+		<image name="Icon">
+			<depth> 2 </depth>
+			<x> 0 </x>
+			<y> -8 </y>
+			<width> 30 </width>
+			<height> <copy src="me()" trait="width"/> </height>
+			<zoom> &scale; </zoom>
+			<filename> <copy src="parent()" trait="_icon"/> </filename>
+		</image>
+		<text name="Label">
+			<depth> 2 </depth>
+			<x>
+				<copy src="sibling(Icon)" trait="width"/>
+				<add> 7 </add>
+			</x>
+			<y> 0 </y>
+			<brightness> 255 </brightness>
+			<font> <copy src="parent()" trait="_font"/> </font>
+			<justify> &left; </justify>
+			<string> <copy src="parent()" trait="_label"/> </string>
+		</text>
+		<text name="Key">
+			<visible> <not src="globals" trait="_Has360Controller"/> </visible>
+			<depth> 2 </depth>
+			<x>
+				<copy src="grandparent()" trait="_width"/>
+				<sub> 20 </sub>
+			</x>
+			<y> 0 </y>
+			<brightness> 255 </brightness>
+			<font> <copy src="parent()" trait="_font"/> </font>
+			<justify> &right; </justify>
+			<string> <copy src="parent()" trait="_key"/> </string>
+		</text>
+		<image name="Button">
+			<visible> <copy src="globals" trait="_Has360Controller"/> </visible>
+			<depth> 2 </depth>
+			<x>
+				<copy src="sibling(Key)" trait="x"/>
+				<sub src="me()" trait="width"/>
+				<add> 14 </add>
+			</x>
+			<y> -17 </y>
+			<width> 50 </width>
+			<height> <copy src="me()" trait="width"/> </height>
+			<brightness> 255 </brightness>
+			<filename> <copy src="parent()" trait="_button"/> </filename>
+			<texatlas> Interface\InterfaceShared.tai </texatlas>
+		</image>
+
+	</hotrect>
+</template>

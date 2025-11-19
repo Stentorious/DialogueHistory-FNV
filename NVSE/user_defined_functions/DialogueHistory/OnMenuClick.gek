@@ -58,11 +58,12 @@ begin Function {iMenuID, iTileID, sTileName}
 			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
 		endif
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-		PlaySoundFromPath (GetUIString ((sTileName) + "\_sound")) 0 1
+		PlaySoundFromPath (GetUIString ((sTileName) + "\_sound")) 0 1; 0 0 1
 		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (GetUIString ((sTileName) + "\_sound"))
 
 	; DialogMenu Topic (Update dialog)
 	elseif eval sTileName[0:4] == "topic"
+		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 		sDialog = GetUIString ("DialogMenu\NOGLOW_BRANCH\DM_TopicList\" + (sTileName) + "\string")
 		if eval sDialog[1:2] == ". "
 			sDialog[0:2] = ""
@@ -76,6 +77,21 @@ begin Function {iMenuID, iTileID, sTileName}
 	; DialogMenu History Button
 	elseif eval sTileName == "DialogueHistoryButton"
 		Call (CompileScript "DialogueHistory\OnKeyDown.gek") 35
+	elseif eval sTileName == "DialogueHistoryBack"
+		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 1
+			if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
+				SetUIFloatAlt "StartMenu\_DH+Search" 2
+			else
+				ClickMenuButton "StartMenu#507"
+			endif
+		endif
+		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
+		SetUIFloatAlt "StartMenu\_DH+Visible" 0
+		SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
+		SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
+		SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
+		CallAfter 0.2 ({} => EnableButton 8192) 1
+		PlaySound UIMenuCancel 1
 	endif
 
 	sv_Destruct sTileName sDialog

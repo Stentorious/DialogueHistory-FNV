@@ -1,0 +1,35 @@
+int	iMenuID
+
+begin Function {iMenuID}
+
+	if eval IsComponentLoaded "StartMenu\StentoriousPromptWindow" == 0
+		InjectUIXML "StartMenu" "data\menus\prefabs\Stentorious\_Common\StartMenu\PromptWindow.xml"
+	endif
+
+	AddTileFromTemplate "StartMenu\StentoriousPromptWindow|StentoriousPromptTemplate|Entry"
+	SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_index" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\childcount" - 3)
+	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_label" "Dialogue History"
+	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_key" "H)"
+	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_button" "glow_general_button_ls.dds"
+	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_icon" "Interface/Stentorious/DialogueHistory/PromptIcon.dds"
+
+	CallAfterFrames 0 (begin function {}
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_width" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_max_width")
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_height" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\y" + GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\height")
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_visible" 1
+	end) 1
+
+	; MAPMO support
+	if eval GetUIFloatAlt "StartMenu\MAPMO\visible" == -999
+		return
+	endif
+	if eval GetVariable "FontStartMenu" (EditorIDToFormID "MAPMOMainQUEST")
+		SetUIStringAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\string" (sv_ToUpper GetUIString "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\string")
+		SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\font" 8
+	endif
+	SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\height" (GetUIFloatAlt "StartMenu\_item_height")
+ 	SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\wrapwidth" 0
+	SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\y" 11
+	CallAfterFrames 1 ({} => SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\width" ((GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\width")+30))
+
+end
