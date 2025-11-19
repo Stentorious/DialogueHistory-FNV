@@ -42,7 +42,7 @@ begin Function {iButtonID}
 					if eval Goo1.AuxVarGetFlt "*DiaHist_INI" 6
 						MessageBoxExAlt ({int iButton} => "") (GetINIString "Strings:sHelpDialogueHistoryXBox" "Stentorious\Translate\DialogueHistory.ini")
 						SetINIFloat "Mods:DialogueHistory" 100 "Stentorious\UpdateMessages.ini"
-						Goo1.AuxVarSetFlt "*DiaHist_INI" 0 5
+						Goo1.AuxVarSetFlt "*DiaHist_INI" 0 6
 					endif
 
 					return
