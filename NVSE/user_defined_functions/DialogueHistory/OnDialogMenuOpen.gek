@@ -55,7 +55,7 @@ begin Function {iMenuID}
 	endif
 
 	; Update title
-	SetUIStringAlt "DialogMenu\DialogueHistory\TopText\string" "%z - %z, %g:%02.0f %z, %g%z of %z, %g" sName (aDay[(GetDayOfWeek)]) ((Flr fHour) % 12) (Flr ((FMod fHour 1) * 60)) (sHour) iDay (sDay) (aMonth[iMonth]) iYear
+	SetUIStringAlt "DialogMenu\DialogueHistory\TopText\string" "%z - %z, %g:%02.0f %z, %g%z of %z, %g" sName (aDay[(GetDayOfWeek)]) (((Flr (fHour + 24) - 1) % 12) + 1) (Flr ((FMod fHour 1) * 60)) (sHour) iDay (sDay) (aMonth[iMonth]) iYear
 
 	; Update convo aux
 	Goo1.AuxVarSetFlt "*DiaHist_ConvoData" (((iYear - 2200) & 0x7F) << 20 | (iMonth & 0x0F) << 16 | (iDay & 0x1F) << 11 | ((Flr fHour) & 0x1F) << 6 | ((Flr ((FMod fHour 1) * 60)) & 0x3F)) 0
