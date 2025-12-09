@@ -57,9 +57,14 @@ begin Function {iMenuID, iTileID, sTileName}
 		if eval (sTileName = GetActiveUIComponentFullName) == ""
 			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
 		endif
+		sDialog = GetUIString ((sTileName) + "\_sound")
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-		PlaySoundFromPath (GetUIString ((sTileName) + "\_sound")) 0 1; 0 0 1
-		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (GetUIString ((sTileName) + "\_sound"))
+		if eval GetActiveMenuMode == 1009
+			PlaySoundFromPath (sDialog) 0 1 0 0 1
+		else
+			PlaySoundFromPath (sDialog) 0 1
+		endif
+		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (sDialog)
 
 	; DialogMenu Topic (Update dialog)
 	elseif eval sTileName[0:4] == "topic"
