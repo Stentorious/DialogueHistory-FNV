@@ -1028,6 +1028,8 @@
 			</wrapwidth>
 			<justify> &left; </justify>
 			<string> <copy src="parent()" trait="_dialog" /> </string>
+			<mouseoversound> UIMenuFocus </mouseoversound>
+			<clicksound> UIMenuOK </clicksound>
 		</text>
 
 	</hotrect>
