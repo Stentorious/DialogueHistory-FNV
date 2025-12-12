@@ -58,6 +58,9 @@ begin Function {iMenuID, iTileID, sTileName}
 			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
 		endif
 		sDialog = GetUIString ((sTileName) + "\_sound")
+		if eval sDialog == "Data\Sound\Voice\"
+			return
+		endif
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 		if eval GetActiveMenuMode == 1009
 			PlaySoundFromPath (sDialog) 0 1 0 0 1
