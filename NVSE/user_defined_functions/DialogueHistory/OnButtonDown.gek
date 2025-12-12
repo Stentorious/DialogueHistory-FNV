@@ -274,11 +274,13 @@ begin Function {iButtonID}
 		if eval iButtonID == 4 || iButtonID == 8
 			if eval iSelectionWindow == 1
 				iSelectionWindow = 0
+				PlaySound UIMenuFocus 1
 			elseif eval GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\childcount" > 0
 				if GetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" < 0
 					SetUIFloatAlt "StartMenu\DialogueHistory\_selection_right" ((GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\ListBox\childcount") - 1)
 				endif
 				iSelectionWindow = 1
+				PlaySound UIMenuFocus 1
 			endif
 			SetUIFloatAlt "StartMenu\DialogueHistory\_selection_window" iSelectionWindow
 			return
