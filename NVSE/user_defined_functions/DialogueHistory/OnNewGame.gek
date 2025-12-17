@@ -1,3 +1,4 @@
+string_var sDirectory
 string_var sSaveName
 string_var sJSONName
 
@@ -7,7 +8,10 @@ begin Function {}
 	Goo1.AuxVarErase "*DiaHist_ConvoLines"
 	Goo1.AuxVarErase "*DiaHist_ConvoVoice"
 
-	sJSONName = "DialogueHistory\_NewGame.json"
+	if eval (sDirectory = Goo1.AuxVarGetStr "*DiaHist_INI" 7) == ""
+		sDirectory = "DialogueHistory"
+	endif
+	sJSONName = sv_Construct "%z\_NewGame.json" (sDirectory)
 	sSaveName = "Data\" + (sJSONName)
 
 	; Clear cache of previous save
@@ -21,6 +25,6 @@ begin Function {}
 		WriteToJSON (ar_Construct "array") (sSaveName) "" 0 1 0
 	endif
 
-	sv_Destruct sJSONName sSaveName
+	sv_Destruct sDirectory sJSONName sSaveName
 
 end

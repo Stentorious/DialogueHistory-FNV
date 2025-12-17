@@ -33,6 +33,9 @@ SetUIFloatAlt "HUDMainMenu\_DH+ShowButton" (eval GetINIFloat_Cached "Interface:b
 ; Tutorial message
 Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat "Mods:DialogueHistory" "Stentorious\UpdateMessages.ini" < 100) 6
 
+; Custom directory
+Goo1.AuxVarSetStr "*DiaHist_INI" (GetINIString_Cached "General:sCustomDirectory" "Stentorious\DialogueHistory.ini" "") 7
+
 ; Get screen dimensions
 Goo1.AuxVarSetFlt "*_ScreenWidth" (GetNumericINISetting "iSize W:Display")
 Goo1.AuxVarSetFlt "*_ScreenHeight" (GetNumericINISetting "iSize H:Display")

@@ -3,10 +3,14 @@ string_var sSaveName
 int iLimit
 int iSize
 array_var aJSON
+string_var sDirectory
 
 begin Function {sSaveName}
 
-	sSaveName = ("Data\DialogueHistory\" + (sSaveName[0:-5]) + ".json")
+	if eval (sDirectory = Goo1.AuxVarGetStr "*DiaHist_INI" 7) == ""
+		sDirectory = "DialogueHistory"
+	endif
+	sSaveName = sv_Construct "Data\%z\%z.json" (sDirectory) (sSaveName[0:-5])
 
 	;if eval TestExpr (WriteToJSON (ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1) (sSaveName) "" 0 1 1)
 	if eval TestExpr (aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1)
@@ -34,6 +38,6 @@ begin Function {sSaveName}
 	endif
 
 	aJSON = Ar_Null
-	sv_Destruct sSaveName
+	sv_Destruct sDirectory sSaveName
 
 end
