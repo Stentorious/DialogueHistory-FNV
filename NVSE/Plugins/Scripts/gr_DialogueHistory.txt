@@ -109,7 +109,4 @@ SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_1" (Clamp (GetINIFloat_Cached "Interface:
 SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_1" (Clamp (GetINIFloat_Cached "Interface:iNPCGreen" "Stentorious\DialogueHistory.ini" 204) 0 255)
 SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface:iNPCBlue" "Stentorious\DialogueHistory.ini" 255) 0 255)
 
-; Darnified UI support
-SetUIFloatAlt "HUDMainMenu\_DH+Darn" (eval IsModloaded "DarNifiedUINV.esp")
-
 CloseFileSO "Stentorious\DialogueHistory.ini" 0
