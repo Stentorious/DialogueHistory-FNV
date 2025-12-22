@@ -12,7 +12,6 @@
 <_DH+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_1" /> </_DH+SpkrRed_1>
 <_DH+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_1" /> </_DH+SpkrGreen_1>
 <_DH+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_1" /> </_DH+SpkrBlue_1>
-<_DH+Darn> <copy src="sibling(HUDMainMenu)" trait="_DH+Darn" /> </_DH+Darn>
 <_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
 
 <!-- Game -->
@@ -161,18 +160,14 @@
 			<sub src="parent()" trait="_background_pad" />
 		</y>
 		<width>
-			<copy src="parent()" trait="_width" />
-			<add>
-				<copy src="parent()" trait="_background_pad" />
-				<mul> 2 </mul>
-			</add>
+			<copy src="parent()" trait="_background_pad" />
+			<mul> 2 </mul>
+			<add src="parent()" trait="_width" />
 		</width>
 		<height>
-			<copy src="parent()" trait="_height" />
-			<add>
-				<copy src="parent()" trait="_background_pad" />
-				<mul> 2 </mul>
-			</add>
+			<copy src="parent()" trait="_background_pad" />
+			<mul> 2 </mul>
+			<add src="parent()" trait="_height" />
 		</height>
 		<zoom> &scale; </zoom>
 		<systemcolor> 0 </systemcolor>
@@ -244,11 +239,8 @@
 	<!-- Scroll bar -->
 	<_scrolldelta_controller> 3 </_scrolldelta_controller>
 	<_scrolldelta>
-		<copy> 0 </copy>
-		<add>
-			<copy> 36 </copy>
-			<onlyifnot src="globals()" trait="_Has360Controller"/>
-		</add>
+		<copy> 36 </copy>
+		<onlyifnot src="globals()" trait="_Has360Controller"/>
 		<add>
 			<copy src="me()" trait="_scrolldelta_controller"/>
 			<onlyif src="globals()" trait="_Has360Controller"/>
@@ -320,17 +312,15 @@
 			<add> 10 </add>
 		</x>
 		<y>
-			<copy src="sibling(Outline_HTL)" trait="y"/>
+			<copy> -5 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset"/>
+			<add src="sibling(Outline_HTL)" trait="y"/>
+			<add> 5 </add>
 			<add>
 				<copy src="sibling(Outline_HTL)" trait="height"/>
 				<sub src="me()" trait="height"/>
 				<div> 2 </div>
 			</add>
-			<add> 5 </add>
-			<sub>
-				<copy> 5 </copy>
-				<onlyif src="io()" trait="_DH+Darn"/>
-			</sub>
 		</y>
 		<font> 1 </font>
 		<string> NPC Name </string>
@@ -373,13 +363,11 @@
 			<sub> 24 </sub>
 		</x>
 		<y>
-			<copy src="sibling(Outline_HBL)" trait="y"/>
-			<add>
-				<copy src="sibling(Outline_HBL)" trait="height"/>
-				<sub src="me" trait="height"/>
-				<div> 2 </div>
-				<add> 1 </add>
-			</add>
+			<copy src="sibling(Outline_HBL)" trait="height"/>
+			<sub src="me" trait="height"/>
+			<div> 2 </div>
+			<add> 1 </add>
+			<add src="sibling(Outline_HBL)" trait="y"/>
 		</y>
 		<width> 128 </width>
 		<height> 64 </height>
@@ -393,27 +381,22 @@
 			<sub> 24 </sub>
 		</x>
 		<y>
-			<copy src="sibling(BottomIcon)" trait="y"/>
+			<copy> -7 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset"/>
+			<add src="sibling(BottomIcon)" trait="y"/>
+			<add> 7 </add>
 			<add>
 				<copy src="sibling(BottomIcon)" trait="height"/>
 				<sub src="me()" trait="height"/>
 				<div> 2 </div>
-				<add> 7 </add>
 			</add>
-			<sub>
-				<copy> 7 </copy>
-				<onlyif src="io()" trait="_DH+Darn"/>
-			</sub>
 		</y>
 		<font> 1 </font>
 		<string> Dialogue History </string>
 	</text>
 	<image name="Outline_HBL">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
-		<y>
-			<copy> 0 </copy>
-			<add src="parent()" trait="_height" />
-		</y>
+		<y> <copy src="parent()" trait="_height" /> </y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
@@ -521,12 +504,11 @@
 			<visible> 1 </visible>
 			<alpha> 0 </alpha>
 			<y>
-				<copy> 0 </copy>
+				<copy> 5 </copy>
 				<sub>
 					<copy src="sibling(Scrollbar)" trait="_current_value"/>
 					<mul src="sibling(Scrollbar)" trait="_scrolldelta"/>
 				</sub>
-				<add> 5 </add>
 			</y>
 			<locus> 1 </locus>
 		</rect>
@@ -601,12 +583,8 @@
 			<systemcolor> 1 </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
-				<add>
-					<copy> 200 </copy>
-					<onlyif>
-						<copy src="me()" trait="mouseover" />
-					</onlyif>
-				</add>
+				<onlyif src="me()" trait="mouseover" />
+				<add> 200 </add>
 			</brightness>
 			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> <copy src="sibling(Speaker)" trait="zoom" /> </zoom>

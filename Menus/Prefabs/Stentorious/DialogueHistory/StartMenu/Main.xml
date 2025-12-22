@@ -1,4 +1,4 @@
-﻿<_DH+Init>0</_DH+Init>
+﻿<_DH+Init> 0 </_DH+Init>
 <_DH+Visible> 0 </_DH+Visible>
 <_DH+Search> 0 </_DH+Search>
 <_DH+Searching> 0 </_DH+Searching>
@@ -14,7 +14,6 @@
 <_DH+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_1" /> </_DH+SpkrRed_1>
 <_DH+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_1" /> </_DH+SpkrGreen_1>
 <_DH+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_1" /> </_DH+SpkrBlue_1>
-<_DH+Darn> <copy src="sibling(HUDMainMenu)" trait="_DH+Darn" /> </_DH+Darn>
 <_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
 <_DH+Systemcolor> <copy src="child(NOGLOW_BRANCH)" trait="systemcolor"/> </_DH+Systemcolor>
 
@@ -67,36 +66,28 @@
 	<_selection_left_child> -1 </_selection_left_child>
 	<_selection_right> -1 </_selection_right>
 	<_selection_window_input>
-		<copy> -1 </copy>
-		<add>
-			<copy src="me()" trait="_selection_window"/>
-			<add> 1 </add>
-			<onlyif src="io()" trait="_controller"/>
-		</add>
+		<copy src="me()" trait="_selection_window"/>
+		<add> 1 </add>
+		<onlyif src="io()" trait="_controller"/>
+		<sub> 1 </sub>
 	</_selection_window_input>
 	<_selection_left_input>
-		<copy> -1 </copy>
-		<add>
-			<copy src="me()" trait="_selection_left"/>
-			<add> 1 </add>
-			<onlyif src="io()" trait="_controller"/>
-		</add>
+		<copy src="me()" trait="_selection_left"/>
+		<add> 1 </add>
+		<onlyif src="io()" trait="_controller"/>
+		<sub> 1 </sub>
 	</_selection_left_input>
 	<_selection_left_child_input>
-		<copy> -1 </copy>
-		<add>
-			<copy src="me()" trait="_selection_left_child"/>
-			<add> 1 </add>
-			<onlyif src="io()" trait="_controller"/>
-		</add>
+		<copy src="me()" trait="_selection_left_child"/>
+		<add> 1 </add>
+		<onlyif src="io()" trait="_controller"/>
+		<sub> 1 </sub>
 	</_selection_left_child_input>
 	<_selection_right_input>
-		<copy> -1 </copy>
-		<add>
-			<copy src="me()" trait="_selection_right"/>
-			<add> 1 </add>
-			<onlyif src="io()" trait="_controller"/>
-		</add>
+		<copy src="me()" trait="_selection_right"/>
+		<add> 1 </add>
+		<onlyif src="io()" trait="_controller"/>
+		<sub> 1 </sub>
 	</_selection_right_input>
 
 	<!-- Vanilla traits -->
@@ -228,23 +219,18 @@
 			<text name="Text">
 				<visible> <not src="sibling(TextCursor)" trait="visible" /> </visible>
 				<x>
-					<copy> 4 </copy>
-					<add>
-						<copy src="sibling(Icon)" trait="x" />
-						<sub src="me()" trait="width" />
-						<sub> 16 </sub>
-						<min> 0 </min>
-					</add>
+					<copy src="sibling(Icon)" trait="x" />
+					<sub src="me()" trait="width" />
+					<sub> 16 </sub>
+					<min> 0 </min>
+					<add> 4 </add>
 				</x>
 				<y> 10 </y>
 				<depth> 2 </depth>
 				<clips> 1 </clips>
 				<systemcolor>
-					<copy> 0 </copy>
-					<add>
-						<copy> 2 </copy>
-						<onlyif src="grandparent()" trait="_search_fail" />
-					</add>
+					<copy> 2 </copy>
+					<onlyif src="grandparent()" trait="_search_fail" />
 					<add>
 						<copy src="io()" trait="_DH+Systemcolor" />
 						<onlyifnot src="grandparent()" trait="_search_fail" />
@@ -471,10 +457,7 @@
 	</image>
 	<image name="Outline_HBL">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
-		<y>
-			<copy> 0 </copy>
-			<add src="parent()" trait="_height" />
-		</y>
+		<y> <copy src="parent()" trait="_height" /> </y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
 		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
@@ -505,13 +488,11 @@
 			<sub> 24 </sub>
 		</x>
 		<y>
-			<copy src="sibling(Outline_HBL)" trait="y"/>
-			<add>
-				<copy src="sibling(Outline_HBL)" trait="height"/>
-				<sub src="me" trait="height"/>
-				<div> 2 </div>
-				<add> 1 </add>
-			</add>
+			<copy src="sibling(Outline_HBL)" trait="height"/>
+			<sub src="me" trait="height"/>
+			<div> 2 </div>
+			<add> 1 </add>
+			<add src="sibling(Outline_HBL)" trait="y"/>
 		</y>
 		<width> 128 </width>
 		<height> 64 </height>
@@ -525,17 +506,15 @@
 			<sub> 24 </sub>
 		</x>
 		<y>
-			<copy src="sibling(TitleIcon)" trait="y"/>
+			<copy> -7 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset"/>
+			<add src="sibling(TitleIcon)" trait="y"/>
+			<add> 7 </add>
 			<add>
 				<copy src="sibling(TitleIcon)" trait="height"/>
 				<sub src="me()" trait="height"/>
 				<div> 2 </div>
-				<add> 7 </add>
 			</add>
-			<sub>
-				<copy> 7 </copy>
-				<onlyif src="io()" trait="_DH+Darn"/>
-			</sub>
 		</y>
 		<font> 1 </font>
 		<string> <copy src="parent()" trait="_text_title"/></string>
@@ -577,11 +556,9 @@
 			<add src="sibling(WindowDialogue)" trait="x" />
 		</x>
 		<y>
-			<copy> 20 </copy>
-			<sub>
-				<copy> 12.5 </copy>
-				<onlyif src="io()" trait="_DH+Darn" />
-			</sub>
+			<copy> -12.5 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset" />
+			<add> 20 </add>
 		</y>
 		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<font> <copy src="io()" trait="_DH+Font" /> </font>
@@ -593,13 +570,11 @@
 		<visible> <copy src="sibling(WindowDialogue)" trait="visible" /> </visible>
 		<x> <copy src="sibling(Speaker)" trait="x" /> </x>
 		<y>
-			<copy src="sibling(Speaker)" trait="y" />
+			<copy> 6.5 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset" />
+			<add src="sibling(Speaker)" trait="y" />
 			<add src="sibling(Speaker)" trait="height" />
 			<sub> 5 </sub>
-			<add>
-				<copy> 6.5 </copy>
-				<onlyif src="io()" trait="_DH+Darn" />
-			</add>
 		</y>
 		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<brightness> 200 </brightness>
@@ -849,8 +824,7 @@
 				<div> 2 </div>
 			</rotateaxisy>
 			<rotateangle>
-				<copy> 6.2831 </copy>
-				<mul> 0.75 </mul>
+				<copy> 4.712325 </copy>
 				<onlyif src="parent()" trait="_expanded" />
 			</rotateangle>
 			<width> 20 </width>
@@ -871,13 +845,11 @@
 			<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
-				<add>
-					<copy> 200 </copy>
-					<onlyif>
-						<copy src="parent()" trait="mouseover" />
-						<or src="parent()" trait="_selected" />
-					</onlyif>
-				</add>
+				<onlyif>
+					<copy src="parent()" trait="mouseover" />
+					<or src="parent()" trait="_selected" />
+				</onlyif>
+				<add> 200 </add>
 			</brightness>
 			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> 100 </zoom>
@@ -920,14 +892,12 @@
 		<clips> 1 </clips>
 		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 		<brightness>
-			<copy> 150 </copy>
-			<add>
-				<copy> 150 </copy>
-				<onlyif>
-					<copy src="me()" trait="mouseover" />
-					<or src="me()" trait="_selected" />
-				</onlyif>
-			</add>
+			<copy> 200 </copy>
+			<onlyif>
+				<copy src="me()" trait="mouseover" />
+				<or src="me()" trait="_selected" />
+			</onlyif>
+			<add> 150 </add>
 		</brightness>
 		<font> <copy src="io()" trait="_DH+Font" /> </font>
 		<zoom> 100 </zoom>
@@ -1012,13 +982,11 @@
 			<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
-				<add>
-					<copy> 200 </copy>
-					<onlyif>
-						<copy src="me()" trait="mouseover" />
-						<or src="parent()" trait="_selected" />
-					</onlyif>
-				</add>
+				<onlyif>
+					<copy src="me()" trait="mouseover" />
+					<or src="parent()" trait="_selected" />
+				</onlyif>
+				<add> 200 </add>
 			</brightness>
 			<font> <copy src="io()" trait="_DH+Font" /> </font>
 			<zoom> <copy src="sibling(Speaker)" trait="zoom" /> </zoom>

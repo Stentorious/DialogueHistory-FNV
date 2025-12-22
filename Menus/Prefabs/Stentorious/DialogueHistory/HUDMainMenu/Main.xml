@@ -7,12 +7,11 @@
 <_DH+SpkrRed_1> 255 </_DH+SpkrRed_1>
 <_DH+SpkrGreen_1> 255 </_DH+SpkrGreen_1>
 <_DH+SpkrBlue_1> 255 </_DH+SpkrBlue_1>
-<_DH+Darn> 0 </_DH+Darn>
 <_DH+Font>
 	<copy> 3 </copy>
-	<onlyifnot src="io()" trait="_DH+Darn" />
+	<onlyifnot src="globals()" trait="_duiHUDOffset" />
 	<add>
 		<copy> 6 </copy>
-		<onlyif src="io()" trait="_DH+Darn" />
+		<onlyif src="globals()" trait="_duiHUDOffset" />
 	</add>
 </_DH+Font>
