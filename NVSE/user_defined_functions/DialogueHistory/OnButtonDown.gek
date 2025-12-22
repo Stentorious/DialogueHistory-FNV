@@ -25,16 +25,16 @@ begin Function {iButtonID}
 		endif
 
 		; Left-Stick (Toggle menu visibility)
-		if eval iButtonID == 64 && GetUIFloatAlt "StartMenu\_DH+Search" != 1
-			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+		if eval iButtonID == 64 && GetUIFloatAlt "StartMenu\_DiaHist+Search" != 1
+			if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 0
 				if eval GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" == 1
-					if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
+					if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" == 0
 						Call (CompileScript "DialogueHistory\RefreshMenu.gek")
 					endif
 					SetUIFloat "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 0		; Settings options
 					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
 					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
-					SetUIFloatAlt "StartMenu\_DH+Visible" 1
+					SetUIFloatAlt "StartMenu\_DiaHist+Visible" 1
 					DisableButton 8192
 					PlaySound UIMenuOk 1
 
@@ -49,7 +49,7 @@ begin Function {iButtonID}
 				endif
 			else
 				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
 				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
@@ -59,15 +59,15 @@ begin Function {iButtonID}
 			endif
 		endif
 
-		if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 0
 			return
 		endif
 
 		; B Button (Exit menu)
 		if eval iButtonID == 8192
-			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 1
+			if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 1
 				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
 				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
@@ -291,11 +291,11 @@ begin Function {iButtonID}
 
 		; Right-Stick (Toggle menu visibility)
 		if eval iButtonID == 64
-			if eval GetUIFloatAlt "DialogMenu\_DH+Visible" == 0
-				SetUIFloatAlt "DialogMenu\_DH+Visible" 1
+			if eval GetUIFloatAlt "DialogMenu\_DiaHist+Visible" == 0
+				SetUIFloatAlt "DialogMenu\_DiaHist+Visible" 1
 				PlaySound UIMenuOK 1
 			else
-				SetUIFloatAlt "DialogMenu\_DH+Visible" 0
+				SetUIFloatAlt "DialogMenu\_DiaHist+Visible" 0
 				PlaySound UIMenuCancel 1
 			endif
 		endif

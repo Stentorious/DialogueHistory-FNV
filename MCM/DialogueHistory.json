@@ -61,7 +61,7 @@
 					"enable": 1,
 					"type": 5,
 					"mouse": "$ShowMenuButtonMouse",
-					"vars": [ { "uiTrait": "HUDMainMenu/_DH+ShowButton", "configINI": "Interface:bShowMenuButton", "default": 1 }]
+					"vars": [ { "uiTrait": "HUDMainMenu/_DiaHist+ShowButton", "configINI": "Interface:bShowMenuButton", "default": 1 }]
 				},
 				"9": {
 					"title": "$NameColorPlayer",
@@ -69,9 +69,9 @@
 					"enable": 1,
 					"mouse": "$NameColorPlayerMouse",
 					"vars": [
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrRed_0", "configINI": "Interface:iPlayerRed", "default": 255 },
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrGreen_0", "configINI": "Interface:iPlayerGreen", "default": 255 },
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrBlue_0", "configINI": "Interface:iPlayerBlue", "default": 51 }
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrRed_0", "configINI": "Interface:iPlayerRed", "default": 255 },
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrGreen_0", "configINI": "Interface:iPlayerGreen", "default": 255 },
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrBlue_0", "configINI": "Interface:iPlayerBlue", "default": 51 }
 					]
 				},
 				"10": {
@@ -80,9 +80,9 @@
 					"enable": 1,
 					"mouse": "$NameColorNPCMouse",
 					"vars": [
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrRed_1", "configINI": "Interface:iNPCRed", "default": 0 },
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrGreen_1", "configINI": "Interface:iNPCGreen", "default": 204 },
-						{ "uiTrait": "HUDMainMenu/_DH+SpkrBlue_1", "configINI": "Interface:iNPCBlue", "default": 255 }
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrRed_1", "configINI": "Interface:iNPCRed", "default": 0 },
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrGreen_1", "configINI": "Interface:iNPCGreen", "default": 204 },
+						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrBlue_1", "configINI": "Interface:iNPCBlue", "default": 255 }
 					]
 				}
 			}

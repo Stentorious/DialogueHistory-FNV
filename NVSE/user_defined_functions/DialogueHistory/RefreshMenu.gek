@@ -14,8 +14,8 @@ string_var sDay
 begin Function {}
 
 	; On menu init
-	if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
-		SetUIFloatAlt "StartMenu\_DH+Init" 1
+	if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" != 2
+		SetUIFloatAlt "StartMenu\_DiaHist+Init" 2
 
 		; Toggle smooth scrolling
 		SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_VUI+SmoothScrolling" 0
@@ -80,8 +80,8 @@ begin Function {}
 	AddTileFromTemplate "StartMenu\DialogueHistory\WindowDialogue|DHDialogueBoxTemplate|ListBox"
 
 	; Sort by location
-	if eval GetUIFloatAlt "StartMenu\_DH+Sort" == 1
-		if eval GetUIFloatAlt "StartMenu\_DH+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
+	if eval GetUIFloatAlt "StartMenu\_DiaHist+Sort" == 1
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
 			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_Search"
 		else
 			aJSON = TrudyRef.AuxVarGetAsArr "*DH_Location_List"
@@ -98,7 +98,7 @@ begin Function {}
 
 	; Sort by date
 	else
-		if eval GetUIFloatAlt "StartMenu\_DH+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Search" > 0 && GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
 			aJSON = SunnyRef.AuxVarGetAsArr "*DH_Date_Search"
 			aJSON = Ar_Sort aJSON
 		else

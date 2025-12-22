@@ -25,23 +25,23 @@ begin Function {iMenuID, iTileID, sTileName}
 
 	; Sort Button
 	elseif eval iTileID == 505
-		if eval GetUIFloatAlt "StartMenu\_DH+Sort" == 1
-			SetUIFloatAlt "StartMenu\_DH+Sort" 0
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Sort" == 1
+			SetUIFloatAlt "StartMenu\_DiaHist+Sort" 0
 		else
-			SetUIFloatAlt "StartMenu\_DH+Sort" 1
+			SetUIFloatAlt "StartMenu\_DiaHist+Sort" 1
 		endif
 		Call (CompileScript "DialogueHistory\RefreshMenu.gek")
 
 	; Search Bar
-	elseif eval iTileID == 506 || (iTileID == 507 && GetUIFloatAlt "StartMenu\_DH+Search" == 0)
-		SetUIFloatGradual "StartMenu\_DH+Pulse" 2
-		SetUIFloatGradual "StartMenu\_DH+Pulse" 2 0 1 2
-		CallAfterFrames 0 ({} => SetUIFloatAlt "StartMenu\_DH+Search" 1) 1
+	elseif eval iTileID == 506 || (iTileID == 507 && GetUIFloatAlt "StartMenu\_DiaHist+Search" == 0)
+		SetUIFloatGradual "StartMenu\_DiaHist+Pulse" 2
+		SetUIFloatGradual "StartMenu\_DiaHist+Pulse" 2 0 1 2
+		CallAfterFrames 0 ({} => SetUIFloatAlt "StartMenu\_DiaHist+Search" 1) 1
 
 	; Search Reset
 	elseif eval iTileID == 507
 		Goo1.AuxVarSetFlt "*DiaHist_Cursor" 0
-		SetUIFloatAlt "StartMenu\_DH+Search" 0
+		SetUIFloatAlt "StartMenu\_DiaHist+Search" 0
 		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%e"
 		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_1" "|"
 		SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_2" " "
@@ -76,25 +76,25 @@ begin Function {iMenuID, iTileID, sTileName}
 		if eval sDialog[1:2] == ". "
 			sDialog[0:2] = ""
 		endif
-		if eval GetUIString "DialogMenu\_DH+PlayerTopic" != (sDialog) || Goo1.AuxVarGetFlt "*DiaHist_INI" 2 == 0
+		if eval GetUIString "DialogMenu\_DiaHist+PlayerTopic" != (sDialog) || Goo1.AuxVarGetFlt "*DiaHist_INI" 2 == 0
 			CallAfterFrames 1 (CompileScript "DialogueHistory\SaveDialogueLine.gek") 1 sDialog ""
 		else
-			SetUIFloatAlt "DialogMenu\_DH+Ignore" 1
+			SetUIFloatAlt "DialogMenu\_DiaHist+Ignore" 1
 		endif
 
 	; DialogMenu History Button
 	elseif eval sTileName == "DialogueHistoryButton"
 		Call (CompileScript "DialogueHistory\OnKeyDown.gek") 35
 	elseif eval sTileName == "DialogueHistoryBack"
-		if eval GetUIFloatAlt "StartMenu\_DH+Search" == 1
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Search" == 1
 			if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
-				SetUIFloatAlt "StartMenu\_DH+Search" 2
+				SetUIFloatAlt "StartMenu\_DiaHist+Search" 2
 			else
 				ClickMenuButton "StartMenu#507"
 			endif
 		endif
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-		SetUIFloatAlt "StartMenu\_DH+Visible" 0
+		SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
 		SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 		SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 		SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1

@@ -18,9 +18,9 @@ begin Function {sTilePath}
 	; Open dropdown
 	else
 		AddTileFromTemplate ((sTilePath) + "|DHDropListTemplate|Entries")
-		iSearch = GetUIFloatAlt "StartMenu\_DH+Search"
+		iSearch = GetUIFloatAlt "StartMenu\_DiaHist+Search"
 		sSearch = GetUIString "StartMenu\DialogueHistory\Search\_search_term"
-		if eval (iSort = GetUIFloatAlt "StartMenu\_DH+Sort") == 1
+		if eval (iSort = GetUIFloatAlt "StartMenu\_DiaHist+Sort") == 1
 			aJSON = TrudyRef.AuxVarGetAsArr ("*DH_Location_" + (GetUIString ((sTilePath) + "\_string")))
 		else
 			aJSON = SunnyRef.AuxVarGetAsArr ("*DH_Date_" + $(GetUIFloatAlt ((sTilePath) + "\_time")))

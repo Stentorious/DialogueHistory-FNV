@@ -1,21 +1,20 @@
-﻿<_DH+Init> 0 </_DH+Init>
-<_DH+Visible> 0 </_DH+Visible>
-<_DH+Search> 0 </_DH+Search>
-<_DH+Searching> 0 </_DH+Searching>
-<_DH+Sort> 0 </_DH+Sort>
-<_DH+Pulse> 0 </_DH+Pulse>
-
-<_DH+ShowButton> <copy src="sibling(HUDMainMenu)" trait="_DH+ShowButton" /> </_DH+ShowButton>
-<_DH+SpkrSystemcolor_0> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrSystemcolor_0" /> </_DH+SpkrSystemcolor_0>
-<_DH+SpkrRed_0> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_0" /> </_DH+SpkrRed_0>
-<_DH+SpkrGreen_0> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_0" /> </_DH+SpkrGreen_0>
-<_DH+SpkrBlue_0> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_0" />  </_DH+SpkrBlue_0>
-<_DH+SpkrSystemcolor_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrSystemcolor_1" /> </_DH+SpkrSystemcolor_1>
-<_DH+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrRed_1" /> </_DH+SpkrRed_1>
-<_DH+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrGreen_1" /> </_DH+SpkrGreen_1>
-<_DH+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DH+SpkrBlue_1" /> </_DH+SpkrBlue_1>
-<_DH+Font> <copy src="sibling(HUDMainMenu)" trait="_DH+Font" /> </_DH+Font>
-<_DH+Systemcolor> <copy src="child(NOGLOW_BRANCH)" trait="systemcolor"/> </_DH+Systemcolor>
+﻿<_DiaHist+Init> 0 </_DiaHist+Init>
+<_DiaHist+Visible> 0 </_DiaHist+Visible>
+<_DiaHist+Search> 0 </_DiaHist+Search>
+<_DiaHist+Searching> 0 </_DiaHist+Searching>
+<_DiaHist+Sort> 0 </_DiaHist+Sort>
+<_DiaHist+Pulse> 0 </_DiaHist+Pulse>
+<_DiaHist+ShowButton> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+ShowButton" /> </_DiaHist+ShowButton>
+<_DiaHist+SpkrSystemcolor_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrSystemcolor_0" /> </_DiaHist+SpkrSystemcolor_0>
+<_DiaHist+SpkrRed_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrRed_0" /> </_DiaHist+SpkrRed_0>
+<_DiaHist+SpkrGreen_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrGreen_0" /> </_DiaHist+SpkrGreen_0>
+<_DiaHist+SpkrBlue_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrBlue_0" />  </_DiaHist+SpkrBlue_0>
+<_DiaHist+SpkrSystemcolor_1> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrSystemcolor_1" /> </_DiaHist+SpkrSystemcolor_1>
+<_DiaHist+SpkrRed_1> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrRed_1" /> </_DiaHist+SpkrRed_1>
+<_DiaHist+SpkrGreen_1> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrGreen_1" /> </_DiaHist+SpkrGreen_1>
+<_DiaHist+SpkrBlue_1> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrBlue_1" /> </_DiaHist+SpkrBlue_1>
+<_DiaHist+Font> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+Font" /> </_DiaHist+Font>
+<_DiaHist+Systemcolor> <copy src="child(NOGLOW_BRANCH)" trait="systemcolor"/> </_DiaHist+Systemcolor>
 
 <!-- Game -->
 <_controller> <copy src="globals()" trait="_Has360Controller"/> </_controller>
@@ -91,7 +90,7 @@
 	</_selection_right_input>
 
 	<!-- Vanilla traits -->
-	<visible> <copy src="io()" trait="_DH+Visible" /> </visible>
+	<visible> <copy src="io()" trait="_DiaHist+Visible" /> </visible>
 	<locus> 1 </locus>
 	<depth> 500 </depth>
 	<x>
@@ -110,14 +109,14 @@
 	<!-- Search bar -->
 	<rect name="Search">
 		<_search>
-			<copy src="io()" trait="_DH+Search" />
+			<copy src="io()" trait="_DiaHist+Search" />
 			<copy src="me()" trait="_search_text_" />
 		</_search>
 		<_search_count> 0 </_search_count>
 		<_search_fail>
 			<not src="me()" trait="_search_count" />
 			<and>
-				<copy src="io()" trait="_DH+Search" />
+				<copy src="io()" trait="_DiaHist+Search" />
 				<gt> 0 </gt>
 			</and>
 		</_search_fail>
@@ -162,7 +161,7 @@
 			<visible> 1 </visible>
 			<x> 4 </x>
 			<target>
-				<copy src="io()" trait="_DH+Search" />
+				<copy src="io()" trait="_DiaHist+Search" />
 				<neq> 1 </neq>
 			</target>
 			<alpha> 0 </alpha>
@@ -184,7 +183,7 @@
 				<depth> 0 </depth>
 				<width> <copy src="parent()" trait="width" /> </width>
 				<height> <copy src="parent()" trait="height" /> </height>
-				<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+				<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 				<brightness> 204 </brightness>
 				<zoom> -1 </zoom>
 				<filename> Interface\Shared\solid.dds </filename>
@@ -232,21 +231,21 @@
 					<copy> 2 </copy>
 					<onlyif src="grandparent()" trait="_search_fail" />
 					<add>
-						<copy src="io()" trait="_DH+Systemcolor" />
+						<copy src="io()" trait="_DiaHist+Systemcolor" />
 						<onlyifnot src="grandparent()" trait="_search_fail" />
 					</add>
 				</systemcolor>
 				<brightness>
-					<copy src="io()" trait="_DH+Search" />
+					<copy src="io()" trait="_DiaHist+Search" />
 					<copy src="grandparent()" trait="_search_brightness_" />
 				</brightness>
-				<font> <copy src="io()" trait="_DH+Font" /> </font>
+				<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 				<string> <copy src="grandparent()" trait="_search" /> </string>
 			</text>
 
 			<text name="TextCursor">
 				<visible>
-					<copy src="io()" trait="_DH+Search" />
+					<copy src="io()" trait="_DiaHist+Search" />
 					<eq> 1 </eq>
 				</visible>
 				<x> <copy src="sibling(Text)" trait="x" /> </x>
@@ -255,9 +254,9 @@
 				<clips> 1 </clips>
 				<systemcolor> <copy src="sibling(Text)" trait="systemcolor" /> </systemcolor>
 				<brightness> <copy src="grandparent()" trait="_search_brightness_1" /> </brightness>
-				<font> <copy src="io()" trait="_DH+Font" /> </font>
+				<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 				<_string>
-					<copy src="io()" trait="_DH+Pulse" />
+					<copy src="io()" trait="_DiaHist+Pulse" />
 					<copy src="grandparent()" trait="_search_cursor_" />
 				</_string>
 				<string> <copy src="me()" trait="_string" /> </string>
@@ -283,10 +282,10 @@
 					<copy src="sibling(Window)" trait="height" />
 					<sub> 6 </sub>
 				</height>
-				<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+				<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 				<zoom> -1 </zoom>
 				<filename>
-					<copy src="io()" trait="_DH+Search" />
+					<copy src="io()" trait="_DiaHist+Search" />
 					<copy src="grandparent()" trait="_icon_search_" />
 				</filename>
 				<mouseoversound> UIMenuFocus </mouseoversound>
@@ -319,7 +318,7 @@
 				<depth> 0 </depth>
 				<width> <copy src="parent()" trait="width" /> </width>
 				<height> <copy src="parent()" trait="height" /> </height>
-				<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+				<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 				<brightness> 204 </brightness>
 				<zoom> -1 </zoom>
 				<filename> Interface\Shared\solid.dds </filename>
@@ -358,10 +357,10 @@
 					<sub> 2 </sub>
 				</width>
 				<height> <copy src="me()" trait="width" /> </height>
-				<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+				<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 				<zoom> -1 </zoom>
 				<filename>
-					<copy src="io()" trait="_DH+Sort" />
+					<copy src="io()" trait="_DiaHist+Sort" />
 					<copy src="grandparent()" trait="_icon_sort_" />
 				</filename>
 			</image>
@@ -378,7 +377,7 @@
 		<y> 0 </y>
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -390,7 +389,7 @@
 		</y>
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -403,7 +402,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -413,7 +412,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_bottom.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -426,7 +425,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -436,7 +435,7 @@
 		<width> <copy src="globals()" trait="_line_thickness"/> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> fade_to_top.dds </filename>
 		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
@@ -452,7 +451,7 @@
 			<add src="globals()" trait="_line_thickness"/>
 		</width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="Outline_HBL">
@@ -460,7 +459,7 @@
 		<y> <copy src="parent()" trait="_height" /> </y>
 		<width> <copy src="parent()" trait="_height_fade" /> </width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="Outline_HBR">
@@ -478,7 +477,7 @@
 			<sub src="globals()" trait="_line_thickness"/>
 		</width>
 		<height> <copy src="globals()" trait="_line_thickness"/> </height>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> Interface\Shared\solid.dds </filename>
 	</image>
 	<image name="TitleIcon">
@@ -560,8 +559,8 @@
 			<onlyif src="globals()" trait="_duiHUDOffset" />
 			<add> 20 </add>
 		</y>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
-		<font> <copy src="io()" trait="_DH+Font" /> </font>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
+		<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 		<zoom> 150 </zoom>
 		<justify> &center; </justify>
 		<string> NPC Name </string>
@@ -576,9 +575,9 @@
 			<add src="sibling(Speaker)" trait="height" />
 			<sub> 5 </sub>
 		</y>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<brightness> 200 </brightness>
-		<font> <copy src="io()" trait="_DH+Font" /> </font>
+		<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 		<zoom> 100 </zoom>
 		<justify> &center; </justify>
 		<string> 20th of April - 2:36 PM </string>
@@ -595,7 +594,7 @@
 			<div> 2 </div>
 			<add> 10 </add>
 		</y>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<font> 2 </font>
 		<zoom> 150 </zoom>
 		<justify> &center; </justify>
@@ -830,7 +829,7 @@
 			<width> 20 </width>
 			<height> 20 </height>
 			<zoom> &scale; </zoom>
-			<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 			<brightness> 255 </brightness>
 			<filename> Interface\Stentorious\DialogueHistory\Arrow.dds </filename>
 		</image>
@@ -842,7 +841,7 @@
 				<add> 5 </add>
 			</x>
 			<y> 11 </y>
-			<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
 				<onlyif>
@@ -851,7 +850,7 @@
 				</onlyif>
 				<add> 200 </add>
 			</brightness>
-			<font> <copy src="io()" trait="_DH+Font" /> </font>
+			<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 			<zoom> 100 </zoom>
 			<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthdate" /> </wrapwidth> -->
 			<!-- <wraplines> 0 </wraplines> -->
@@ -890,7 +889,7 @@
 			<max> 0 </max>
 		</y>
 		<clips> 1 </clips>
-		<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<brightness>
 			<copy> 200 </copy>
 			<onlyif>
@@ -899,7 +898,7 @@
 			</onlyif>
 			<add> 150 </add>
 		</brightness>
-		<font> <copy src="io()" trait="_DH+Font" /> </font>
+		<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 		<zoom> 100 </zoom>
 		<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthname" /> </wrapwidth> -->
 		<!-- <wraplines> 1 </wraplines> -->
@@ -949,21 +948,21 @@
 			<visible> 1 </visible>
 			<systemcolor>
 				<copy src="parent()" trait="_speaker" />
-				<copy src="io()" trait="_DH+SpkrSystemcolor_" />
+				<copy src="io()" trait="_DiaHist+SpkrSystemcolor_" />
 			</systemcolor>
 			<red>
 				<copy src="parent()" trait="_speaker" />
-				<copy src="io()" trait="_DH+SpkrRed_" />
+				<copy src="io()" trait="_DiaHist+SpkrRed_" />
 			</red>
 			<green>
 				<copy src="parent()" trait="_speaker" />
-				<copy src="io()" trait="_DH+SpkrGreen_" />
+				<copy src="io()" trait="_DiaHist+SpkrGreen_" />
 			</green>
 			<blue>
 				<copy src="parent()" trait="_speaker" />
-				<copy src="io()" trait="_DH+SpkrBlue_" />
+				<copy src="io()" trait="_DiaHist+SpkrBlue_" />
 			</blue>
-			<font> <copy src="io()" trait="_DH+Font" /> </font>
+			<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 			<zoom> 100 </zoom>
 			<justify> &left; </justify>
 			<string> <copy src="parent()" trait="_name" /> </string>
@@ -979,7 +978,7 @@
 				<add> 15 </add>
 			</x>
 			<y> <copy src="sibling(Speaker)" trait="y" /> </y>
-			<systemcolor> <copy src="io()" trait="_DH+Systemcolor" /> </systemcolor>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
 				<onlyif>
@@ -988,7 +987,7 @@
 				</onlyif>
 				<add> 200 </add>
 			</brightness>
-			<font> <copy src="io()" trait="_DH+Font" /> </font>
+			<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
 			<zoom> <copy src="sibling(Speaker)" trait="zoom" /> </zoom>
 			<wrapwidth>
 				<copy src="DialogueHistory" trait="_wrapwidth" />

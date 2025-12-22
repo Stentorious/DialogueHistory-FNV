@@ -2,7 +2,7 @@ float fStickY
 
 begin Function {}
 
-	if eval GetController == 0 || GetUIFloatAlt "DialogMenu\_DH+Visible" != 1
+	if eval GetController == 0 || GetUIFloatAlt "DialogMenu\_DiaHist+Visible" != 1
 		return
 	endif
 

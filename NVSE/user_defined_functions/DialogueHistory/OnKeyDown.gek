@@ -20,16 +20,16 @@ begin Function {iKeyID}
 		endif
 
 		; Toggle Visibility
-		if eval iKeyID == 35 && GetUIFloatAlt "StartMenu\_DH+Search" != 1
-			if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+		if eval iKeyID == 35 && GetUIFloatAlt "StartMenu\_DiaHist+Search" != 1
+			if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 0
 				if eval GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" == 1
-					if eval GetUIFloatAlt "StartMenu\_DH+Init" == 0
+					if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" == 0
 						Call (CompileScript "DialogueHistory\RefreshMenu.gek")
 					endif
 					SetUIFloat "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 0		; Settings options
 					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
 					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
-					SetUIFloatAlt "StartMenu\_DH+Visible" 1
+					SetUIFloatAlt "StartMenu\_DiaHist+Visible" 1
 					DisableButton 8192
 					PlaySound UIMenuOk 1
 
@@ -44,7 +44,7 @@ begin Function {iKeyID}
 				endif
 			else
 				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-				SetUIFloatAlt "StartMenu\_DH+Visible" 0
+				SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
 				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
@@ -54,21 +54,21 @@ begin Function {iKeyID}
 			endif
 		endif
 
-		if eval GetUIFloatAlt "StartMenu\_DH+Visible" == 0
+		if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 0
 			return
 		endif
 
 		; Tab
 		if eval iKeyID == 15
-			if eval GetUIFloatAlt "StartMenu\_DH+Search" == 1
+			if eval GetUIFloatAlt "StartMenu\_DiaHist+Search" == 1
 				if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
-					SetUIFloatAlt "StartMenu\_DH+Search" 2
+					SetUIFloatAlt "StartMenu\_DiaHist+Search" 2
 				else
 					ClickMenuButton "StartMenu#507"
 				endif
 			endif
 			StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
-			SetUIFloatAlt "StartMenu\_DH+Visible" 0
+			SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
 			SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 			SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 			SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
@@ -79,11 +79,11 @@ begin Function {iKeyID}
 
 		; Ctrl + F (Search Bar)
 		if eval iKeyID == 33 && (IsKeyPressed 29 2 || IsKeyPressed 157 2)
-			if eval GetUIFloatAlt "StartMenu\_DH+Search" != 1
+			if eval GetUIFloatAlt "StartMenu\_DiaHist+Search" != 1
 				ClickMenuButton "StartMenu#506"
 			else
 				if eval GetUIString "StartMenu\DialogueHistory\Search\_search_term" != ""
-					SetUIFloatAlt "StartMenu\_DH+Search" 2
+					SetUIFloatAlt "StartMenu\_DiaHist+Search" 2
 				else
 					ClickMenuButton "StartMenu#507"
 				endif
@@ -113,11 +113,11 @@ begin Function {iKeyID}
 
 		; Toggle Visibility
 		if eval iKeyID == 35
-			if eval GetUIFloatAlt "DialogMenu\_DH+Visible" == 0
-				SetUIFloatAlt "DialogMenu\_DH+Visible" 1
+			if eval GetUIFloatAlt "DialogMenu\_DiaHist+Visible" == 0
+				SetUIFloatAlt "DialogMenu\_DiaHist+Visible" 1
 				PlaySound UIMenuOk 1
 			else
-				SetUIFloatAlt "DialogMenu\_DH+Visible" 0
+				SetUIFloatAlt "DialogMenu\_DiaHist+Visible" 0
 				PlaySound UIMenuCancel 1
 			endif
 		endif

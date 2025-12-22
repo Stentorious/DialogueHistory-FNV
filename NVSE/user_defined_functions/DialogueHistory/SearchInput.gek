@@ -8,7 +8,7 @@ string_var sCursor
 
 begin Function {iKeyID}
 
-	if eval MenuMode 3 || GetActiveMenuMode != 1013 || GetUIFloatAlt "StartMenu\_DH+Search" != 1
+	if eval MenuMode 3 || GetActiveMenuMode != 1013 || GetUIFloatAlt "StartMenu\_DiaHist+Search" != 1
 		return
 	endif
 
@@ -36,7 +36,7 @@ begin Function {iKeyID}
 
 	; Enter
 	elseif eval iKeyID == 28
-		SetUIFloatAlt "StartMenu\_DH+Search" 2
+		SetUIFloatAlt "StartMenu\_DiaHist+Search" 2
 		sv_Destruct sSearch
 		PlaySound UIHackingCharEnter 1
 		return
@@ -76,8 +76,8 @@ begin Function {iKeyID}
 
 	; Update string
 	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_text_1" "%z" sSearch
-	SetUIFloatAlt "StartMenu\_DH+Search" 0
-	SetUIFloatAlt "StartMenu\_DH+Search" 1
+	SetUIFloatAlt "StartMenu\_DiaHist+Search" 0
+	SetUIFloatAlt "StartMenu\_DiaHist+Search" 1
 
 	; Update cursor
 	Goo1.AuxVarSetFlt "*DiaHist_Cursor" iCursorPos
@@ -86,8 +86,8 @@ begin Function {iKeyID}
 	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_1" (sCursor)
 	sCursor[iCursorPos] = " "
 	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_cursor_2" (sCursor)
-	SetUIFloatGradual "StartMenu\_DH+Pulse" 1
-	SetUIFloatGradual "StartMenu\_DH+Pulse" 1 2.5 1 2
+	SetUIFloatGradual "StartMenu\_DiaHist+Pulse" 1
+	SetUIFloatGradual "StartMenu\_DiaHist+Pulse" 1 2.5 1 2
 
 	; Queue input
 	if eval Goo1.AuxVarType "*DiaHist_QKey" == 0

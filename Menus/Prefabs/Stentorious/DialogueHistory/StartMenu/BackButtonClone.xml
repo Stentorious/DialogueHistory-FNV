@@ -1,6 +1,6 @@
 ﻿<hotrect name="DialogueHistoryBack">
 	<include src="text_box.xml"/>
-	<visible> <copy src="io()" trait="_DH+Visible"/> </visible>
+	<visible> <copy src="io()" trait="_DiaHist+Visible"/> </visible>
 	<alpha>
 		<copy> 40 </copy>
 		<onlyif src="me()" trait="_box_visible"/>

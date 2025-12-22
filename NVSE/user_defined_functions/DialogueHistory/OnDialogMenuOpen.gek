@@ -12,10 +12,10 @@ string_var sHour
 
 begin Function {iMenuID}
 
-	if eval GetUIFloatAlt "DialogMenu\_DH+Init"
+	if eval GetUIFloatAlt "DialogMenu\_DiaHist+Init"
 		return
 	endif
-	SetUIFloatAlt "DialogMenu\_DH+Init" 1
+	SetUIFloatAlt "DialogMenu\_DiaHist+Init" 1
 
 	; Init menu loop
 	SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 1 1 10

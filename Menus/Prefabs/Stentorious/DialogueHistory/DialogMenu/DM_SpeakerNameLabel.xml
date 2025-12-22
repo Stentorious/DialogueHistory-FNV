@@ -1,4 +1,4 @@
 <visible>
-	<not src="io()" trait="_DH+Visible" />
+	<not src="io()" trait="_DiaHist+Visible" />
 	<and src="io()" trait="_DialogVisible" />
 </visible>

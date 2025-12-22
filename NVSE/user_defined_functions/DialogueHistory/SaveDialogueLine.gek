@@ -15,15 +15,15 @@ begin Function {sDialogue, sVoicePath}
 	endif
 
 	; Ignore consecutive duplicate entries
-	if eval (iNPC = (eval sVoicePath != "")) && GetUIFloatAlt "DialogMenu\_DH+Ignore" == 1
+	if eval (iNPC = (eval sVoicePath != "")) && GetUIFloatAlt "DialogMenu\_DiaHist+Ignore" == 1
 		return
 	endif
-	SetUIFloatAlt "DialogMenu\_DH+Ignore" 0
+	SetUIFloatAlt "DialogMenu\_DiaHist+Ignore" 0
 
 	; Add tile template
 	AddTileFromTemplate "DialogMenu\DialogueHistory\WindowDialogue\ListBox|DHDialogueTemplate|Entry"
 	if eval iNPC == 0
-		SetUIStringAlt "DialogMenu\_DH+PlayerTopic" (sDialogue)
+		SetUIStringAlt "DialogMenu\_DiaHist+PlayerTopic" (sDialogue)
 		;if eval Goo1.AuxVarGetFlt "*DiaHist_INI" 3 && (iTagStart = Sv_Find "[" sDialogue) > -1 && (iTagEnd = Sv_Find "] " sDialogue) > -1
 		;	sDialogue[iTagStart:iTagEnd+1] = ""
 		;endif

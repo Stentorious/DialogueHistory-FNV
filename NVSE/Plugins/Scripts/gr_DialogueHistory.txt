@@ -28,7 +28,7 @@ Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bRemoveSpeech
 Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bDialogueHistory" "Stentorious\DialogueHistory.ini" 1) 5
 
 ; Load menu settings
-SetUIFloatAlt "HUDMainMenu\_DH+ShowButton" (eval GetINIFloat_Cached "Interface:bShowMenuButton" "Stentorious\DialogueHistory.ini" 1)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" (eval GetINIFloat_Cached "Interface:bShowMenuButton" "Stentorious\DialogueHistory.ini" 1)
 
 ; Tutorial message
 Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat "Mods:DialogueHistory" "Stentorious\UpdateMessages.ini" < 100) 6
@@ -100,13 +100,13 @@ SetEventHandler "OnButtonUp:3" (begin function {int iKeyCode}
 end)
 
 ; Set Actor name color
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerRed" "Stentorious\DialogueHistory.ini" 255) 0 255)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerGreen" "Stentorious\DialogueHistory.ini" 255) 0 255)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerBlue" "Stentorious\DialogueHistory.ini" 51) 0 255)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrSystemcolor_1" (Clamp (GetINIFloat_Cached "Interface:iNPCSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrRed_1" (Clamp (GetINIFloat_Cached "Interface:iNPCRed" "Stentorious\DialogueHistory.ini" 0) 0 255)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrGreen_1" (Clamp (GetINIFloat_Cached "Interface:iNPCGreen" "Stentorious\DialogueHistory.ini" 204) 0 255)
-SetUIFloatAlt "HUDMainMenu\_DH+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface:iNPCBlue" "Stentorious\DialogueHistory.ini" 255) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrSystemcolor_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrRed_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerRed" "Stentorious\DialogueHistory.ini" 255) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrGreen_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerGreen" "Stentorious\DialogueHistory.ini" 255) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrBlue_0" (Clamp (GetINIFloat_Cached "Interface:iPlayerBlue" "Stentorious\DialogueHistory.ini" 51) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrSystemcolor_1" (Clamp (GetINIFloat_Cached "Interface:iNPCSystemcolor" "Stentorious\DialogueHistory.ini" 0) 0 5)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrRed_1" (Clamp (GetINIFloat_Cached "Interface:iNPCRed" "Stentorious\DialogueHistory.ini" 0) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrGreen_1" (Clamp (GetINIFloat_Cached "Interface:iNPCGreen" "Stentorious\DialogueHistory.ini" 204) 0 255)
+SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface:iNPCBlue" "Stentorious\DialogueHistory.ini" 255) 0 255)
 
 CloseFileSO "Stentorious\DialogueHistory.ini" 0

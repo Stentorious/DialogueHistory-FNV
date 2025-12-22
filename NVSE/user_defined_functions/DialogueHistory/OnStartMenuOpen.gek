@@ -2,6 +2,11 @@ int	iMenuID
 
 begin Function {iMenuID}
 
+	if eval GetUIFloatAlt "StartMenu\_DiaHist+Init"
+		return
+	endif
+	SetUIFloatAlt "StartMenu\_DiaHist+Init" 1
+
 	if eval IsComponentLoaded "StartMenu\StentoriousPromptWindow" == 0
 		InjectUIXML "StartMenu" "data\menus\prefabs\Stentorious\_Common\StartMenu\PromptWindow.xml"
 	endif
