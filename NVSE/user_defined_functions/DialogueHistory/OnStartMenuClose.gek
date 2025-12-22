@@ -5,6 +5,10 @@ array_var aTemp
 
 begin Function {iMenuID}
 
+	if eval GetUIFloatAlt "StartMenu\visible" != -999
+		return
+	endif
+
 	; Enable B button
 	EnableButton 8192
 

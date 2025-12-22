@@ -28,7 +28,7 @@ begin Function {iButtonID}
 		if eval iButtonID == 64 && GetUIFloatAlt "StartMenu\_DiaHist+Search" != 1
 			if eval GetUIFloatAlt "StartMenu\_DiaHist+Visible" == 0
 				if eval GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" == 1
-					if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" == 0
+					if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" == 1
 						Call (CompileScript "DialogueHistory\RefreshMenu.gek")
 					endif
 					SetUIFloat "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 0		; Settings options

@@ -14,7 +14,7 @@ string_var sDay
 begin Function {}
 
 	; On menu init
-	if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" != 2
+	if eval GetUIFloatAlt "StartMenu\_DiaHist+Init" < 2
 		SetUIFloatAlt "StartMenu\_DiaHist+Init" 2
 
 		; Toggle smooth scrolling
