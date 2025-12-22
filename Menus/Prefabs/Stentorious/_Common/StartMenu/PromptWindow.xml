@@ -145,48 +145,48 @@
 			<x> 0 </x>
 			<y> -8 </y>
 			<width> 30 </width>
-			<height> <copy src="me()" trait="width"/> </height>
+			<height> <copy src="me()" trait="width" /> </height>
 			<zoom> &scale; </zoom>
-			<filename> <copy src="parent()" trait="_icon"/> </filename>
+			<filename> <copy src="parent()" trait="_icon" /> </filename>
 		</image>
 		<text name="Label">
 			<depth> 2 </depth>
 			<x>
-				<copy src="sibling(Icon)" trait="width"/>
+				<copy src="sibling(Icon)" trait="width" />
 				<add> 7 </add>
 			</x>
 			<y> 0 </y>
 			<brightness> 255 </brightness>
-			<font> <copy src="parent()" trait="_font"/> </font>
+			<font> <copy src="parent()" trait="_font" /> </font>
 			<justify> &left; </justify>
-			<string> <copy src="parent()" trait="_label"/> </string>
+			<string> <copy src="parent()" trait="_label" /> </string>
 		</text>
 		<text name="Key">
-			<visible> <not src="globals" trait="_Has360Controller"/> </visible>
+			<visible> <not src="globals" trait="_Has360Controller" /> </visible>
 			<depth> 2 </depth>
 			<x>
-				<copy src="grandparent()" trait="_width"/>
+				<copy src="grandparent()" trait="_width" />
 				<sub> 20 </sub>
 			</x>
 			<y> 0 </y>
 			<brightness> 255 </brightness>
-			<font> <copy src="parent()" trait="_font"/> </font>
+			<font> <copy src="parent()" trait="_font" /> </font>
 			<justify> &right; </justify>
-			<string> <copy src="parent()" trait="_key"/> </string>
+			<string> <copy src="parent()" trait="_key" /> </string>
 		</text>
 		<image name="Button">
-			<visible> <copy src="globals" trait="_Has360Controller"/> </visible>
+			<visible> <copy src="globals" trait="_Has360Controller" /> </visible>
 			<depth> 2 </depth>
 			<x>
-				<copy src="sibling(Key)" trait="x"/>
-				<sub src="me()" trait="width"/>
+				<copy src="sibling(Key)" trait="x" />
+				<sub src="me()" trait="width" />
 				<add> 14 </add>
 			</x>
 			<y> -17 </y>
 			<width> 50 </width>
-			<height> <copy src="me()" trait="width"/> </height>
+			<height> <copy src="me()" trait="width" /> </height>
 			<brightness> 255 </brightness>
-			<filename> <copy src="parent()" trait="_button"/> </filename>
+			<filename> <copy src="parent()" trait="_button" /> </filename>
 			<texatlas> Interface\InterfaceShared.tai </texatlas>
 		</image>
 

@@ -1,5 +1,5 @@
 <target>
-	<not src="me()" trait="_enabled"/>
-	<and> <not src="io()" trait="user5"/> </and>
-	<and> <not src="io()" trait="_DiaHist+Visible"/> </and>
+	<not src="me()" trait="_enabled" />
+	<and> <not src="io()" trait="user5" /> </and>
+	<and> <not src="io()" trait="_DiaHist+Visible" /> </and>
 </target>

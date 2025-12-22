@@ -79,7 +79,7 @@ begin Function {iIndex}
 	ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_up"
 	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
 
-	aJSON = aMonth =  Ar_Null
+	aJSON = aMonth = Ar_Null
 	sv_Destruct sDay sSoundPath sDialogue sSuccuss sFailure
 
 end
