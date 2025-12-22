@@ -224,7 +224,11 @@
 					<min> 0 </min>
 					<add> 4 </add>
 				</x>
-				<y> 10 </y>
+				<y>
+					<copy> -2.5 </copy>
+					<onlyif src="globals()" trait="_duiHUDOffset" />
+					<add> 10 </add>
+				</y>
 				<depth> 2 </depth>
 				<clips> 1 </clips>
 				<systemcolor>
@@ -249,7 +253,7 @@
 					<eq> 1 </eq>
 				</visible>
 				<x> <copy src="sibling(Text)" trait="x" /> </x>
-				<y> 10 </y>
+				<y> <copy src="sibling(Text)" trait="y" /> </y>
 				<depth> 2 </depth>
 				<clips> 1 </clips>
 				<systemcolor> <copy src="sibling(Text)" trait="systemcolor" /> </systemcolor>
@@ -716,12 +720,11 @@
 		<visible> 1 </visible>
 		<alpha> 0 </alpha>
 		<y>
-			<copy> 0 </copy>
+			<copy> 5 </copy>
 			<sub>
 				<copy src="sibling(Scrollbar)" trait="_current_value" />
 				<mul src="sibling(Scrollbar)" trait="_scrolldelta" />
 			</sub>
-			<add> 5 </add>
 		</y>
 		<locus> 1 </locus>
 	</rect>
@@ -733,12 +736,11 @@
 		<visible> 1 </visible>
 		<alpha> 0 </alpha>
 		<y>
-			<copy> 0 </copy>
+			<copy> -9 </copy>
 			<sub>
 				<copy src="sibling(Scrollbar)" trait="_current_value" />
 				<mul src="sibling(Scrollbar)" trait="_scrolldelta" />
 			</sub>
-			<sub> 9 </sub>
 		</y>
 		<locus> 1 </locus>
 	</rect>
@@ -750,7 +752,11 @@
 		<visible> <copy src="parent()" trait="_expanded" /> </visible>
 		<alpha> 0 </alpha>
 		<x> 5 </x>
-		<y> 47 </y>
+		<y>
+			<copy> -3.5 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset" />
+			<add> 47 </add>
+		</y>
 		<locus> 1 </locus>
 	</rect>
 </template>
@@ -840,7 +846,11 @@
 				<copy src="sibling(Arrow)" trait="width" />
 				<add> 5 </add>
 			</x>
-			<y> 11 </y>
+			<y>
+				<copy> -3.5 </copy>
+				<onlyif src="globals()" trait="_duiHUDOffset" />
+				<add> 11 </add>
+			</y>
 			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
