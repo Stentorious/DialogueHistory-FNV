@@ -61,12 +61,12 @@
 	<locus> 1 </locus>
 	<x>
 		<copy src="screen()" trait="width" />
-		<sub src="child(WindowBackground)" trait="width" />
+		<sub src="child(Background)" trait="width" />
 		<sub> 25 </sub>
 	</x>
 	<y>
 		<copy src="screen()" trait="height" />
-		<sub src="child(WindowBackground)" trait="height" />
+		<sub src="child(Background)" trait="height" />
 		<sub> 25 </sub>
 	</y>
 
@@ -146,7 +146,7 @@
 
 	</hotrect>
 
-	<image name="WindowBackground">
+	<image name="Background">
 		<visible> 1 </visible>
 		<alpha> 175 </alpha>
 		<depth> 0 </depth>
@@ -223,9 +223,13 @@
 <rect name="DialogueHistory">
 
 	<!-- Menu layout -->
-	<_offset_x> 0 </_offset_x>
-	<_offset_y> -100 </_offset_y>
-	<_width> <copy src="DM_TopBracket" trait="width" /> </_width>
+	<_offset_x> <copy src="globals()" trait="_line_thickness" /> </_offset_x>
+	<_offset_y> 100 </_offset_y>
+	<_width>
+		<copy src="DM_TopBracket" trait="width" />
+		<sub src="globals()" trait="_line_thickness" />
+		<sub src="globals()" trait="_line_thickness" />
+	</_width>
 	<_height> 500 </_height> <!-- <copy src="DM_TopBracket" trait="y" /> <sub> 150 </sub> -->
 	<_background_offset> 6 </_background_offset>
 	<_height_fade> 50 </_height_fade>
@@ -252,8 +256,11 @@
 	<visible> <copy src="io()" trait="_DiaHist+Visible" /> </visible>
 	<locus> 1 </locus>
 	<depth> 1 </depth>
-	<x> <copy src="DM_TopBracket" trait="x" /> </x>
-	<y> 100 </y>
+	<x>
+		<copy src="DM_TopBracket" trait="x" />
+		<add src="me()" trait="_offset_x" />
+	</x>
+	<y> <copy src="me()" trait="_offset_y" /> </y>
 
 	<!-- Outlines -->
 	<image name="Outline_VTL">
