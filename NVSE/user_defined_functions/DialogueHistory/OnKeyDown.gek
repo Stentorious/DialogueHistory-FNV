@@ -30,6 +30,7 @@ begin Function {iKeyID}
 					SetUIFloat "StartMenu\MCM\MCM_Trigger\target" 0						; MCM open
 					SetUIFloat "StartMenu\B42NPause\B42NIcon\target" 0					; B42 open
 					SetUIFloatAlt "StartMenu\_DiaHist+Visible" 1
+					SetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" 1
 					DisableButton 8192
 					PlaySound UIMenuOk 1
 
@@ -45,6 +46,7 @@ begin Function {iKeyID}
 			else
 				StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 				SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
+				SetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" 0
 				SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 				SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 				SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
@@ -69,6 +71,7 @@ begin Function {iKeyID}
 			endif
 			StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 			SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
+			SetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" 0
 			SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 			SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 			SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1

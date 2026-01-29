@@ -2,6 +2,10 @@ float fStickY
 
 begin Function {}
 
+	if GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\width" != -999
+		SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\width" (GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\_width")
+	endif
+
 	if eval GetController == 0 || GetUIFloatAlt "DialogMenu\_DiaHist+Visible" != 1
 		return
 	endif

@@ -18,7 +18,7 @@ begin Function {iMenuID}
 	SetUIFloatAlt "DialogMenu\_DiaHist+Init" 1
 
 	; Init menu loop
-	SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 1 1 10
+	SetOnRenderUpdateEventHandler 1 (CompileScript "DialogueHistory\MenuLoop.gek") 0
 
 	; Enable smooth scrolling
 	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\_VUI+SmoothScrolling" 1
@@ -27,7 +27,10 @@ begin Function {iMenuID}
 	if eval (sName = Player.LnGetName) != ""
 		SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\_name_0" "%z:" sName
 	endif
-	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\_name_1" "%z:" (sName = LnGetName (GetMenuTargetRef 1009))
+	if eval (sName = LnGetName (GetMenuTargetRef 1009)) == "" || sName == "<no name>"
+		sName = "Unknown"
+	endif
+	SetUIStringAlt "DialogMenu\DialogueHistory\WindowDialogue\_name_1" "%z:" sName
 	iDay = GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker"
 	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker" -1
 	SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_speaker" iDay
@@ -61,6 +64,28 @@ begin Function {iMenuID}
 	Goo1.AuxVarSetFlt "*DiaHist_ConvoData" (((iYear - 2200) & 0x7F) << 20 | (iMonth & 0x0F) << 16 | (iDay & 0x1F) << 11 | ((Flr fHour) & 0x1F) << 6 | ((Flr ((FMod fHour 1) * 60)) & 0x3F)) 0
 	Goo1.AuxVarSetStr "*DiaHist_ConvoData" (sName) 1
 	Goo1.AuxVarSetStr "*DiaHist_ConvoData" (Player.GetLocationName) 2
+
+	; MAPMO UI tweaks support
+	if GetVariable "ShowUITweaks" (Goo1.AuxVarGetRef "*MAPMOQuest") == 1 && FileExists "menus\prefabs\mapmo\clean_background.xml"
+		if GetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\visible" == -999
+			InjectUIXML "DialogMenu\DialogueHistory" "data\menus\prefabs\mapmo\clean_background.xml"
+			SetUIFloatAlt "DialogMenu\DialogueHistory\Background\visible" 0
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\visible" 1
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\width" (GetUIFloatAlt "DialogMenu\DialogueHistory\_width")
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\height" (GetUIFloatAlt "DialogMenu\DialogueHistory\_height")
+		endif
+		SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
+		SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
+		if GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\visible" == -999
+			InjectUIXML "DialogMenu\StentoriousPromptWindow" "data\menus\prefabs\mapmo\clean_background.xml"
+			SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\Background\visible" 0
+			SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\visible" 1
+			SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\width" (GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\_width")
+			SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\height" (GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\_height")
+		endif
+		SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
+		SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
+	endif
 
 	aDay = aMonth = Ar_Null
 	sv_Destruct sName sDay sHour

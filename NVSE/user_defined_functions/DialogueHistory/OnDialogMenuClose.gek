@@ -15,7 +15,7 @@ begin Function {iMenuID}
 	endif
 
 	; Stop menu loop
-	SGMLC (CompileScript "DialogueHistory\MenuLoop.gek") 0
+	SetOnRenderUpdateEventHandler 0 (CompileScript "DialogueHistory\MenuLoop.gek") 0
 
 	; Update JSON (dialogue)
 	aEntry = ar_Construct "stringmap"

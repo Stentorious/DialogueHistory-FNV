@@ -27,11 +27,11 @@
 	</x>
 	<y>
 		<copy src="screen()" trait="height" />
-		<sub src="child(WindowBackground)" trait="height" />
+		<sub src="child(Background)" trait="height" />
 		<sub> 25 </sub>
 	</y>
 
-	<image name="WindowBackground">
+	<image name="Background">
 		<visible> 1 </visible>
 		<alpha> 175 </alpha>
 		<depth> 0 </depth>

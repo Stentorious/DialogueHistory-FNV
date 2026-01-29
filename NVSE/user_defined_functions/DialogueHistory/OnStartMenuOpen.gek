@@ -7,22 +7,26 @@ begin Function {iMenuID}
 	endif
 	SetUIFloatAlt "StartMenu\_DiaHist+Init" 1
 
-	if eval IsComponentLoaded "StartMenu\StentoriousPromptWindow" == 0
-		InjectUIXML "StartMenu" "data\menus\prefabs\Stentorious\_Common\StartMenu\PromptWindow.xml"
+	if GetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" == 1 && GetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" == -999
+
+		if eval IsComponentLoaded "StartMenu\StentoriousPromptWindow" == 0
+			InjectUIXML "StartMenu" "data\menus\prefabs\Stentorious\_Common\StartMenu\PromptWindow.xml"
+		endif
+
+		AddTileFromTemplate "StartMenu\StentoriousPromptWindow|StentoriousPromptTemplate|Entry"
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_index" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\childcount" - 3)
+		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_label" "Dialogue History"
+		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_key" "H)"
+		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_button" "glow_general_button_ls.dds"
+		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_icon" "Interface/Stentorious/DialogueHistory/PromptIcon.dds"
+
+		CallAfterFrames 0 (begin function {}
+			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_width" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_max_width")
+			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_height" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\y" + GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\height")
+			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_visible" 1
+		end) 1
+
 	endif
-
-	AddTileFromTemplate "StartMenu\StentoriousPromptWindow|StentoriousPromptTemplate|Entry"
-	SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_index" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\childcount" - 3)
-	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_label" "Dialogue History"
-	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_key" "H)"
-	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_button" "glow_general_button_ls.dds"
-	SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_icon" "Interface/Stentorious/DialogueHistory/PromptIcon.dds"
-
-	CallAfterFrames 0 (begin function {}
-		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_width" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_max_width")
-		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_height" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\y" + GetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\height")
-		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\_visible" 1
-	end) 1
 
 	; MAPMO support
 	if eval GetUIFloatAlt "StartMenu\MAPMO\visible" == -999
@@ -36,5 +40,33 @@ begin Function {iMenuID}
  	SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\wrapwidth" 0
 	SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\y" 11
 	CallAfterFrames 1 ({} => SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\width" ((GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\width")+30))
+
+	; MAPMO UI tweaks support
+	if GetVariable "ShowUITweaks" (Goo1.AuxVarGetRef "*MAPMOQuest") == 1 && FileExists "menus\prefabs\mapmo\clean_background.xml"
+		if GetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\visible" == -999
+			InjectUIXML "StartMenu\DialogueHistory" "data\menus\prefabs\mapmo\clean_background.xml"
+			SetUIFloatAlt "StartMenu\DialogueHistory\Background\visible" 0
+			SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\visible" 1
+			SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\width" (GetUIFloatAlt "StartMenu\DialogueHistory\_width")
+			SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\height" (GetUIFloatAlt "StartMenu\DialogueHistory\_height")
+		endif
+		SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
+		SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
+		if GetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\visible" == -999 && GetUIFloatAlt "StartMenu\StentoriousPromptWindow\visible" != -999
+			InjectUIXML "StartMenu\StentoriousPromptWindow" "data\menus\prefabs\mapmo\clean_background.xml"
+			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Background\visible" 0
+			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\visible" 1
+			CallAfterFrames 1 (begin function {}
+				SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\width" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\_width")
+				SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\height" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\_height")
+			end) 1
+		endif
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
+		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
+		if eval GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized"
+			SetUIFloatAlt "StartMenu\DialogueHistory\Search\SearchBar\Window\systemcolor" (GetUIFloatAlt "StartMenu\_DiaHist+Systemcolor")
+			SetUIFloatAlt "StartMenu\DialogueHistory\Search\SortButton\Window\systemcolor" (GetUIFloatAlt "StartMenu\_DiaHist+Systemcolor")
+		endif
+	endif
 
 end

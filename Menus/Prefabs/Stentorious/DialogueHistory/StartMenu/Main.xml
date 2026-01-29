@@ -211,6 +211,7 @@
 				<red> 0 </red>
 				<green> 0 </green>
 				<blue> 0 </blue>
+				<brightness> 51 </brightness>
 				<zoom> -1 </zoom>
 				<filename> Interface\Shared\solid.dds </filename>
 			</image>
@@ -343,6 +344,7 @@
 				<red> 0 </red>
 				<green> 0 </green>
 				<blue> 0 </blue>
+				<brightness> 51 </brightness>
 				<zoom> -1 </zoom>
 				<filename> Interface\Shared\solid.dds </filename>
 			</image>
@@ -751,12 +753,8 @@
 	<rect name="DHDropListTemplate">
 		<visible> <copy src="parent()" trait="_expanded" /> </visible>
 		<alpha> 0 </alpha>
-		<x> 5 </x>
-		<y>
-			<copy> -3.5 </copy>
-			<onlyif src="globals()" trait="_duiHUDOffset" />
-			<add> 47 </add>
-		</y>
+		<x> 0 </x>
+		<y> 36 </y>
 		<locus> 1 </locus>
 	</rect>
 </template>
@@ -874,7 +872,8 @@
 
 <!-- Name entry template -->
 <template name="DHNameTemplate">
-	<text name="DHNameTemplate">
+	<hotrect name="DHNameTemplate">
+
 		<_index> 0 </_index>
 		<_pointer> 0 </_pointer>
 		<_height> 36 </_height>
@@ -891,32 +890,78 @@
 
 		<id> 504 </id>
 		<visible> 1 </visible>
+		<locus> 1 </locus>
+		<alpha> 0 </alpha>
+		<clips> 1 </clips>
 		<target> 1 </target>
-		<x> 20 </x>
+		<x> 0 </x>
 		<y>
 			<copy src="sibling(Entry)" trait="y" />
 			<add src="sibling(Entry)" trait="_height" />
 			<max> 0 </max>
 		</y>
-		<clips> 1 </clips>
-		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<brightness>
-			<copy> 200 </copy>
-			<onlyif>
-				<copy src="me()" trait="mouseover" />
-				<or src="me()" trait="_selected" />
-			</onlyif>
-			<add> 150 </add>
-		</brightness>
-		<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
-		<zoom> 100 </zoom>
-		<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthname" /> </wrapwidth> -->
-		<!-- <wraplines> 1 </wraplines> -->
-		<justify> &left; </justify>
-		<string> <copy src="me()" trait="_string" /> </string>
+		<width>
+			<copy src="child(Title)" trait="x" />
+			<add src="child(Title)" trait="width" />
+		</width>
+		<height> 36 </height>
 		<mouseoversound> UIMenuFocus </mouseoversound>
 		<clicksound> UIMenuOK </clicksound>
-	</text>
+
+		<image name="Delete">
+			<_pointer> <copy src="parent()" trait="_pointer" /> </_pointer>
+			<id> 509 </id>
+			<visible> 0 </visible>
+			<alpha> 255 </alpha>
+			<depth> 1 </depth>
+			<target> 0 </target>
+			<x> 0 </x>
+			<y>
+				<copy src="parent()" trait="height" />
+				<sub src="me()" trait="height" />
+				<div> 2 </div>
+			</y>
+			<width> 20 </width>
+			<height> 20 </height>
+			<zoom> &scale; </zoom>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
+			<brightness>
+				<copy> 200 </copy>
+				<onlyif src="me()" trait="mouseover" />
+				<add> 150 </add>
+			</brightness>
+			<filename> Interface\Stentorious\DialogueHistory\SearchStop.dds </filename>
+		</image>
+
+		<text name="Title">
+			<visible> 1 </visible>
+			<x>
+				<copy src="sibling(Delete)" trait="width" />
+				<add> 5 </add>
+			</x>
+			<y>
+				<copy> -3.5 </copy>
+				<onlyif src="globals()" trait="_duiHUDOffset" />
+				<add> 11 </add>
+			</y>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
+			<brightness>
+				<copy> 200 </copy>
+				<onlyif>
+					<copy src="parent()" trait="mouseover" />
+					<or src="parent()" trait="_selected" />
+				</onlyif>
+				<add> 150 </add>
+			</brightness>
+			<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
+			<zoom> 100 </zoom>
+			<!-- <wrapwidth> <copy src="DialogueHistory" trait="_wrapwidthdate" /> </wrapwidth> -->
+			<!-- <wraplines> 0 </wraplines> -->
+			<justify> &left; </justify>
+			<string> <copy src="parent()" trait="_string" /> </string>
+		</text>
+
+	</hotrect>
 </template>
 
 <!-- Dialogue line template -->

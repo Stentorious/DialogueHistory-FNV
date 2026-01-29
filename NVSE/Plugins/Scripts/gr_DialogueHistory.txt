@@ -58,6 +58,7 @@ SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#506"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#507"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#508"
+;SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "StartMenu#509"
 
 ; Menu control events
 SetOnKeyDownEventHandler (CompileScript "DialogueHistory\OnKeyDown.gek") 1 15			; Tab
@@ -70,6 +71,7 @@ SetEventHandler "OnButtonDown:15" (CompileScript "DialogueHistory\OnButtonDown.g
 SetEventHandler "OnButtonDown:4096" (CompileScript "DialogueHistory\OnButtonDown.gek")	; A Button
 SetEventHandler "OnButtonDown:8192" (CompileScript "DialogueHistory\OnButtonDown.gek")	; B Button
 SetEventHandler "OnButtonDown:16384" (CompileScript "DialogueHistory\OnButtonDown.gek")	; X Button
+;SetEventHandler "OnButtonDown:32768" (CompileScript "DialogueHistory\OnButtonDown.gek")	; Y Button
 
 ; Save events
 SetEventHandler "NewGame" (CompileScript "DialogueHistory\OnNewGame.gek")
@@ -110,3 +112,8 @@ SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrGreen_1" (Clamp (GetINIFloat_Cached "Int
 SetUIFloatAlt "HUDMainMenu\_DiaHist+SpkrBlue_1" (Clamp (GetINIFloat_Cached "Interface:iNPCBlue" "Stentorious\DialogueHistory.ini" 255) 0 255)
 
 CloseFileSO "Stentorious\DialogueHistory.ini" 0
+
+; MAPMO Support
+if eval IsModLoaded "Main And Pause Menus Overhaul.esm"
+	Goo1.AuxVarSetRef "*MAPMOQuest" (EditorIDToFormID "MAPMOMainQUEST")
+endif

@@ -69,6 +69,20 @@ begin Function {iMenuID, iTileID, sTileName}
 		endif
 		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (sDialog)
 
+	; Delete entry
+	;elseif eval iTileID == 509
+	;	if eval (sTileName = GetActiveUIComponentFullName) == ""
+	;		sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
+	;	endif
+	;	sTileName = sTileName[0:-8]
+	;	Goo1.AuxVarSetStr "*DialogueHistoryButton" (sTileName)
+	;	MessageBoxExAlt (begin function {int iButton}
+	;		if eval iButton != 1
+	;			return
+	;		endif
+	;		Call (CompileScript "DialogueHistory\DeleteDialogueEntry.gek") (GetUIFloatAlt ((Goo1.AuxVarGetStr "*DialogueHistoryButton") + "\_pointer"))
+	;	end) "^Dialogue History^Are you sure you want to delete this dialogue entry?%r%r> %z%r%rThis action cannot be undone.|Cancel|Ok" (GetUIString ((sTileName) + "\_string"))
+
 	; DialogMenu Topic (Update dialog)
 	elseif eval sTileName[0:4] == "topic"
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
@@ -95,6 +109,7 @@ begin Function {iMenuID, iTileID, sTileName}
 		endif
 		StopSoundFromPath (Goo1.AuxVarGetStr "*DiaHist_Voiceline")
 		SetUIFloatAlt "StartMenu\_DiaHist+Visible" 0
+		SetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" 0
 		SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\main_container\_enabled" 1
 		SetUIFloatAlt "StartMenu\MCM\MCM_Trigger\target" 1
 		SetUIFloatAlt "StartMenu\B42NPause\B42NIcon\target" 1
