@@ -30,6 +30,7 @@
 		<sub src="child(Background)" trait="height" />
 		<sub> 25 </sub>
 	</y>
+	<systemcolor> <copy src="sibling(NOGLOW_BRANCH)" trait="systemcolor" /> </systemcolor>
 
 	<image name="Background">
 		<visible> 1 </visible>

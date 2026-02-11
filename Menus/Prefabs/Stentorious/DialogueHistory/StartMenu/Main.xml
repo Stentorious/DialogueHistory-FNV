@@ -502,6 +502,7 @@
 		<width> 128 </width>
 		<height> 64 </height>
 		<zoom> &scale; </zoom>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<filename> Interface\Loading\glow_loading_VDSGSymbol.dds </filename>
 	</image>
 	<text name="TitleText">
@@ -522,6 +523,7 @@
 			</add>
 		</y>
 		<font> 1 </font>
+		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		<string> <copy src="parent()" trait="_text_title" /></string>
 	</text>
 
@@ -661,6 +663,7 @@
 				<copy src="parent" trait="height" />
 				<div src="me()" trait="_scrolldelta" />
 			</_number_of_visible_items>
+			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
 		</hotrect>
 
 	</hotrect>
