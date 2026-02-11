@@ -97,7 +97,7 @@ SetEventHandler "OnButtonUp:3" (begin function {int iKeyCode}
 	if eval Goo1.AuxVarType "*DiaHist_QBut" == 0
 		return
 	endif
-	AuxTimerStop "*DiaHist_QBut"
+	Goo1.AuxTimerStop "*DiaHist_QBut"
 	Goo1.AuxVarErase "*DiaHist_QBut"
 end)
 

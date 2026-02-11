@@ -91,15 +91,15 @@ begin Function {iKeyID}
 
 	; Queue input
 	if eval Goo1.AuxVarType "*DiaHist_QKey" == 0
-		AuxTimerStart "*DiaHist_QKey" 0.5 13
+		Goo1.AuxTimerStart "*DiaHist_QKey" 0.5 13
 	else
-		AuxTimerStart "*DiaHist_QKey" 0.05 13
+		Goo1.AuxTimerStart "*DiaHist_QKey" 0.05 13
 	endif
 	Goo1.AuxVarSetFlt "*DiaHist_QKey" iKeyID
 
 	; Queue search
 	if eval iSearch == 1
-		AuxTimerStart "*DiaHist_Search" 0.5 13
+		Goo1.AuxTimerStart "*DiaHist_Search" 0.5 13
 	endif
 
 	sv_Destruct sSearch

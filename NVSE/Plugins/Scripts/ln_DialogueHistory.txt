@@ -1,4 +1,4 @@
 ; Input events
-SetOnAuxTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QKey"
-SetOnAuxTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QBut"
-SetOnAuxTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_Search"
+Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QKey"
+Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QBut"
+Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_Search"
