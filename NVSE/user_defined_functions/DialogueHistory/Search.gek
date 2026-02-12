@@ -12,7 +12,7 @@ begin Function {sSearch}
 		return
 	endif
 
-	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" (sSearch)
+	SetUIStringAlt "StartMenu\DialogueHistory\Search\_search_term" "%z" sSearch
 
 	; Prevent search if no dialog history
 	if eval SunnyRef.AuxVarSize "*DH_Date_List" == 0
