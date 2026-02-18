@@ -7,7 +7,7 @@ begin Function {iMenuID}
 	endif
 	SetUIFloatAlt "StartMenu\_DiaHist+Init" 1
 
-	if GetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" == 1 && GetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" == -999
+	if eval GetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" == 1 && GetUIFloatAlt "StartMenu\MAPMO\Hotkeys\DialogueHistoryButton\_selected" == -999
 
 		if eval IsComponentLoaded "StartMenu\StentoriousPromptWindow" == 0
 			InjectUIXML "StartMenu" "data\menus\prefabs\Stentorious\_Common\StartMenu\PromptWindow.xml"
@@ -42,8 +42,8 @@ begin Function {iMenuID}
 	CallAfterFrames 1 ({} => SetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\width" ((GetUIFloatAlt "StartMenu\NOGLOW_BRANCH\DialogueHistoryBack\button_text\width")+30)) 1
 
 	; MAPMO UI tweaks support
-	if GetVariable "ShowUITweaks" (Goo1.AuxVarGetRef "*MAPMOQuest") == 1 && FileExists "menus\prefabs\mapmo\clean_background.xml"
-		if GetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\visible" == -999
+	if eval IsFormValid (Goo1.AuxVarGetRef "*MAPMOQuest") && GetVariable "ShowUITweaks" (Goo1.AuxVarGetRef "*MAPMOQuest") == 1 && FileExists "menus\prefabs\mapmo\clean_background.xml"
+		if eval GetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\visible" == -999
 			InjectUIXML "StartMenu\DialogueHistory" "data\menus\prefabs\mapmo\clean_background.xml"
 			SetUIFloatAlt "StartMenu\DialogueHistory\Background\visible" 0
 			SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\visible" 1
@@ -52,7 +52,7 @@ begin Function {iMenuID}
 		endif
 		SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
 		SetUIFloatAlt "StartMenu\DialogueHistory\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
-		if GetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\visible" == -999 && GetUIFloatAlt "StartMenu\StentoriousPromptWindow\visible" != -999
+		if eval GetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\visible" == -999 && GetUIFloatAlt "StartMenu\StentoriousPromptWindow\visible" != -999
 			InjectUIXML "StartMenu\StentoriousPromptWindow" "data\menus\prefabs\mapmo\clean_background.xml"
 			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Background\visible" 0
 			SetUIFloatAlt "StartMenu\StentoriousPromptWindow\CleanBackground\visible" 1
