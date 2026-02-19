@@ -1,6 +1,7 @@
 int iSort
 int iSearch
 int iSize
+int iIndex
 int iEntries
 int iTime
 array_var aJSON
@@ -28,18 +29,20 @@ begin Function {sTilePath}
 
 		if eval (iSize = iEntries = ar_Size aJSON) > 0
 			while (iSize -= 1) > -1
-				sName = RingoRef.AuxVarGetStr "*DH_NPC_List" (aJSON[iSize])
+				iIndex = aJSON[iSize]
+				sName = RingoRef.AuxVarGetStr "*DH_NPC_List" iIndex
 				if eval iSearch > 0 && (Sv_Find (sSearch) (sName)) == -1
 					iEntries -= 1
 					continue
 				endif
 				AddTileFromTemplate ((sTilePath) + "\Entries|DHNameTemplate|Entry")
 				SetUIFloatAlt ((sTilePath) + "\Entries\Entry:0\_index") iSize
-				SetUIFloatAlt ((sTilePath) + "\Entries\Entry:0\_pointer") (aJSON[iSize])
+				SetUIFloatAlt ((sTilePath) + "\Entries\Entry:0\_pointer") iIndex
+				SetUIFloatAlt ((sTilePath) + "\Entries\Entry:0\_delete") (SunnyRef.AuxVarGetFlt "*DH_Delete_Flag" iIndex)
 				if eval iSort == 1
 					SetUIStringAlt ((sTilePath) + "\Entries\Entry:0\_string") "%z" sName
 				else
-					iTime = SunnyRef.AuxVarGetFlt "*DH_Time_List" (aJSON[iSize])
+					iTime = SunnyRef.AuxVarGetFlt "*DH_Time_List" iIndex
 					SetUIStringAlt ((sTilePath) + "\Entries\Entry:0\_string") "%02.0f:%02.0f - %z" ((iTime >> 6) & 0x1F) (iTime & 0x3F) sName
 				endif
 			loop

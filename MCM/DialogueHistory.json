@@ -26,14 +26,14 @@
 					"type": 5,
 					"enable": 1,
 					"mouse": "$DialogueHistoryMouse",
-					"vars": [ { "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 5, "configINI": "General:bDialogueHistory", "default": 1 }]
+					"vars": [{ "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 5, "configINI": "General:bDialogueHistory", "default": 1 }]
 				},
 				"3": {
 					"title": "$EntryLimit",
 					"type": 2,
 					"enable": 1,
 					"mouse": "$EntryLimitMouse",
-					"vars": [ { "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 0, "configINI": "General:iEntryLimit", "default": 250 }],
+					"vars": [{ "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 0, "configINI": "General:iEntryLimit", "default": 250 }],
 					"scale": { "valueDecimal": 0, "valueIncrement": 1, "valueMin": 0, "valueMax": 1000 }
 				},
 				"4": {
@@ -41,29 +41,35 @@
 					"enable": 1,
 					"type": 5,
 					"mouse": "$IgnoreNonPersistentNPCsMouse",
-					"vars": [ { "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 1, "configINI": "General:bIgnoreNonPersistentNPCs", "default": 1 }]
+					"vars": [{ "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 1, "configINI": "General:bIgnoreNonPersistentNPCs", "default": 1 }]
 				},
 				"5": {
 					"title": "$IgnoreDuplicateLines",
 					"enable": 1,
 					"type": 5,
 					"mouse": "$IgnoreDuplicateLinesMouse",
-					"vars": [ { "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 2, "configINI": "General:bIgnoreDuplicateLines", "default": 1 }
-				]
+					"vars": [{ "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 2, "configINI": "General:bIgnoreDuplicateLines", "default": 1 }]
 				},
-				"7": {
+				"6": {
+					"title": "$DeleteConformation",
+					"enable": 1,
+					"type": 5,
+					"mouse": "$DeleteConformationMouse",
+					"vars": [{ "form": "Goo1", "auxVar": "*DiaHist_INI", "key": 8, "configINI": "General:bDeleteConfirmation", "default": 1 }]
+				},
+				"8": {
 					"title": "$Interface",
 					"enable": 1,
 					"type": 0
 				},
-				"8": {
+				"9": {
 					"title": "$ShowMenuButton",
 					"enable": 1,
 					"type": 5,
 					"mouse": "$ShowMenuButtonMouse",
-					"vars": [ { "uiTrait": "HUDMainMenu/_DiaHist+ShowButton", "configINI": "Interface:bShowMenuButton", "default": 1 }]
+					"vars": [{ "uiTrait": "HUDMainMenu/_DiaHist+ShowButton", "configINI": "Interface:bShowMenuButton", "default": 1 }]
 				},
-				"9": {
+				"10": {
 					"title": "$NameColorPlayer",
 					"type": 9,
 					"enable": 1,
@@ -74,7 +80,7 @@
 						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrBlue_0", "configINI": "Interface:iPlayerBlue", "default": 51 }
 					]
 				},
-				"10": {
+				"11": {
 					"title": "$NameColorNPC",
 					"type": 9,
 					"enable": 1,

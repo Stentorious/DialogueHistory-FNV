@@ -1,0 +1,26 @@
+int iIndex
+
+int iDelete
+int iTemp
+array_var aTemp
+
+begin Function {iIndex}
+
+	; Toggle mark for delete flag
+	iDelete = 1 - SunnyRef.AuxVarGetFlt "*DH_Delete_Flag" iIndex
+	SunnyRef.AuxVarSetFlt "*DH_Delete_Flag" iDelete iIndex
+	SetUIFloatAlt ((Goo1.AuxVarGetStr "*DialogueHistoryButton") + "\_delete") iDelete
+
+	; Update entries to delete
+	aTemp = SunnyRef.AuxVarGetAsArr "*DH_Delete_List"
+	if eval (iTemp = Ar_Find iIndex aTemp) != Ar_BadNumericIndex
+		if eval iDelete == 0
+			SunnyRef.AuxVarErase "*DH_Delete_List" iTemp
+		endif
+	elseif eval iDelete
+		SunnyRef.AuxVarSetFlt "*DH_Delete_List" iIndex -1
+	endif
+
+	aTemp = Ar_Null
+
+end

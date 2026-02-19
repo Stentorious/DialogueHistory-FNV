@@ -31,7 +31,7 @@ begin Function {}
 		; Add conversation index to sorting maps
 		if eval TestExpr (aJSON = ReadFromJSON (Goo1.AuxVarGetStr "*DiaHist_Save") "" 0 1)
 		else
-			MessageBoxExAlt ({int iButton} => "") "^Dialogue History^Invalid JSON data detected!%r%rBy continuing to play you run the risk of losing your Dialogue History!%r%rend the following files to @Stentorious on Discord for debugging: %r%r> %z|Ok" (Goo1.AuxVarGetStr "*DiaHist_Save")
+			MessageBoxExAlt ({int iButton} => "") (GetINIString "Strings:sInvalidJSON" "Stentorious\Translate\DialogueHistory.ini") (Goo1.AuxVarGetStr "*DiaHist_Save")
 			return
 		endif
 
@@ -59,6 +59,12 @@ begin Function {}
 		aLocation = Ar_Unique aLocation
 		SunnyRef.AuxVarSetFromArr "*DH_Date_List" aDate
 		TrudyRef.AuxVarSetFromArr "*DH_Location_List" aLocation
+
+		; Init mark for delete list
+		if eval Goo1.AuxVarGetFlt "*DiaHist_Msg" 0 == 0
+			aTemp = Ar_Init iSize 0
+			SunnyRef.AuxVarSetFromArr "*DH_Delete_Flag" aTemp
+		endif
 
 		aDate = aLocation = aTemp = Ar_Null
 

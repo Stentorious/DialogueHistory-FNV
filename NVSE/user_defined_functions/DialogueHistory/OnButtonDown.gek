@@ -118,6 +118,20 @@ begin Function {iButtonID}
 			return
 		endif
 
+		; Y Button (Delete list entry)
+		if eval iButtonID == 32768
+			if eval iSelectionChild == -1
+				return
+			endif
+			sTilePath = ("StartMenu\DialogueHistory\WindowDate\ListBox\Entry:" + $iSelectionParent + "\Entries\Entry:" + $iSelectionChild + "\Delete")
+			Goo1.AuxVarSetStr "*DialogueHistoryButton" (sTilePath)
+			ClickMenuButton (sTilePath)
+			sv_Destruct sTilePath
+			PlaySound UIMenuOk 1
+			return
+		endif
+
+
 		; DPad Up (Move selection up)
 		if eval iButtonID == 1
 			PlaySound UIMenuFocus 1

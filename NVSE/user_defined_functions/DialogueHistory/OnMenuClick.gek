@@ -70,18 +70,13 @@ begin Function {iMenuID, iTileID, sTileName}
 		Goo1.AuxVarSetStr "*DiaHist_Voiceline" (sDialog)
 
 	; Delete entry
-	;elseif eval iTileID == 509
-	;	if eval (sTileName = GetActiveUIComponentFullName) == ""
-	;		sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
-	;	endif
-	;	sTileName = sTileName[0:-8]
-	;	Goo1.AuxVarSetStr "*DialogueHistoryButton" (sTileName)
-	;	MessageBoxExAlt (begin function {int iButton}
-	;		if eval iButton != 1
-	;			return
-	;		endif
-	;		Call (CompileScript "DialogueHistory\DeleteDialogueEntry.gek") (GetUIFloatAlt ((Goo1.AuxVarGetStr "*DialogueHistoryButton") + "\_pointer"))
-	;	end) "^Dialogue History^Are you sure you want to delete this dialogue entry?%r%r> %z%r%rThis action cannot be undone.|Cancel|Ok" (GetUIString ((sTileName) + "\_string"))
+	elseif eval iTileID == 509
+		if eval (sTileName = GetActiveUIComponentFullName) == ""
+			sTileName = Goo1.AuxVarGetStr "*DialogueHistoryButton"
+		endif
+		sTileName = sTileName[0:-8]
+		Goo1.AuxVarSetStr "*DialogueHistoryButton" (sTileName)
+		Call (CompileScript "DialogueHistory\DeleteEntryFlag.gek") (GetUIFloatAlt ((sTileName) + "\_pointer"))
 
 	; DialogMenu Topic (Update dialog)
 	elseif eval sTileName[0:4] == "topic"

@@ -879,6 +879,7 @@
 
 		<_index> 0 </_index>
 		<_pointer> 0 </_pointer>
+		<_delete> 0 </_delete>
 		<_height> 36 </_height>
 		<_string> NPC Name </_string>
 		<_date> <copy src="grandparent()" trait="_string" /> </_date>
@@ -914,10 +915,10 @@
 		<image name="Delete">
 			<_pointer> <copy src="parent()" trait="_pointer" /> </_pointer>
 			<id> 509 </id>
-			<visible> 0 </visible>
+			<visible> 1 </visible>
 			<alpha> 255 </alpha>
 			<depth> 1 </depth>
-			<target> 0 </target>
+			<target> 1 </target>
 			<x> 0 </x>
 			<y>
 				<copy src="parent()" trait="height" />
@@ -927,12 +928,17 @@
 			<width> 20 </width>
 			<height> 20 </height>
 			<zoom> &scale; </zoom>
-			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
+			<systemcolor> <copy src="sibling(Title)" trait="systemcolor" /> </systemcolor>
 			<brightness>
 				<copy> 200 </copy>
-				<onlyif src="me()" trait="mouseover" />
+				<onlyif>
+					<copy src="me()" trait="mouseover" />
+					<or src="parent()" trait="_selected" />
+				</onlyif>
 				<add> 150 </add>
 			</brightness>
+			<mouseoversound> UIMenuFocus </mouseoversound>
+			<clicksound> UIMenuOK </clicksound>
 			<filename> Interface\Stentorious\DialogueHistory\SearchStop.dds </filename>
 		</image>
 
@@ -947,12 +953,20 @@
 				<onlyif src="globals()" trait="_duiHUDOffset" />
 				<add> 11 </add>
 			</y>
-			<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
+			<systemcolor>
+				<copy src="io()" trait="_DiaHist+Systemcolor" />
+				<onlyifnot src="parent()" trait="_delete" />
+				<add>
+					<copy> 2 </copy>
+					<onlyif src="parent()" trait="_delete" />
+				</add>
+			</systemcolor>
 			<brightness>
 				<copy> 200 </copy>
 				<onlyif>
 					<copy src="parent()" trait="mouseover" />
 					<or src="parent()" trait="_selected" />
+					<or src="sibling(Delete)" trait="mouseover" />
 				</onlyif>
 				<add> 150 </add>
 			</brightness>
