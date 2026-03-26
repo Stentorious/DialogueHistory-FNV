@@ -6,7 +6,7 @@ array_var aTemp
 
 begin Function {iMenuID}
 
-	if eval (iMenuID = GetActiveMenuMode) != 1009 && iMenuID != 1048
+	if eval (iMenuID = GetActiveMenuMode) != 1009 && iMenuID != 1048 && iMenuID != 1001
 		return
 	endif
 
