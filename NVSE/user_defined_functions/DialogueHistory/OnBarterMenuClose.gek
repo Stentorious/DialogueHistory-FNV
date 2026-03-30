@@ -2,7 +2,7 @@ int	iMenuID
 
 begin Function {iMenuID}
 
-	if eval Goo1.AuxVarGetFlt "*DiaHist_State" 0 == 0 || Goo1.AuxVarSize "*DiaHist_ConvoLines" < 1 || iMenuID != 0
+	if eval Goo1.AuxVarGetFlt "*DiaHist_State" 0 == 0 || Goo1.AuxVarSize "*DiaHist_ConvoLines" < 1 || GetActiveMenuMode != 0
 		if eval iMenuID == 1009
 			Goo1.AuxVarSetFlt "*DiaHist_State" 0 0
 		endif
