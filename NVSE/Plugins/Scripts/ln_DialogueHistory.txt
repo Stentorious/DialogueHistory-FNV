@@ -2,6 +2,3 @@
 Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QKey"
 Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_QBut"
 Goo1.SetOnTimerStopHandler 1 (CompileScript "DialogueHistory\InputQueue.gek") "*DiaHist_Search"
-
-; State
-Goo1.AuxVarSetFlt "*DiaHist_State" 0 0

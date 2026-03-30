@@ -1,4 +1,4 @@
-п»ї<_DiaHist+Init> 0 </_DiaHist+Init>
+<_DiaHist+Init> 0 </_DiaHist+Init>
 <_DiaHist+Visible> 0 </_DiaHist+Visible>
 <_DiaHist+Search> 0 </_DiaHist+Search>
 <_DiaHist+Searching> 0 </_DiaHist+Searching>
@@ -24,8 +24,8 @@
 <rect name="DialogueHistory">
 
 	<!-- Menu strings -->
-	<_text_title> Dialogue History </_text_title>
-	<_text_no_history> No dialogue history found... </_text_no_history>
+	<_text_title> История диалогов </_text_title>
+	<_text_no_history> История пуста... </_text_no_history>
 
 	<!-- Menu layout -->
 	<_offset_x> 0 </_offset_x>
@@ -123,7 +123,7 @@
 		<_search_term> Search Term </_search_term>
 		<_search_cursor_1> | </_search_cursor_1>
 		<_search_cursor_2> | </_search_cursor_2>
-		<_search_text_0> Search (CTRL-F) </_search_text_0>
+		<_search_text_0> Поиск (CTRL-F) </_search_text_0>
 		<_search_text_1> Search Term </_search_text_1>
 		<_search_text_2> <copy src="me()" trait="_search_text_1" /> </_search_text_2>
 		<_search_brightness_0> 75 </_search_brightness_0>
@@ -383,9 +383,9 @@
 		<y> 0 </y>
 		<width> <copy src="globals()" trait="_line_thickness" /> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_bottom.dds </filename>
+		<filename> fade_to_bottom.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_VBM">
 		<x> <copy src="sibling(Outline_VTM)" trait="x" /> </x>
@@ -395,9 +395,9 @@
 		</y>
 		<width> <copy src="globals()" trait="_line_thickness" /> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
-		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_top.dds </filename>
+		<filename> fade_to_top.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_VTL">
 		<x>
@@ -409,7 +409,8 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_bottom.dds </filename>
+		<filename> fade_to_bottom.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_VTR">
 		<x> <copy src="parent()" trait="_width" /> </x>
@@ -418,7 +419,8 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_bottom.dds </filename>
+		<filename> fade_to_bottom.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_VBL">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
@@ -430,7 +432,8 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_top.dds </filename>
+		<filename> fade_to_top.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_VBR">
 		<x> <copy src="sibling(Outline_VTR)" trait="x" /> </x>
@@ -439,7 +442,8 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> interface\shared\line\fade_to_top.dds </filename>
+		<filename> fade_to_top.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
 	</image>
 	<image name="Outline_HT">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
@@ -652,11 +656,7 @@
 			<_number_of_items>
 				<copy src="parent()" trait="_list_height" />
 				<add src="grandparent()" trait="_list_height_extra" />
-				<sub>
-					<copy> -2 </copy>
-					<onlyif src="globals()" trait="_duiHUDOffset" />
-					<add> 20 </add>
-				</sub>
+				<sub> 20 </sub>
 				<div src="me()" trait="_scrolldelta" />
 			</_number_of_items>
 			<_number_of_visible_items>

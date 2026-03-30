@@ -2,7 +2,6 @@
 <_DiaHist+Visible> 0 </_DiaHist+Visible>
 <_DiaHist+Ignore> 0 </_DiaHist+Ignore>
 <_DiaHist+PlayerTopic> 0 </_DiaHist+PlayerTopic>
-<_DiaHist+TranscriptStyle> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+TranscriptStyle" /> </_DiaHist+TranscriptStyle>
 <_DiaHist+ShowButton> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+ShowButton" /> </_DiaHist+ShowButton>
 <_DiaHist+SpkrSystemcolor_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrSystemcolor_0" /> </_DiaHist+SpkrSystemcolor_0>
 <_DiaHist+SpkrRed_0> <copy src="sibling(HUDMainMenu)" trait="_DiaHist+SpkrRed_0" /> </_DiaHist+SpkrRed_0>
@@ -21,8 +20,8 @@
 <hotrect name="DialogueHistoryButton">
 	<include src="text_box.xml" />
 	<visible> 0 </visible>
-	<_string_0> Dialog History </_string_0>
-	<_string_1> Hide </_string_1>
+	<_string_0> История диалога </_string_0>
+	<_string_1> Скрыть </_string_1>
 	<_string>
 		<copy src="io()" trait="_DiaHist+Visible" />
 		<copy src="me()" trait="_string_" />
@@ -74,8 +73,8 @@
 	<hotrect name="Entry">
 
 		<_key> H) </_key>
-		<_string_0> History </_string_0>
-		<_string_1> Hide </_string_1>
+		<_string_0> История </_string_0>
+		<_string_1> Скрыть </_string_1>
 		<_label>
 			<copy src="io()" trait="_DiaHist+Visible" />
 			<copy src="me()" trait="_string_" />
@@ -230,17 +229,8 @@
 		<copy src="DM_TopBracket" trait="width" />
 		<sub src="globals()" trait="_line_thickness" />
 		<sub src="globals()" trait="_line_thickness" />
-		<onlyifnot src="io()" trait="_DiaHist+TranscriptStyle" />
-		<add>
-			<copy> 750 </copy>
-			<onlyif src="io()" trait="_DiaHist+TranscriptStyle" />
-		</add>
 	</_width>
-	<_height>
-		<copy> 240 </copy>
-		<onlyifnot src="io()" trait="_DiaHist+TranscriptStyle" />
-		<add> 260 </add>
-	</_height>
+	<_height> 500 </_height> <!-- <copy src="DM_TopBracket" trait="y" /> <sub> 150 </sub> -->
 	<_background_offset> 6 </_background_offset>
 	<_height_fade> 50 </_height_fade>
 	<_wrapwidth>
@@ -269,208 +259,200 @@
 	<x>
 		<copy src="DM_TopBracket" trait="x" />
 		<add src="me()" trait="_offset_x" />
-		<onlyifnot src="io()" trait="_DiaHist+TranscriptStyle" />
 	</x>
-	<y>
-		<copy src="me()" trait="_offset_y" />
-		<onlyifnot src="io()" trait="_DiaHist+TranscriptStyle" />
-	</y>
+	<y> <copy src="me()" trait="_offset_y" /> </y>
 
-	<rect name="MainContainer">
+	<!-- Outlines -->
+	<image name="Outline_VTL">
+		<x>
+			<copy> 0 </copy>
+			<sub src="globals()" trait="_line_thickness" />
+		</x>
+		<y> 0 </y>
+		<width> <copy src="globals()" trait="_line_thickness" /> </width>
+		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> fade_to_bottom.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
+	</image>
+	<image name="Outline_VTR">
+		<x> <copy src="parent()" trait="_width" /> </x>
+		<y> <copy src="sibling(Outline_VTL)" trait="y" /> </y>
+		<width> <copy src="globals()" trait="_line_thickness" /> </width>
+		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> fade_to_bottom.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
+	</image>
+	<image name="Outline_VBL">
+		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
+		<y>
+			<copy src="parent()" trait="_height" />
+			<sub src="me()" trait="height" />
+		</y>
+		<width> <copy src="globals()" trait="_line_thickness" /> </width>
+		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> fade_to_top.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
+	</image>
+	<image name="Outline_VBR">
+		<x> <copy src="sibling(Outline_VTR)" trait="x" /> </x>
+		<y> <copy src="sibling(Outline_VBL)" trait="y" /> </y>
+		<width> <copy src="globals()" trait="_line_thickness" /> </width>
+		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> fade_to_top.dds </filename>
+		<texatlas> Interface\InterfaceShared.tai </texatlas>
+	</image>
 
-		<visible> <not src="io()" trait="_DiaHist+TranscriptStyle" /> </visible>
-		<locus> 1 </locus>
-		<depth> 0 </depth>
-
-		<!-- Outlines -->
-		<image name="Outline_VTL">
-			<x>
-				<copy> 0 </copy>
-				<sub src="globals()" trait="_line_thickness" />
-			</x>
-			<y> 0 </y>
-			<width> <copy src="globals()" trait="_line_thickness" /> </width>
-			<height> <copy src="grandparent()" trait="_height_fade" /> </height>
-			<zoom> -1 </zoom>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> interface\shared\line\fade_to_bottom.dds </filename>
-		</image>
-		<image name="Outline_VTR">
-			<x> <copy src="grandparent()" trait="_width" /> </x>
-			<y> <copy src="sibling(Outline_VTL)" trait="y" /> </y>
-			<width> <copy src="globals()" trait="_line_thickness" /> </width>
-			<height> <copy src="grandparent()" trait="_height_fade" /> </height>
-			<zoom> -1 </zoom>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> interface\shared\line\fade_to_bottom.dds </filename>
-		</image>
-		<image name="Outline_VBL">
-			<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
-			<y>
-				<copy src="grandparent()" trait="_height" />
+	<!-- Top Border -->
+	<text name="TopText">
+		<x>
+			<copy src="sibling(Outline_HTL)" trait="x" />
+			<add src="sibling(Outline_HTL)" trait="width" />
+			<add> 10 </add>
+		</x>
+		<y>
+			<copy> -5 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset" />
+			<add src="sibling(Outline_HTL)" trait="y" />
+			<add> 5 </add>
+			<add>
+				<copy src="sibling(Outline_HTL)" trait="height" />
 				<sub src="me()" trait="height" />
-			</y>
-			<width> <copy src="globals()" trait="_line_thickness" /> </width>
-			<height> <copy src="grandparent()" trait="_height_fade" /> </height>
-			<zoom> -1 </zoom>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> interface\shared\line\fade_to_top.dds </filename>
-		</image>
-		<image name="Outline_VBR">
-			<x> <copy src="sibling(Outline_VTR)" trait="x" /> </x>
-			<y> <copy src="sibling(Outline_VBL)" trait="y" /> </y>
-			<width> <copy src="globals()" trait="_line_thickness" /> </width>
-			<height> <copy src="grandparent()" trait="_height_fade" /> </height>
-			<zoom> -1 </zoom>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> interface\shared\line\fade_to_top.dds </filename>
-		</image>
-
-		<!-- Top Border -->
-		<text name="TopText">
-			<x>
-				<copy src="sibling(Outline_HTL)" trait="x" />
-				<add src="sibling(Outline_HTL)" trait="width" />
-				<add> 10 </add>
-			</x>
-			<y>
-				<copy> -5 </copy>
-				<onlyif src="globals()" trait="_duiHUDOffset" />
-				<add src="sibling(Outline_HTL)" trait="y" />
-				<add> 5 </add>
-				<add>
-					<copy src="sibling(Outline_HTL)" trait="height" />
-					<sub src="me()" trait="height" />
-					<div> 2 </div>
-				</add>
-			</y>
-			<font> 1 </font>
-			<string> NPC Name </string>
-		</text>
-		<image name="Outline_HTL">
-			<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
-			<y>
-				<copy src="sibling(Outline_VTL)" trait="y" />
-				<sub src="globals()" trait="_line_thickness" />
-			</y>
-			<width> <copy src="grandparent()" trait="_height_fade" /> </width>
-			<height> <copy src="globals()" trait="_line_thickness" /> </height>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> Interface\Shared\solid.dds </filename>
-		</image>
-		<image name="Outline_HTR">
-			<x>
-				<copy src="sibling(TopText)" trait="x" />
-				<add src="sibling(TopText)" trait="width" />
-				<add> 10 </add>
-			</x>
-			<y> <copy src="sibling(Outline_HTL)" trait="y" /> </y>
-			<width>
-				<copy src="grandparent()" trait="_width" />
-				<add src="globals()" trait="_line_thickness" />
-				<sub src="sibling(TopText)" trait="x" />
-				<sub src="sibling(TopText)" trait="width" />
-				<sub> 10 </sub>
-			</width>
-			<height> <copy src="globals()" trait="_line_thickness" /> </height>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> Interface\Shared\solid.dds </filename>
-		</image>
-
-		<!-- Bottom Border -->
-		<image name="BottomIcon">
-			<x>
-				<copy src="sibling(Outline_HBL)" trait="x" />
-				<add src="sibling(Outline_HBL)" trait="width" />
-				<sub> 24 </sub>
-			</x>
-			<y>
-				<copy src="sibling(Outline_HBL)" trait="height" />
-				<sub src="me" trait="height" />
 				<div> 2 </div>
-				<add> 1 </add>
-				<add src="sibling(Outline_HBL)" trait="y" />
-			</y>
-			<width> 128 </width>
-			<height> 64 </height>
-			<zoom> &scale; </zoom>
-			<filename> Interface\Loading\glow_loading_VDSGSymbol.dds </filename>
-		</image>
-		<text name="BottomText">
-			<x>
-				<copy src="sibling(BottomIcon)" trait="x" />
-				<add src="sibling(BottomIcon)" trait="width" />
-				<sub> 24 </sub>
-			</x>
-			<y>
-				<copy> -7 </copy>
-				<onlyif src="globals()" trait="_duiHUDOffset" />
-				<add src="sibling(BottomIcon)" trait="y" />
-				<add> 7 </add>
-				<add>
-					<copy src="sibling(BottomIcon)" trait="height" />
-					<sub src="me()" trait="height" />
-					<div> 2 </div>
-				</add>
-			</y>
-			<font> 1 </font>
-			<string> Dialogue History </string>
-		</text>
-		<image name="Outline_HBL">
-			<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
-			<y> <copy src="grandparent()" trait="_height" /> </y>
-			<width> <copy src="grandparent()" trait="_height_fade" /> </width>
-			<height> <copy src="globals()" trait="_line_thickness" /> </height>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> Interface\Shared\solid.dds </filename>
-		</image>
-		<image name="Outline_HBR">
-			<x>
-				<copy src="sibling(BottomText)" trait="x" />
-				<add src="sibling(BottomText)" trait="width" />
-				<add> 10 </add>
-			</x>
-			<y> <copy src="sibling(Outline_HBL)" trait="y" /> </y>
-			<width>
-				<copy src="grandparent()" trait="_width" />
-				<add src="globals()" trait="_line_thickness" />
-				<sub src="sibling(BottomText)" trait="x" />
-				<sub src="sibling(BottomText)" trait="width" />
-				<sub> 10 </sub>
-			</width>
-			<height> <copy src="globals()" trait="_line_thickness" /> </height>
-			<systemcolor> <copy src="grandparent()" trait="_systemcolor" /> </systemcolor>
-			<filename> Interface\Shared\solid.dds </filename>
-		</image>
+			</add>
+		</y>
+		<font> 1 </font>
+		<string> NPC Name </string>
+	</text>
+	<image name="Outline_HTL">
+		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
+		<y>
+			<copy src="sibling(Outline_VTL)" trait="y" />
+			<sub src="globals()" trait="_line_thickness" />
+		</y>
+		<width> <copy src="parent()" trait="_height_fade" /> </width>
+		<height> <copy src="globals()" trait="_line_thickness" /> </height>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
+	<image name="Outline_HTR">
+		<x>
+			<copy src="sibling(TopText)" trait="x" />
+			<add src="sibling(TopText)" trait="width" />
+			<add> 10 </add>
+		</x>
+		<y> <copy src="sibling(Outline_HTL)" trait="y" /> </y>
+		<width>
+			<copy src="parent()" trait="_width" />
+			<add src="globals()" trait="_line_thickness" />
+			<sub src="sibling(TopText)" trait="x" />
+			<sub src="sibling(TopText)" trait="width" />
+			<sub> 10 </sub>
+		</width>
+		<height> <copy src="globals()" trait="_line_thickness" /> </height>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
 
-		<image name="Background">
-			<visible> 1 </visible>
-			<alpha> 153 </alpha>
-			<depth> -2 </depth>
-			<x>
-				<copy> 0 </copy>
-				<sub src="grandparent()" trait="_background_offset" />
-			</x>
-			<y> <copy src="me()" trait="x" /> </y>
-			<width>
-				<copy src="grandparent()" trait="_width" />
-				<add src="grandparent()" trait="_background_offset" />
-				<add src="grandparent()" trait="_background_offset" />
-			</width>
-			<height>
-				<copy src="grandparent()" trait="_height" />
-				<add src="grandparent()" trait="_background_offset" />
-				<add src="grandparent()" trait="_background_offset" />
-			</height>
-			<zoom> &scale; </zoom>
-			<systemcolor> 0 </systemcolor>
-			<red> 0 </red>
-			<green> 0 </green>
-			<blue> 0 </blue>
-			<filename> Interface\Shared\solid.dds </filename>
-		</image>
+	<!-- Bottom Border -->
+	<image name="BottomIcon">
+		<x>
+			<copy src="sibling(Outline_HBL)" trait="x" />
+			<add src="sibling(Outline_HBL)" trait="width" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy src="sibling(Outline_HBL)" trait="height" />
+			<sub src="me" trait="height" />
+			<div> 2 </div>
+			<add> 1 </add>
+			<add src="sibling(Outline_HBL)" trait="y" />
+		</y>
+		<width> 128 </width>
+		<height> 64 </height>
+		<zoom> &scale; </zoom>
+		<filename> Interface\Loading\glow_loading_VDSGSymbol.dds </filename>
+	</image>
+	<text name="BottomText">
+		<x>
+			<copy src="sibling(BottomIcon)" trait="x" />
+			<add src="sibling(BottomIcon)" trait="width" />
+			<sub> 24 </sub>
+		</x>
+		<y>
+			<copy> -7 </copy>
+			<onlyif src="globals()" trait="_duiHUDOffset" />
+			<add src="sibling(BottomIcon)" trait="y" />
+			<add> 7 </add>
+			<add>
+				<copy src="sibling(BottomIcon)" trait="height" />
+				<sub src="me()" trait="height" />
+				<div> 2 </div>
+			</add>
+		</y>
+		<font> 1 </font>
+		<string> История Диалога </string>
+	</text>
+	<image name="Outline_HBL">
+		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
+		<y> <copy src="parent()" trait="_height" /> </y>
+		<width> <copy src="parent()" trait="_height_fade" /> </width>
+		<height> <copy src="globals()" trait="_line_thickness" /> </height>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
+	<image name="Outline_HBR">
+		<x>
+			<copy src="sibling(BottomText)" trait="x" />
+			<add src="sibling(BottomText)" trait="width" />
+			<add> 10 </add>
+		</x>
+		<y> <copy src="sibling(Outline_HBL)" trait="y" /> </y>
+		<width>
+			<copy src="parent()" trait="_width" />
+			<add src="globals()" trait="_line_thickness" />
+			<sub src="sibling(BottomText)" trait="x" />
+			<sub src="sibling(BottomText)" trait="width" />
+			<sub> 10 </sub>
+		</width>
+		<height> <copy src="globals()" trait="_line_thickness" /> </height>
+		<systemcolor> <copy src="parent()" trait="_systemcolor" /> </systemcolor>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
 
-	</rect>
+	<image name="Background">
+		<visible> 1 </visible>
+		<alpha> 153 </alpha>
+		<depth> -2 </depth>
+		<x>
+			<copy> 0 </copy>
+			<sub src="parent()" trait="_background_offset" />
+		</x>
+		<y> <copy src="me()" trait="x" /> </y>
+		<width>
+			<copy src="parent()" trait="_width" />
+			<add src="parent()" trait="_background_offset" />
+			<add src="parent()" trait="_background_offset" />
+		</width>
+		<height>
+			<copy src="parent()" trait="_height" />
+			<add src="parent()" trait="_background_offset" />
+			<add src="parent()" trait="_background_offset" />
+		</height>
+		<zoom> &scale; </zoom>
+		<systemcolor> 0 </systemcolor>
+		<red> 0 </red>
+		<green> 0 </green>
+		<blue> 0 </blue>
+		<filename> Interface\Shared\solid.dds </filename>
+	</image>
 
 	<hotrect name="WindowDialogue">
 
@@ -504,9 +486,7 @@
 				<sub> 11 </sub>
 			</_x>
 			<y>
-				<copy> -1000 </copy>
-				<onlyif src="io()" trait="_DiaHist+TranscriptStyle" />
-				<add> 65 </add>
+				<copy> 65 </copy>
 				<sub src="parent()" trait="y" />
 			</y>
 			<_height>
@@ -517,11 +497,7 @@
 			<_number_of_items>
 				<copy src="parent()" trait="_list_height" />
 				<add src="grandparent()" trait="_list_height_extra" />
-				<sub>
-					<copy> -2 </copy>
-					<onlyif src="globals()" trait="_duiHUDOffset" />
-					<add> 20 </add>
-				</sub>
+				<sub> 20 </sub>
 				<div src="me()" trait="_scrolldelta" />
 			</_number_of_items>
 			<_number_of_visible_items>
@@ -531,11 +507,6 @@
 		</hotrect>
 
 		<rect name="ListBox">
-			<_text_zoom>
-				<copy> 25 </copy>
-				<onlyifnot src="io()" trait="_DiaHist+TranscriptStyle" />
-				<add> 75 </add>
-			</_text_zoom>
 			<visible> 1 </visible>
 			<alpha> 0 </alpha>
 			<y>
@@ -600,7 +571,7 @@
 				<copy src="io()" trait="_DiaHist+SpkrBlue_" />
 			</blue>
 			<font> <copy src="io()" trait="_DiaHist+Font" /> </font>
-			<zoom> <copy src="grandparent()" trait="_text_zoom" /> </zoom>
+			<zoom> 100 </zoom>
 			<justify> &left; </justify>
 			<string> <copy src="parent()" trait="_name" /> </string>
 		</text>

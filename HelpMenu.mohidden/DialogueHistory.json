@@ -1,0 +1,18 @@
+{
+	"minMHMVersion": 1.0,
+	"requirements": [
+		{ "type": "file", "file": "NVSE/plugins/scripts/gr_DialogueHistory.txt" }
+	],
+	"categories": {
+		"0": {
+			"title": "Interface",
+			"pages": {
+				"0": {
+					"title": "$ListEntry",
+					"text": "$Description",
+					"textXbox": "$DescriptionXbox"
+				}
+			}
+		}
+	}
+}

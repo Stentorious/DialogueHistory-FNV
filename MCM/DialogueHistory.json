@@ -63,22 +63,13 @@
 					"type": 0
 				},
 				"9": {
-					"title": "$ConversationTranscriptStyle",
-					"type": 6,
-					"enable": 1,
-					"mouse": "$ConversationTranscriptStyleMouse",
-					"vars": [ { "uiTrait": "HUDMainMenu/_DiaHist+TranscriptStyle", "configINI": "Interface:iConversationTranscriptStyle", "default": 0 } ],
-					"textOff": "$FalloutNV",
-					"textOn": "$Fallout76"
-				},
-				"10": {
 					"title": "$ShowMenuButton",
 					"enable": 1,
 					"type": 5,
 					"mouse": "$ShowMenuButtonMouse",
 					"vars": [{ "uiTrait": "HUDMainMenu/_DiaHist+ShowButton", "configINI": "Interface:bShowMenuButton", "default": 1 }]
 				},
-				"11": {
+				"10": {
 					"title": "$NameColorPlayer",
 					"type": 9,
 					"enable": 1,
@@ -89,7 +80,7 @@
 						{ "uiTrait": "HUDMainMenu/_DiaHist+SpkrBlue_0", "configINI": "Interface:iPlayerBlue", "default": 51 }
 					]
 				},
-				"12": {
+				"11": {
 					"title": "$NameColorNPC",
 					"type": 9,
 					"enable": 1,

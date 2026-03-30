@@ -28,7 +28,6 @@ Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bRemoveSpeech
 Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bDialogueHistory" "Stentorious\DialogueHistory.ini" 1) 5
 
 ; Load menu settings
-SetUIFloatAlt "HUDMainMenu\_DiaHist+TranscriptStyle" (eval GetINIFloat_Cached "Interface:iConversationTranscriptStyle" "Stentorious\DialogueHistory.ini" 0)
 SetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" (eval GetINIFloat_Cached "Interface:bShowMenuButton" "Stentorious\DialogueHistory.ini" 1)
 
 ; Tutorial message
@@ -56,7 +55,6 @@ SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnDialogMenuOpen.gek")
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnDialogMenuClose.gek") 1 1009
 SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnStartMenuOpen.gek") 1 1013
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnStartMenuClose.gek") 1 1013
-SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnBarterMenuClose.gek") 1 1053
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\NOGLOW_BRANCH\DM_TopicList"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\DialogueHistoryButton"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu#508"

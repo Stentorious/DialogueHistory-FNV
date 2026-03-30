@@ -15,7 +15,7 @@ begin Function {iMenuID}
 
 		AddTileFromTemplate "StartMenu\StentoriousPromptWindow|StentoriousPromptTemplate|Entry"
 		SetUIFloatAlt "StartMenu\StentoriousPromptWindow\Entry:0\_index" (GetUIFloatAlt "StartMenu\StentoriousPromptWindow\childcount" - 3)
-		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_label" "Dialogue History"
+		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_label" "История Диалогов"
 		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_key" "H)"
 		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_button" "glow_general_button_ls.dds"
 		SetUIStringAlt "StartMenu\StentoriousPromptWindow\Entry:0\_icon" "Interface/Stentorious/DialogueHistory/PromptIcon.dds"

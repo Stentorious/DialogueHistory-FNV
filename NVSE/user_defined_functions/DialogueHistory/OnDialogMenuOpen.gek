@@ -58,7 +58,7 @@ begin Function {iMenuID}
 	endif
 
 	; Update title
-	SetUIStringAlt "DialogMenu\DialogueHistory\MainContainer\TopText\string" "%z - %z, %g:%02.0f %z, %g%z of %z, %g" sName (aDay[(GetDayOfWeek)]) (((Flr (fHour + 24) - 1) % 12) + 1) (Flr ((FMod fHour 1) * 60)) (sHour) iDay (sDay) (aMonth[iMonth]) iYear
+	SetUIStringAlt "DialogMenu\DialogueHistory\TopText\string" "%z - %z, %g:%02.0f %z, %g%z of %z, %g" sName (aDay[(GetDayOfWeek)]) (((Flr (fHour + 24) - 1) % 12) + 1) (Flr ((FMod fHour 1) * 60)) (sHour) iDay (sDay) (aMonth[iMonth]) iYear
 
 	; Update convo aux
 	Goo1.AuxVarSetFlt "*DiaHist_ConvoData" (((iYear - 2200) & 0x7F) << 20 | (iMonth & 0x0F) << 16 | (iDay & 0x1F) << 11 | ((Flr fHour) & 0x1F) << 6 | ((Flr ((FMod fHour 1) * 60)) & 0x3F)) 0
@@ -67,18 +67,15 @@ begin Function {iMenuID}
 
 	; MAPMO UI tweaks support
 	if GetVariable "ShowUITweaks" (Goo1.AuxVarGetRef "*MAPMOQuest") == 1 && FileExists "menus\prefabs\mapmo\clean_background.xml"
-		if GetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\visible" == -999
-			InjectUIXML "DialogMenu\DialogueHistory\MainContainer" "data\menus\prefabs\mapmo\clean_background.xml"
-			SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\Background\visible" 0
-			SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\visible" 1
-			fHour = GetUIFloatAlt "DialogMenu\NOGLOW_BRANCH\DM_TopBracket\width"
-			fHour -= GetUIFloatAlt "DialogMenu\DialogueHistory\_offset_x"
-			fHour -= GetUIFloatAlt "DialogMenu\DialogueHistory\_offset_x"
-			SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\width" fHour
-			SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\height" 500
+		if GetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\visible" == -999
+			InjectUIXML "DialogMenu\DialogueHistory" "data\menus\prefabs\mapmo\clean_background.xml"
+			SetUIFloatAlt "DialogMenu\DialogueHistory\Background\visible" 0
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\visible" 1
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\width" (GetUIFloatAlt "DialogMenu\DialogueHistory\_width")
+			SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\height" (GetUIFloatAlt "DialogMenu\DialogueHistory\_height")
 		endif
-		SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
-		SetUIFloatAlt "DialogMenu\DialogueHistory\MainContainer\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
+		SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\_colorized" (GetUIFloatAlt "HUDMainMenu\_MAPMOCleanMenuBackgroundsColorized")
+		SetUIFloatAlt "DialogMenu\DialogueHistory\CleanBackground\_faded" (GetUIFloatAlt "HUDMainMenu\_MAPMOUITweaksFadedEdges")
 		if GetUIFloatAlt "DialogMenu\StentoriousPromptWindow\CleanBackground\visible" == -999
 			InjectUIXML "DialogMenu\StentoriousPromptWindow" "data\menus\prefabs\mapmo\clean_background.xml"
 			SetUIFloatAlt "DialogMenu\StentoriousPromptWindow\Background\visible" 0
