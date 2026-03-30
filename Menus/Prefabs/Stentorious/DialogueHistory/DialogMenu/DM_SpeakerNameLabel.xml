@@ -1,4 +1,7 @@
 <visible>
-	<not src="io()" trait="_DiaHist+Visible" />
-	<and src="io()" trait="_DialogVisible" />
+	<copy src="io()" trait="_DialogVisible" />
+	<and>
+		<not src="io()" trait="_DiaHist+Visible" />
+		<or src="io()" trait="_DiaHist+TranscriptStyle" />
+	</and>
 </visible>

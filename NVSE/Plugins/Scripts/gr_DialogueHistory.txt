@@ -28,6 +28,7 @@ Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bRemoveSpeech
 Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bDialogueHistory" "Stentorious\DialogueHistory.ini" 1) 5
 
 ; Load menu settings
+SetUIFloatAlt "HUDMainMenu\_DiaHist+TranscriptStyle" (eval GetINIFloat_Cached "Interface:iConversationTranscriptStyle" "Stentorious\DialogueHistory.ini" 0)
 SetUIFloatAlt "HUDMainMenu\_DiaHist+ShowButton" (eval GetINIFloat_Cached "Interface:bShowMenuButton" "Stentorious\DialogueHistory.ini" 1)
 
 ; Tutorial message
