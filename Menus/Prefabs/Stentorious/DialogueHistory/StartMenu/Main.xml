@@ -383,9 +383,9 @@
 		<y> 0 </y>
 		<width> <copy src="globals()" trait="_line_thickness" /> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_bottom.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_bottom.dds </filename>
 	</image>
 	<image name="Outline_VBM">
 		<x> <copy src="sibling(Outline_VTM)" trait="x" /> </x>
@@ -395,9 +395,9 @@
 		</y>
 		<width> <copy src="globals()" trait="_line_thickness" /> </width>
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
+		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_top.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_top.dds </filename>
 	</image>
 	<image name="Outline_VTL">
 		<x>
@@ -409,8 +409,7 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_bottom.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_bottom.dds </filename>
 	</image>
 	<image name="Outline_VTR">
 		<x> <copy src="parent()" trait="_width" /> </x>
@@ -419,8 +418,7 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_bottom.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_bottom.dds </filename>
 	</image>
 	<image name="Outline_VBL">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
@@ -432,8 +430,7 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_top.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_top.dds </filename>
 	</image>
 	<image name="Outline_VBR">
 		<x> <copy src="sibling(Outline_VTR)" trait="x" /> </x>
@@ -442,8 +439,7 @@
 		<height> <copy src="parent()" trait="_height_fade" /> </height>
 		<zoom> -1 </zoom>
 		<systemcolor> <copy src="io()" trait="_DiaHist+Systemcolor" /> </systemcolor>
-		<filename> fade_to_top.dds </filename>
-		<texatlas> Interface\InterfaceShared.tai </texatlas>
+		<filename> interface\shared\line\fade_to_top.dds </filename>
 	</image>
 	<image name="Outline_HT">
 		<x> <copy src="sibling(Outline_VTL)" trait="x" /> </x>
@@ -656,7 +652,11 @@
 			<_number_of_items>
 				<copy src="parent()" trait="_list_height" />
 				<add src="grandparent()" trait="_list_height_extra" />
-				<sub> 20 </sub>
+				<sub>
+					<copy> -2 </copy>
+					<onlyif src="globals()" trait="_duiHUDOffset" />
+					<add> 20 </add>
+				</sub>
 				<div src="me()" trait="_scrolldelta" />
 			</_number_of_items>
 			<_number_of_visible_items>
