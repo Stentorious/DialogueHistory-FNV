@@ -7,8 +7,14 @@ array_var aTemp
 begin Function {iMenuID}
 
 	if eval (iMenuID = GetActiveMenuMode) != 1009 && iMenuID != 1048 && iMenuID != 1001
+		; BarterMenu
+		if eval iMenuID == 1053
+			Goo1.AuxVarSetFlt "*DiaHist_State" 1 0
+		endif
 		return
 	endif
+
+	Goo1.AuxVarSetFlt "*DiaHist_State" 0 0
 
 	if eval (iSize = Goo1.AuxVarSize "*DiaHist_ConvoLines") < 1
 		return

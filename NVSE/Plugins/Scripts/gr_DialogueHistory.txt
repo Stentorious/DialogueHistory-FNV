@@ -55,6 +55,7 @@ SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnDialogMenuOpen.gek")
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnDialogMenuClose.gek") 1 1009
 SetOnMenuOpenEventHandler (CompileScript "DialogueHistory\OnStartMenuOpen.gek") 1 1013
 SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnStartMenuClose.gek") 1 1013
+SetOnMenuCloseEventHandler (CompileScript "DialogueHistory\OnBarterMenuClose.gek") 1 1053
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\NOGLOW_BRANCH\DM_TopicList"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu\DialogueHistoryButton"
 SetOnMenuClickEventHandler (CompileScript "DialogueHistory\OnMenuClick.gek") 1 "DialogMenu#508"
