@@ -44,10 +44,6 @@ Goo1.AuxVarSetFlt "*DiaHist_INI" (eval GetINIFloat_Cached "General:bDeleteConfir
 Goo1.AuxVarSetStr "*DiaHist_Trans" (GetINIString_Cached "Strings:sDeleteEntries" "Stentorious\Translate\DialogueHistory.ini" "") 0
 CloseFileSO "Stentorious\Translate\DialogueHistory.ini" 0
 
-; Get screen dimensions
-Goo1.AuxVarSetFlt "*_ScreenWidth" (GetNumericINISetting "iSize W:Display")
-Goo1.AuxVarSetFlt "*_ScreenHeight" (GetNumericINISetting "iSize H:Display")
-
 ; Dialogue events
 SetOnNPCResponseEventHandler 1 (CompileScript "DialogueHistory\OnNPCResponse.gek")
 
