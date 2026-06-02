@@ -81,7 +81,7 @@
 			<copy src="me()" trait="_string_" />
 		</_label>
 		<_button> glow_general_button_ls.dds </_button>
-		<_icon> Interface/Stentorious/DialogueHistory/PromptIcon.dds </_icon>
+		<_icon> Interface\Stentorious\_Common\Menu\Icon\Note.dds </_icon>
 		<_font> 3 </_font>
 
 		<visible> 1 </visible>
