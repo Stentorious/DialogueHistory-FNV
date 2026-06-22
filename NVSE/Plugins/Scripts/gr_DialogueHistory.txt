@@ -1,22 +1,6 @@
 ; Dialogue History - Stentorious
 
 ; Check for requirements
-if eval GetNVSEVersionFull < 6.40
-	MessageBoxEx "Dialogue History missing requirement!%rInstall xNVSE 6.4.0+."
-	return
-endif
-if GetPluginVersion "JohnnyGuitarNVSE" < 520
-	MessageBoxEx "Dialogue History missing requirement!%rInstall latest JohnnyGuitar NVSE plugin."
-	return
-endif
-if GetPluginVersion "ShowOffNVSE Plugin" < 183
-	MessageBoxEx "Dialogue History missing requirement!%rInstall latest ShowOff NVSE plugin."
-	return
-endif
-if GetPluginVersion "UI Organizer Plugin" < 230
-	MessageBoxEx "Dialogue History missing requirement!%rInstall latest User Interface Organizer plugin."
-	return
-endif
 
 ; Load INI settings
 ;Goo1.AuxVarSetFlt "*DiaHist_INI" (Clamp (GetINIFloat_Cached "General:iKeyBind" "Stentorious\DialogueHistory.ini" 35) 1 265) 0
