@@ -49,9 +49,7 @@ begin Function {sDialogue, sVoicePath}
 	; Scroll to end
 	CallAfterFrames 2 (begin function {}
 		SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\_list_height" (GetMaxOf 0 (GetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\ListBox\Entry:0\_total_height"))
-		SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
-		ClickMenuTile "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_down"
-		SetUIFloatAlt "DialogMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+		Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 0 1 1
 	end) 1
 
 	; Cache line for JSON export

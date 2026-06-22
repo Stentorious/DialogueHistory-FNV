@@ -1,0 +1,33 @@
+int iMenu
+int iWindow
+int iDirection
+
+float fJumpSize
+string_Var sTile
+
+begin Function {iMenu, iWindow, iDirection}
+
+	if eval iMenu == 1
+		sTile = "StartMenu\DialogueHistory\"
+	else
+		sTile = "DialogMenu\DialogueHistory\"
+	endif
+	if eval iWindow == 1
+		sTile += "WindowDialogue\Scrollbar\"
+	else
+		sTile += "WindowDate\Scrollbar\"
+	endif
+
+	fJumpSize = GetUIFloatAlt ((sTile) + "_jump_size")
+	SetUIFloatAlt ((sTile) + "_jump_size") (GetUIFloatAlt ((sTile) + "_number_of_items"))
+	if eval iDirection == 1
+		ClickMenuTile ((sTile) + "scrollbar_vert_page_down")
+	else
+		ClickMenuTile ((sTile) + "scrollbar_vert_page_up")
+	endif
+	SetUIFloatAlt ((sTile) + "_jump_size") fJumpSize
+
+	sv_Destruct sTile
+
+
+end

@@ -10,5 +10,3 @@ Stentorious\DialogueHistory\DialogMenu\Main.xml::DialogMenu
 true
 Stentorious\DialogueHistory\DialogMenu\DM_SpeakerNameLabel.xml::DialogMenu::DM_SpeakerNameLabel
 true
-Stentorious\DialogueHistory\scrollbar_vert.xml::@Prefabs\scrollbar_vert.xml
-true

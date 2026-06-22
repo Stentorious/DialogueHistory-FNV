@@ -160,9 +160,7 @@ begin Function {iButtonID}
 					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_up"
 					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" 1
 				elseif fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\height"	; Scroll to bottom
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
-					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_down"
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+					Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 1 1 1
 				endif
 
 			; Date Window
@@ -200,9 +198,7 @@ begin Function {iButtonID}
 				if eval fScrollOffset < 0																; Scroll up
 					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_up"
 				elseif fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height"		; Scroll to bottom
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 1
-					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_page_down"
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 0
+					Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 1 0 1
 				endif
 			endif
 		endif
@@ -235,9 +231,7 @@ begin Function {iButtonID}
 					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_down"
 					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_step_size" 1
 				elseif fScrollOffset < 0																; Scroll to top
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
-					ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_up"
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+					Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 1 1 0
 				endif
 
 			; Date Window
@@ -280,9 +274,7 @@ begin Function {iButtonID}
 				if eval fScrollOffset > GetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\height"		; Scroll down
 					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_down"
 				elseif fScrollOffset < 0																; Scroll to top
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 1
-					ClickMenuTile "StartMenu\DialogueHistory\WindowDate\Scrollbar\scrollbar_vert_page_up"
-					SetUIFloatAlt "StartMenu\DialogueHistory\WindowDate\Scrollbar\_scroll_to_end" 0
+					Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 1 0 0
 				endif
 			endif
 		endif

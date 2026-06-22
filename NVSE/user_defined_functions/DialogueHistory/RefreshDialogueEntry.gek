@@ -75,9 +75,7 @@ begin Function {iIndex}
 	endif
 
 	; Move scrollbar to top
-	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 1
-	ClickMenuTile "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\scrollbar_vert_page_up"
-	SetUIFloatAlt "StartMenu\DialogueHistory\WindowDialogue\Scrollbar\_scroll_to_end" 0
+	Call (CompileScript "DialogueHistory\UpdateScrollbar.gek") 1 1 0
 
 	aJSON = aMonth = Ar_Null
 	sv_Destruct sDay sSoundPath sDialogue sSuccuss sFailure
